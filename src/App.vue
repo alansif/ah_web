@@ -17,7 +17,7 @@
           </div>
         </section>
       <section id="about" style="position:relative;margin-bottom:2px;">
-            <el-row>
+            <el-row style="background-color:#eee;">
               <el-col :span="4" style="position:relative;">
                 <div style="position:relative;margin-top:80px;margin-left:60px;">
                   <img src="./assets/logo2.png" style="width:100%;"/>
@@ -29,23 +29,23 @@
                         华兆益生是一家为企业和个人提供健康体检与健康管理服务的医疗机构，拥有两家体检中心和一个健康管理中心。我们集优质的医疗资源和人性化服务流程于一体，追求卓越的医疗质量和客户体验。我们致力于与客户建立终身服务关系，长期专注于客户的健康状况，以提高客户的生活质量为使命。</p>
                 </el-col>
             </el-row>
-              <el-row style="padding:0 40px 0 40px;">
+              <el-row style="padding:0 30px;">
                 <el-col :span="8" style="position:relative;">
-                    <div style="position:relative;margin:0 20px 0 20px;">
+                    <div style="position:relative;margin:0 30px;">
                       <p style="position:relative;text-align:justify;line-height:200%;font-size:1.2em;color:#888;">
                         <span style="font-size:1.8em;font-weight:bold;color:#f00;z-index:3;vertical-align:middle;">华</span>&#12288;华兆益生立足中华，为健康中国而努力工作。
                       </p>
                     </div>
                 </el-col>
                 <el-col :span="8" style="position:relative;">
-                    <div style="position:relative;margin:0 20px 0 20px;">
+                    <div style="position:relative;margin:0 30px;">
                       <p style="position:relative;text-align:justify;line-height:200%;font-size:1.2em;color:#888;">
                         <span style="font-size:1.8em;font-weight:bold;color:#f00;z-index:3;vertical-align:middle;">兆</span>&#12288;预兆之意，华兆益生秉承预防为主的先进健康管理理念，对客户实施早预防、早治疗，成就客户健康丰富的人生。
                       </p>
                     </div>
                 </el-col>
                 <el-col :span="8" style="position:relative;">
-                    <div style="position:relative;margin:0 20px 0 20px;">
+                    <div style="position:relative;margin:0 30px;">
                       <p style="position:relative;text-align:justify;line-height:200%;font-size:1.2em;color:#888;">
                         <span style="font-size:1.8em;font-weight:bold;color:#f00;z-index:3;vertical-align:middle;">益生</span>&#12288;是医生和一生的谐音，健康管理非一时一事之功而需终生关怀、帮助和引导，因此益生更深层的含义是投资健康，受益终生！
                       </p>
@@ -187,36 +187,6 @@
                                 人称体检后无人问津的客户为“体检孤儿”，所以对体检结果的详细解读和健康咨询是高品质体检服务的重要表现。华兆的咨询专家全部来自各三甲医院，为客户提供一对一的专业、权威的健康评估和指导。</p>
                         </div>
                     </div>
-                </el-col>
-            </el-row>
-        </section>
-        <section id="preexam" style="position:relative;padding-bottom: 20px;">
-            <p style="font-size:1.8em;">检前准备</p>
-            <el-row style="text-align:left;color:#888;padding:0 30px 20px 30px;margin:0px;">
-                <el-col :span="11">
-                    <p style="margin:5px;"><span class="el-icon-circle-check" style="color:#00d3bb;"/>&#12288;请勿饮用酒类</p>
-                    <p style="margin:5px;"><span class="el-icon-circle-check" style="color:#00d3bb;"/>&#12288;体检前一日应以清淡饮食为主，不吃高脂性及油炸性食物</p>
-                    <p style="margin:5px;"><span class="el-icon-circle-check" style="color:#00d3bb;"/>&#12288;体检当日应禁食禁水（包括饮水、药物等，特殊情况除外）</p>
-                    <p style="margin:5px;"><span class="el-icon-circle-check" style="color:#00d3bb;"/>&#12288;体检当日请穿着易于更换的衣物</p>
-                </el-col>
-                <el-col :span="13">
-                    <p style="margin:5px;"><span class="el-icon-circle-check" style="color:#00d3bb;"/>&#12288;糖尿病、高血压、心脏病、哮喘等患者，请将平日服用的药物携带备用</p>
-                    <p style="margin:5px;"><span class="el-icon-circle-check" style="color:#00d3bb;"/>&#12288;配戴隐形眼镜者，请改戴框架眼镜受检，以方便测试眼压</p>
-                    <p style="margin:5px;"><span class="el-icon-circle-check" style="color:#00d3bb;"/>&#12288;体检时最好不要佩戴金属饰物或携带贵重物品，以防丢失或影响检查</p>
-                    <p style="margin:5px;"><span class="el-icon-circle-check" style="color:#00d3bb;"/>&#12288;体检前夜最好保证7-8小时睡眠时间，以保持良好的身心状态</p>
-               </el-col>
-            </el-row>
-            <el-row style="text-align:left;color:#888;background-color:#ffe0f7;">
-                <el-col :span="6">
-                    <img src="./assets/femenine-sign.svg" style="width:50%;margin-top:40px;margin-left:70px;color:#fff;"/>
-                </el-col>
-                <el-col :span="18" style="padding-top:10px;padding-bottom: 30px;">
-                    <p style="font-size: 1.2em;color:#000;">女性客户注意事项</p>
-                    <p style="margin:5px;"><span class="el-icon-information" style="color:#00d3bb;"/>&#12288;预约体检时间应避开生理周期。</p>
-                    <p style="margin:5px;"><span class="el-icon-information" style="color:#00d3bb;"/>&#12288;有妇科检查项目的女性客户，体检前三日内不要同房，以确保结果的准确性。</p>
-                    <p style="margin:5px;"><span class="el-icon-information" style="color:#00d3bb;"/>&#12288;未婚女性需做妇科时，请您本人在妇科检查单上签字确认。</p>
-                    <p style="margin:5px;"><span class="el-icon-information" style="color:#00d3bb;"/>&#12288;检查前24小时内，请不要做阴道冲洗和阴道用药，以免菌群被破坏，影响检查结果。</p>
-                    <p style="margin:5px;"><span class="el-icon-information" style="color:#00d3bb;"/>&#12288;对于已孕或经期延后未至的女性客户，建议不做X线、骨密度、肛诊及妇科检查等项目。</p>
                 </el-col>
             </el-row>
         </section>
