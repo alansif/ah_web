@@ -17,7 +17,7 @@
           </div>
         </section>
       <section id="about" style="position:relative;margin-bottom:2px;">
-            <el-row style="background-color:#eee;">
+            <el-row style="background-color:#f3f3f3;">
               <el-col :span="4" style="position:relative;">
                 <div style="position:relative;margin-top:80px;margin-left:60px;">
                   <img src="./assets/logo2.png" style="width:100%;"/>
@@ -132,23 +132,80 @@
                 </el-col>
             </el-row>
         </section>
-        <section id="knowledge" style="padding:20px;">
-            <el-row>
-                <el-col :span="18" style="position:relative;">
-                    <p style="font-size:1.8em;text-align:center;">为什么定期健康体检很重要？</p>
-                    <div style="font-size:1em;color:#888;margin:0 30px 0 30px;text-align:justify;line-height:150%;text-indent:2em;">
-                        <p>
-                            健康体检又称健康筛检。即当健康人或亚健康人群的身体还没有明显症状时，就为全身器官进行筛查，以了解身体各器官健康状况，鉴定排查是否有潜在疾病征兆，及时对受检者提出预防、治疗方案或健康建议。</p>
-                        <p>人的身体其实就是一部高速运转的机器，而身体的各器官就象机器零件，一天二十四小时不停运转，存在的隐患会逐渐增多，如果长年不检查，就会出现严重的故障。</p>
-                        <p>疾病早期没有症状，轻微症状又往往会被忽略，而科学、定期、有效的“健检”能做到早期发现疾病征兆，及早防治，及早消除隐患，使健康状态最大限度得以保持。</p>
-                        <p>每年一次定期健检，可以建立属于自己的健康“参考值”，作为自身健康状况的指标。若没有了这个参考值，只能采用普遍标准，其针对性较差。</p>
-                    </div>
-                </el-col>
-                <el-col :span="6" style="position:relative;">
-                    <img src="./assets/annual-check-up-img.png" style="height:100%;padding:45px 10px;"/>
-                </el-col>
-            </el-row>
-        </section>
+      <section id="products" style="padding-bottom:50px;margin-bottom:2px;">
+        <p style="padding-top:20px;font-size:1.8em;">个检套餐</p>
+        <el-row>
+          <el-col :span="6">
+            <el-card style="width:90%;margin:0 auto;" :body-style="{ padding: '0px' }">
+              <div style="width:100%;height:140px;display:block;background-color:#fcc;color:#fff;">
+                <div style="padding:30px 10px 20px;font-size:1.3em;">
+                健康女人17版
+                </div>
+                <img src="./assets/femenine-sign.svg" width="40"/>
+              </div>
+              <div style="width:100%;margin-top:20px;margin-bottom:20px;">
+                <p style="font-size:1.2em;">标准价格 6800元</p>
+                <p style="font-size:0.8em;color:#888;">TC-JN2017-01</p>
+                <br><br>
+                    <el-button type="primary">了解详情</el-button>
+              </div>
+            </el-card>
+          </el-col>
+          <el-col :span="6">
+            <el-card style="width:90%;margin:0 auto;" :body-style="{ padding: '0px' }">
+              <div style="width:100%;height:140px;display:block;background-color:#9cf;color:#fff;">
+                <div style="padding:30px 10px 20px;font-size:1.3em;">
+                  健康男人17版
+                </div>
+                <img src="./assets/masculine-gender.svg" width="40"/>
+              </div>
+              <div style="width:100%;margin-top:20px;margin-bottom:20px;">
+                <p style="font-size:1.2em;">标准价格 6800元</p>
+                <p style="font-size:0.8em;color:#888;">TC-JN2017-00</p>
+                <br>
+                  <br>
+                    <el-button type="primary">了解详情</el-button>
+              </div>
+            </el-card>
+          </el-col>
+          <el-col :span="6">
+            <el-card style="width:90%;margin:0 auto;" :body-style="{ padding: '0px' }">
+              <div style="width:100%;height:140px;display:block;background-color:#fcc;color:#fff;">
+                <div style="padding:30px 10px 20px;font-size:1.3em;">
+                  健康关怀17版（女）
+                </div>
+                <img src="./assets/femenine-sign.svg" width="40"/>
+              </div>
+              <div style="width:100%;margin-top:20px;margin-bottom:20px;">
+                <p style="font-size:1.2em;">标准价格 1980元</p>
+                <p style="font-size:0.8em;color:#888;">TC-JL2017-00</p>
+                <span style="font-size:0.8em;color:#888;">仅限2015年7月14日前入会会员购买</span>
+                <br>
+                  <br>
+                    <el-button type="primary">了解详情</el-button>
+              </div>
+            </el-card>
+          </el-col>
+          <el-col :span="6">
+            <el-card style="width:90%;margin:0 auto;" :body-style="{ padding: '0px' }">
+              <div style="width:100%;height:140px;display:block;background-color:#9cf;color:#fff;">
+                <div style="padding:30px 10px 20px;font-size:1.3em;">
+                  健康关怀17版（男）
+                </div>
+                <img src="./assets/masculine-gender.svg" width="40"/>
+              </div>
+              <div style="width:100%;margin-top:20px;margin-bottom:20px;">
+                <p style="font-size:1.2em;">标准价格 1980元</p>
+                <p style="font-size:0.8em;color:#888;">TC-JL2017-01</p>
+                <span style="font-size:0.8em;color:#888;">仅限2015年7月14日前入会会员购买</span>
+                  <br>
+                    <br>
+                      <el-button type="primary">了解详情</el-button>
+              </div>
+            </el-card>
+          </el-col>
+        </el-row>
+      </section>
         <section id="info" style="color:#fff;position:relative;">
             <div style="overflow:hidden;width:100%;position:absolute;">
                 <img src="./assets/bg.jpg" style="height:760px;"/>
@@ -190,7 +247,25 @@
                 </el-col>
             </el-row>
         </section>
-        <section id="process" style="position: relative;">
+      <section id="knowledge" style="padding:20px;">
+        <el-row>
+          <el-col :span="18" style="position:relative;">
+            <p style="font-size:1.8em;text-align:center;">为什么定期健康体检很重要？</p>
+            <div style="font-size:1em;color:#888;margin:0 30px 0 30px;text-align:justify;line-height:150%;text-indent:2em;">
+              <p>
+                健康体检又称健康筛检。即当健康人或亚健康人群的身体还没有明显症状时，就为全身器官进行筛查，以了解身体各器官健康状况，鉴定排查是否有潜在疾病征兆，及时对受检者提出预防、治疗方案或健康建议。
+              </p>
+              <p>人的身体其实就是一部高速运转的机器，而身体的各器官就象机器零件，一天二十四小时不停运转，存在的隐患会逐渐增多，如果长年不检查，就会出现严重的故障。</p>
+              <p>疾病早期没有症状，轻微症状又往往会被忽略，而科学、定期、有效的“健检”能做到早期发现疾病征兆，及早防治，及早消除隐患，使健康状态最大限度得以保持。</p>
+              <p>每年一次定期健检，可以建立属于自己的健康“参考值”，作为自身健康状况的指标。若没有了这个参考值，只能采用普遍标准，其针对性较差。</p>
+            </div>
+          </el-col>
+          <el-col :span="6" style="position:relative;">
+            <img src="./assets/annual-check-up-img.png" style="height:100%;padding:45px 10px;"/>
+          </el-col>
+        </el-row>
+      </section>
+      <section id="process" style="position: relative;">
             <img src="./assets/process-bg2.jpg" style="width: 100%;"/>
             <span style="position: absolute;background-color: rgba(73,155,202,0.9);width: 100%;height:100%;top:0;left:0;"></span>
             <img src="./assets/process-mask.png" style="position:absolute;top:180px;left:90px;width:85%;"/>
@@ -426,4 +501,13 @@
         text-align:center;
         vertical-align:middle;
     }
+    
+  .clearfix:before,
+  .clearfix:after {
+      display: table;
+      content: "";
+  }
+  .clearfix:after {
+      clear: both
+  }
 </style>
