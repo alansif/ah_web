@@ -146,7 +146,7 @@
                 <p style="font-size:1.2em;">标准价格 6800元</p>
                 <p style="font-size:0.8em;color:#888;">TC-JN2017-01</p>
                 <br><br>
-                    <el-button type="primary">了解详情</el-button>
+                  <el-button type="primary" @click="showIdvpkg(0)">了解详情</el-button>
               </div>
             </el-card>
           </el-col>
@@ -163,7 +163,7 @@
                 <p style="font-size:0.8em;color:#888;">TC-JN2017-00</p>
                 <br>
                   <br>
-                    <el-button type="primary">了解详情</el-button>
+                  <el-button type="primary" @click="showIdvpkg(1)">了解详情</el-button>
               </div>
             </el-card>
           </el-col>
@@ -181,7 +181,7 @@
                 <span style="font-size:0.8em;color:#888;">仅限2015年7月14日前入会会员购买</span>
                 <br>
                   <br>
-                    <el-button type="primary">了解详情</el-button>
+                    <el-button type="primary" @click="showIdvpkg(2)">了解详情</el-button>
               </div>
             </el-card>
           </el-col>
@@ -199,7 +199,7 @@
                 <span style="font-size:0.8em;color:#888;">仅限2015年7月14日前入会会员购买</span>
                   <br>
                     <br>
-                      <el-button type="primary" @click="dialogVisibleProd=true">了解详情</el-button>
+                  <el-button type="primary" @click="showIdvpkg(3)">了解详情</el-button>
               </div>
             </el-card>
           </el-col>
@@ -367,10 +367,10 @@
         <div style="text-align:center;color:#888;">
             <p>京ICP备05027604号</p>
         </div>
-      <el-dialog title="hehe" v-model="dialogVisibleProd">
-        <el-table :data="tableData" stripe="" style="width:100%">
-          <el-table-column prop="name" label="检查项目" width="150"></el-table-column>
-          <el-table-column prop="descr" label="医学意义" width="380"></el-table-column>
+      <el-dialog :title="tableData.name" v-model="dialogVisibleProd">
+        <el-table :data="tableData.items" :row-class-name="tableRowClassName" style="width:100%" height="500">
+          <el-table-column prop="name" label="项目" width="150"></el-table-column>
+          <el-table-column prop="descr" label="说明"></el-table-column>
         </el-table>
       </el-dialog>
         <el-dialog title="东环分院" v-model="dialogVisibleEast">
@@ -430,7 +430,8 @@
                 idnumber: "",
                 phonenumber: "",
                 vcode:"",
-                tableData: jkgh17men()
+                tableData: {},
+                idvpkg:[jknr17women(),jknr17men(),jkgh17women(),jkgh17men()]
             }
         },
 
@@ -440,7 +441,17 @@
                     title: 'It Works',
                     message: 'We have laid the groundwork for you. Now it\'s your time to build something epic!',
                     duration: 6000
-                })
+                });
+            },
+            showIdvpkg(i) {
+                this.tableData = this.idvpkg[i];
+                this.dialogVisibleProd = true;
+            },
+            tableRowClassName(row, index) {
+                if (row.descr.length === 0) {
+                    return 'sec-row';
+                }
+                return '';
             }
         }
     }
@@ -513,13 +524,8 @@
         text-align:center;
         vertical-align:middle;
     }
-    
-  .clearfix:before,
-  .clearfix:after {
-      display: table;
-      content: "";
-  }
-  .clearfix:after {
-      clear: both
-  }
+
+    .el-table .sec-row {
+        background: #c9e5f5;
+    }
 </style>
