@@ -71,7 +71,7 @@
                             <el-button type="primary">发送验证码</el-button>
                         </div>
                         <div style="margin-top: 24px;">
-                            <el-button type="primary" style="width:12em;margin:20px 0">开始定制</el-button>
+                            <el-button type="primary" style="width:12em;margin:20px 0" @click="jumpto('http://111.198.146.33:8084/PDBC/Logon.aspx')">开始定制</el-button>
                         </div>
                     </div>
                 </el-col>
@@ -107,7 +107,7 @@
                             </el-date-picker>
                         </div>
                         <div><p></p></div>
-                        <el-button type="primary" icon="search" style="width:12em;margin:20px 0">查询</el-button>
+                        <el-button type="primary" icon="search" style="width:12em;margin:20px 0" @click="jumpto('http://www.advahealth.com/YuYue/YuYue/index.asp')">查询</el-button>
                     </div>
                 </el-col>
                 <el-col :span="8" style="position:relative;">
@@ -125,7 +125,7 @@
                             <el-button type="primary">发送验证码</el-button>
                         </div>
                         <div style="margin-top: 24px;">
-                            <el-button type="primary" style="width:12em;margin:20px 0">下载</el-button>
+                            <el-button type="primary" style="width:12em;margin:20px 0" @click="jumpto('http://111.198.146.35:8083/')">下载</el-button>
                         </div>
                     </div>
                 </el-col>
@@ -452,6 +452,9 @@
                     return 'sec-row';
                 }
                 return '';
+            },
+            jumpto(addr) {
+                window.open(addr);
             }
         }
     }
@@ -526,6 +529,6 @@
     }
 
     .el-table .sec-row {
-        background: #c9e5f5;
+        background: #e2f0e4;
     }
 </style>
