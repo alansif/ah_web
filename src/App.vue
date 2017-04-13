@@ -1,5 +1,5 @@
 <template>
-    <div id="app" style="width:1088px;margin:0 auto;">
+    <div id="app" style="width:1100px;margin:0 auto;">
         <header>
             <img src="./assets/logo1.png" style="width:200px;"/>
             <el-menu mode="horizontal" default-active="1">
@@ -28,7 +28,7 @@
                         华兆益生是一家为企业和个人提供健康体检与健康管理服务的医疗机构，拥有两家体检中心和一个健康管理中心。我们集优质的医疗资源和人性化服务流程于一体，追求卓越的医疗质量和客户体验。我们致力于与客户建立终身服务关系，长期专注于客户的健康状况，以提高客户的生活质量为使命。</p>
                 </el-col>
             </el-row>
-              <el-row style="padding:0 30px;">
+              <el-row>
                 <el-col :span="8" style="position:relative;">
                     <div style="position:relative;margin:0 30px;">
                       <p style="position:relative;text-align:justify;line-height:200%;font-size:1.2em;color:#888;">
@@ -199,7 +199,7 @@
                 <span style="font-size:0.8em;color:#888;">仅限2015年7月14日前入会会员购买</span>
                   <br>
                     <br>
-                      <el-button type="primary">了解详情</el-button>
+                      <el-button type="primary" @click="dialogVisibleProd=true">了解详情</el-button>
               </div>
             </el-card>
           </el-col>
@@ -364,9 +364,15 @@
                 </el-col>
             </el-row>
         </section>
-        <div style="text-align:center;">
+        <div style="text-align:center;color:#888;">
             <p>京ICP备05027604号</p>
         </div>
+      <el-dialog title="hehe" v-model="dialogVisibleProd">
+        <el-table :data="tableData" stripe="" style="width:100%">
+          <el-table-column prop="name" label="检查项目" width="150"></el-table-column>
+          <el-table-column prop="descr" label="医学意义" width="380"></el-table-column>
+        </el-table>
+      </el-dialog>
         <el-dialog title="东环分院" v-model="dialogVisibleEast">
             <img src="./assets/east.jpg" style="width:100%;"/>
             <div style="padding:0px 40px;">
@@ -401,6 +407,10 @@
 </template>
 
 <script>
+  import jkgh17men   from "./assets/idvpackages/jkgh17men";
+  import jkgh17women from "./assets/idvpackages/jkgh17women";
+  import jknr17men   from "./assets/idvpackages/jknr17men";
+  import jknr17women from "./assets/idvpackages/jknr17women";
     export default {
         data () {
             return {
@@ -416,9 +426,11 @@
                 dateend: "",
                 dialogVisibleEast: false,
                 dialogVisibleWest: false,
+                dialogVisibleProd: false,
                 idnumber: "",
                 phonenumber: "",
-                vcode:""
+                vcode:"",
+                tableData: jkgh17men()
             }
         },
 
