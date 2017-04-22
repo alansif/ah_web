@@ -1,0 +1,105 @@
+<template>
+    <section id="deal" style="color:#fff;height:auto;text-align: center;">
+        <el-row>
+            <el-col :span="8" style="position:relative;">
+                <img src=../assets/b1.jpg  style="width:100%;z-index:1;">
+                <div style="position:absolute;z-index:2;left:0;top:0;width:100%;">
+                    <p style="text-align:center;font-size:2em;">会员定制</p>
+                    <div>
+                        <el-input v-model="idnumber" placeholder="证件号码" style="width:69%;margin:10px 0;"></el-input>
+                    </div>
+                    <div>
+                        <el-input v-model="phonenumber" placeholder="手机号" style="width:69%;margin:10px 0;"></el-input>
+                    </div>
+                    <div style="margin:10px 0;position: relative;padding:0;">
+                        <el-input v-model="vcode" placeholder="手机验证码" style="width:40%;margin:0;"></el-input>
+                        <el-button type="primary">发送验证码</el-button>
+                    </div>
+                    <div style="margin-top: 24px;">
+                        <el-button type="primary" style="width:12em;margin:20px 0" @click="jumpto('http://111.198.146.33:8084/PDBC/Logon.aspx')">开始定制</el-button>
+                    </div>
+                </div>
+            </el-col>
+            <el-col :span="8" style="position:relative;">
+                <img src=../assets/b2.jpg  style="width:100%;z-index:1;">
+                <div style="position:absolute;z-index:2;left:0;top:0;width:100%;">
+                    <p style="text-align:center;font-size:2em;">查询预约</p>
+                    <div>
+                        <el-select v-model="institution" placeholder="地点" style="width:70%;margin:10px 0;">
+                            <el-option
+                                    v-for="item in instopts"
+                                    :label="item.label"
+                                    :value="item.value">
+                            </el-option>
+                        </el-select>
+                    </div>
+                    <div>
+                        <el-date-picker
+                                v-model="datebegin"
+                                type="date"
+                                placeholder="起始日期"
+                                :picker-options="pickerOptions0"
+                                style="width:70%;margin:10px 0;">
+                        </el-date-picker>
+                    </div>
+                    <div>
+                        <el-date-picker
+                                v-model="dateend"
+                                type="date"
+                                placeholder="结束日期"
+                                :picker-options="pickerOptions0"
+                                style="width:70%;margin:10px 0;">
+                        </el-date-picker>
+                    </div>
+                    <div><p></p></div>
+                    <el-button type="primary" icon="search" style="width:12em;margin:20px 0" @click="jumpto('http://www.advahealth.com/YuYue/YuYue/index.asp')">查询</el-button>
+                </div>
+            </el-col>
+            <el-col :span="8" style="position:relative;">
+                <img src=../assets/b3.jpg  style="width:100%;z-index:1;">
+                <div style="position:absolute;z-index:2;left:0;top:0;width:100%;">
+                    <p style="text-align:center;font-size:2em;">报告下载</p>
+                    <div>
+                        <el-input v-model="idnumber" placeholder="证件号码" style="width:69%;margin:10px 0;"></el-input>
+                    </div>
+                    <div>
+                        <el-input v-model="phonenumber" placeholder="手机号" style="width:69%;margin:10px 0;"></el-input>
+                    </div>
+                    <div style="margin:10px 0;position: relative;padding:0;">
+                        <el-input v-model="vcode" placeholder="手机验证码" style="width:40%;margin:0;"></el-input>
+                        <el-button type="primary">发送验证码</el-button>
+                    </div>
+                    <div style="margin-top: 24px;">
+                        <el-button type="primary" style="width:12em;margin:20px 0" @click="jumpto('http://111.198.146.35:8083/')">下载</el-button>
+                    </div>
+                </div>
+            </el-col>
+        </el-row>
+    </section>
+</template>
+
+<script>
+    export default {
+        data() {
+            return {
+                institution: "",
+                instopts: [{value: 'east', label: '东环分院'}, {value: 'west', label: '西环分院'}],
+                pickerOptions0: {
+                    disabledDate(time) {
+                        return time.getTime() < Date.now() - 8.64e7;
+                    }
+                },
+                datebegin: "",
+                dateend: "",
+                idnumber: "",
+                phonenumber: "",
+                vcode:""
+            }
+        },
+        methods: {
+            jumpto(addr) {
+                window.open(addr);
+            }
+        }
+    }
+</script>
