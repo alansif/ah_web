@@ -29,7 +29,8 @@
                             <el-option
                                     v-for="item in instopts"
                                     :label="item.label"
-                                    :value="item.value">
+                                    :value="item.value"
+                                    :key="item.value">
                             </el-option>
                         </el-select>
                     </div>
