@@ -11,6 +11,7 @@
         </header>
 
         <home></home>
+        <bulletin></bulletin>
         <about></about>
         <deal></deal>
         <products></products>
@@ -27,6 +28,7 @@
 
 <script>
     import home from './components/home.vue';
+    import bulletin from './components/bulletin.vue';
     import about from './components/about.vue';
     import deal from './components/deal.vue';
     import products from './components/products.vue';
@@ -43,6 +45,7 @@
 
         components: {
             home,
+            bulletin,
             about,
             deal,
             products,
