@@ -62,8 +62,8 @@
         width: 400px;
         height: 6px;
         position: relative;
-        top:-60px;
-        left:130px;
+        top:-50px;
+        left:55px;
         margin: 0px;
         font-size: 14px;
     }
@@ -103,6 +103,6 @@
         background-color:transparent;
         border-color:cornflowerblue;
         position: absolute;
-        left:300px;
+        left:390px;
     }
 </style>
