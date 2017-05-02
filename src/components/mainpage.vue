@@ -13,15 +13,15 @@
 </template>
 
 <script>
-    import home from './components/home.vue'
-    import bulletin from './components/bulletin.vue'
-    import about from './components/about.vue'
-    import deal from './components/deal.vue'
-    import products from './components/products.vue'
-    import why from './components/why.vue'
-    import knowledge from './components/knowledge.vue'
-    import process from './components/process.vue'
-    import contact from './components/contact.vue'
+    import home from './home.vue'
+    import bulletin from './bulletin.vue'
+    import about from './about.vue'
+    import deal from './deal.vue'
+    import products from './products.vue'
+    import why from './why.vue'
+    import knowledge from './knowledge.vue'
+    import process from './process.vue'
+    import contact from './contact.vue'
 
     export default {
         data () {
