@@ -4,7 +4,7 @@
             <el-col :span="8" style="padding:0 2em;">
                 <p style="text-align:center;font-size:1.8em;">联系方式</p>
                 <div style="text-align:left;color:#888;">
-                    <p>服务电话：010-83033939 </p>
+                    <p>客服电话：010-83033939 </p>
                     <p>(周一至周五 8:30—17:30 节假日除外)</p>
                     <p>email：adva@advahealth.com</p>
                 </div>

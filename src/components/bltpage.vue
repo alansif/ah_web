@@ -55,17 +55,17 @@
 
 <style>
   .blttab {
-  border: 2px solid cornflowerblue;
-  border-radius: 3px;
+    border: 2px solid cornflowerblue;
+    border-radius: 3px;
   }
 
   .blttable {
-  width:100%;
-  color:#777;
+    width: 100%;
+    color: #777;
   }
 
   .el-tabs__header {
-  margin-bottom:1px;
-  background-color:#f7f7f7;
+    margin-bottom: 1px;
+    background-color: #f7f7f7;
   }
 </style>

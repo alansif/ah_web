@@ -76,6 +76,15 @@
                 </div>
             </el-col>
         </el-row>
+        <el-collapse style="text-align: left;">
+            <el-collapse-item title="更多业务">
+                <el-row style="color:#fff;text-align: center;">
+                    <el-col :span="8"><a href="/">查看已定制的产品</a></el-col>
+                    <el-col :span="8"><a href="/">查看已提交的预约</a></el-col>
+                    <el-col :span="8"><a href="/">填写健康问卷</a></el-col>
+                </el-row>
+            </el-collapse-item>
+        </el-collapse>
     </section>
 </template>
 
@@ -104,3 +113,16 @@
         }
     }
 </script>
+
+<style>
+    .el-collapse-item__header, .el-collapse-item__wrap {
+        color:#fff;
+        border: none;
+        background-color: #7080B0;
+    }
+
+    a:link {color:#fff;}
+    a:visited {color:#fff;}
+    a:hover {color:#9dd;}
+    a:active {color:#fff;}
+</style>
