@@ -13,23 +13,23 @@
         </el-row>
         <el-row>
             <el-col :span="8" style="position:relative;">
-                <div style="position:relative;margin:0 30px;">
-                    <p style="position:relative;text-align:justify;line-height:200%;font-size:1.2em;color:#888;">
-                        <span style="font-size:1.8em;font-weight:bold;color:#f00;z-index:3;vertical-align:middle;">华</span>&#12288;华兆益生立足中华，为健康中国而努力工作。
+                <div class="sy">
+                    <p class="suyuan">
+                        <span class="bigword">华</span>&#12288;华兆益生立足中华，为健康中国而努力工作。
                     </p>
                 </div>
             </el-col>
             <el-col :span="8" style="position:relative;">
-                <div style="position:relative;margin:0 30px;">
-                    <p style="position:relative;text-align:justify;line-height:200%;font-size:1.2em;color:#888;">
-                        <span style="font-size:1.8em;font-weight:bold;color:#f00;z-index:3;vertical-align:middle;">兆</span>&#12288;预兆之意，华兆益生秉承预防为主的先进健康管理理念，对客户实施早预防、早治疗，成就客户健康丰富的人生。
+                <div class="sy">
+                    <p class="suyuan">
+                        <span class="bigword">兆</span>&#12288;预兆之意，华兆益生秉承预防为主的先进健康管理理念，对客户实施早预防、早治疗，成就客户健康丰富的人生。
                     </p>
                 </div>
             </el-col>
             <el-col :span="8" style="position:relative;">
-                <div style="position:relative;margin:0 30px;">
-                    <p style="position:relative;text-align:justify;line-height:200%;font-size:1.2em;color:#888;">
-                        <span style="font-size:1.8em;font-weight:bold;color:#f00;z-index:3;vertical-align:middle;">益生</span>&#12288;是医生和一生的谐音，健康管理非一时一事之功而需终生关怀、帮助和引导，因此益生更深层的含义是投资健康，受益终生！
+                <div class="sy">
+                    <p class="suyuan">
+                        <span class="bigword">益生</span>&#12288;是医生和一生的谐音，健康管理非一时一事之功而需终生关怀、帮助和引导，因此益生更深层的含义是投资健康，受益终生！
                     </p>
                 </div>
             </el-col>
@@ -57,3 +57,25 @@
         }
     }
 </script>
+
+<style>
+    .sy {
+        position:relative;
+        margin:0 30px;
+    }
+
+    .suyuan {
+        position:relative;
+        text-align:justify;
+        line-height:200%;
+        font-size:1.2em;
+        color:#888;
+    }
+
+    .bigword {
+        font-size:1.8em;
+        font-weight:bold;
+        color:#f00;z-index:3;
+        vertical-align:middle;
+    }
+</style>
