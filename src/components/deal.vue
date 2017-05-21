@@ -61,16 +61,22 @@
                 <div style="position:absolute;z-index:2;left:0;top:0;width:100%;">
                     <p style="text-align:center;font-size:2em;">报告下载</p>
                     <div>
-                        <el-input v-model="idnumber" placeholder="证件号码" style="width:69%;margin:10px 0;"></el-input>
+                        <el-input v-model="idnumber2" placeholder="证件号码" style="width:69%;margin:10px 0;">
+                        </el-input>
                     </div>
                     <div>
-                        <el-input v-model="phonenumber" placeholder="手机号" style="width:69%;margin:10px 0;"></el-input>
+                        <el-input v-model="phonenumber2" placeholder="手机号" :maxlength="11" style="width:69%;margin:10px 0;"
+                                  onkeypress="return event.charCode>=48 && event.charCode <=57">
+                        </el-input>
                     </div>
                     <div style="margin:10px 0;position: relative;padding:0;">
-                        <el-input v-model="vcode" placeholder="手机验证码" style="width:40%;margin:0;"></el-input>
-                        <el-button type="primary">发送验证码</el-button>
+                        <el-input v-model="vcode2" placeholder="手机验证码" :maxlength="4" style="width:40%;margin:0;"
+                                  onkeypress="return event.charCode>=48 && event.charCode <=57">
+                        </el-input>
+                        <el-button type="primary" @click="sendverify()">发送验证码</el-button>
                     </div>
-                    <div style="margin-top: 24px;">
+                    <div style="height:20px;color:red;text-align: left;padding-left: 56px;">{{tips2}}</div>
+                    <div style="margin-top: 0px;">
                         <el-button type="primary" style="width:12em;margin:20px 0" @click="jumpto('http://111.198.146.35:8083/')">下载</el-button>
                     </div>
                 </div>
@@ -103,12 +109,42 @@
                 dateend: "",
                 idnumber: "",
                 phonenumber: "",
-                vcode:""
+                vcode:"",
+                idnumber2: "",
+                phonenumber2: "",
+                vcode2:"",
+                tips2:""
             }
         },
         methods: {
             jumpto(addr) {
                 window.open(addr);
+            },
+            sendverify() {
+                if (this.idnumber2.length === 0) {
+                    this.tips2 = "请填写证件号码";
+                    return;
+                }
+                if (this.phonenumber2.length !== 11) {
+                    this.tips2 = "手机号码格式不正确";
+                    return;
+                }
+                this.tips2 = "";
+                this.$http.get("http://111.198.146.40:8083/api/v1/verifycode",{params:{id:this.idnumber2,phone:this.phonenumber2}})
+                    .then((response)=>{
+                        const d = JSON.parse(response.body);
+                        console.log(d);
+                    }, (response)=>{
+                        console.log(response);
+                    })
+                    .catch((response)=>{
+                        console.log(response);
+                    });
+                this.$notify({
+                    title: this.idnumber2,
+                    message: this.phonenumber2,
+                    duration: 6000
+                });
             }
         }
     }
