@@ -22,7 +22,7 @@
     import knowledge from './knowledge.vue'
     import process from './process.vue'
     import contact from './contact.vue'
-
+  
     export default {
         data () {
             return {

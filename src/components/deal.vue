@@ -61,7 +61,8 @@
                 <div style="position:absolute;z-index:2;left:0;top:0;width:100%;">
                     <p style="text-align:center;font-size:2em;">报告下载</p>
                     <div>
-                        <el-input v-model="idnumber2" placeholder="证件号码" style="width:69%;margin:10px 0;">
+                        <el-input v-model="idnumber2" placeholder="证件号码" style="width:69%;margin:10px 0;"
+                                  onkeypress="return event.charCode!=32">
                         </el-input>
                     </div>
                     <div>
@@ -70,10 +71,10 @@
                         </el-input>
                     </div>
                     <div style="margin:10px 0;position: relative;padding:0;">
-                        <el-input v-model="vcode2" placeholder="手机验证码" :maxlength="4" style="width:40%;margin:0;"
+                        <el-input v-model="vcode2" placeholder="手机验证码" :maxlength="6" style="width:40%;margin:0;"
                                   onkeypress="return event.charCode>=48 && event.charCode <=57">
                         </el-input>
-                        <el-button type="primary" @click="sendverify()">发送验证码</el-button>
+                        <timerbtn ref="tb2" type="primary" @run="sendverify()">发送验证码</timerbtn>
                     </div>
                     <div style="height:20px;color:red;text-align: left;padding-left: 56px;">{{tips2}}</div>
                     <div style="margin-top: 0px;">
@@ -95,6 +96,7 @@
 </template>
 
 <script>
+  import timerbtn from './timerbtn.vue';
     export default {
         data() {
             return {
@@ -121,19 +123,26 @@
                 window.open(addr);
             },
             sendverify() {
+                this.idnumber2 = this.idnumber2.replace(/^\s+/, "").replace(/\s+$/, "");
                 if (this.idnumber2.length === 0) {
                     this.tips2 = "请填写证件号码";
                     return;
                 }
+                this.phonenumber2 = this.phonenumber2.replace(/^\s+/, "").replace(/\s+$/, "");
                 if (this.phonenumber2.length !== 11) {
                     this.tips2 = "手机号码格式不正确";
                     return;
                 }
                 this.tips2 = "";
-                this.$http.get("http://111.198.146.40:8083/api/v1/verifycode",{params:{id:this.idnumber2,phone:this.phonenumber2}})
+                this.$http.post("http://111.198.146.40:8083/api/v1/verifycode",{id:this.idnumber2,phone:this.phonenumber2},{emulateJSON:true})
                     .then((response)=>{
-                        const d = JSON.parse(response.body);
-                        console.log(d);
+                        let st = response.body.status;
+                        if (st.code == 0) {
+                          this.tips2 = '';
+                          this.$refs.tb2.start();
+                        } else {
+                          this.tips2 = st.description;
+                        }
                     }, (response)=>{
                         console.log(response);
                     })
@@ -146,6 +155,9 @@
                     duration: 6000
                 });
             }
+        },
+        components:{
+          timerbtn
         }
     }
 </script>
