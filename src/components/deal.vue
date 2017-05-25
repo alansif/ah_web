@@ -76,7 +76,7 @@
                         </el-input>
                         <timerbtn ref="tb2" type="primary" @run="sendverify()">发送验证码</timerbtn>
                     </div>
-                    <div style="height:20px;color:red;text-align: left;padding-left: 56px;">{{tips2}}</div>
+                    <div style="height:20px;text-align:left;padding-left:56px;font-size:14px;" :style="{color:tips2color}">{{tips2}}</div>
                     <div style="margin-top: 0px;">
                         <el-button type="primary" style="width:12em;margin:20px 0" @click="jumpto('http://111.198.146.35:8083/')">下载</el-button>
                     </div>
@@ -115,7 +115,8 @@
                 idnumber2: "",
                 phonenumber2: "",
                 vcode2:"",
-                tips2:""
+                tips2:"",
+                tips2color:"red"
             }
         },
         methods: {
@@ -125,11 +126,13 @@
             sendverify() {
                 this.idnumber2 = this.idnumber2.replace(/^\s+/, "").replace(/\s+$/, "");
                 if (this.idnumber2.length === 0) {
+                    this.tips2color = 'red';
                     this.tips2 = "请填写证件号码";
                     return;
                 }
                 this.phonenumber2 = this.phonenumber2.replace(/^\s+/, "").replace(/\s+$/, "");
                 if (this.phonenumber2.length !== 11) {
+                    this.tips2color = 'red';
                     this.tips2 = "手机号码格式不正确";
                     return;
                 }
@@ -137,11 +140,12 @@
                 this.$http.post("http://111.198.146.40:8083/api/v1/verifycode",{id:this.idnumber2,phone:this.phonenumber2},{emulateJSON:true})
                     .then((response)=>{
                         let st = response.body.status;
+                        this.tips2 = st.description;
                         if (st.code == 0) {
-                          this.tips2 = '';
+                          this.tips2color = 'palegreen';
                           this.$refs.tb2.start();
                         } else {
-                          this.tips2 = st.description;
+                            this.tips2color = 'red';
                         }
                     }, (response)=>{
                         console.log(response);
