@@ -78,7 +78,7 @@
                     </div>
                     <div style="height:20px;text-align:left;padding-left:56px;font-size:14px;" :style="{color:tips2color}">{{tips2}}</div>
                     <div style="margin-top: 0px;">
-                        <el-button type="primary" style="width:12em;margin:20px 0" @click="jumpto('http://111.198.146.35:8083/')">下载</el-button>
+                        <el-button type="primary" v-loading="rptloading" style="width:12em;margin:20px 0" @click="download()">下载</el-button>
                     </div>
                 </div>
             </el-col>
@@ -116,7 +116,8 @@
                 phonenumber2: "",
                 vcode2:"",
                 tips2:"",
-                tips2color:"red"
+                tips2color:"#f55",
+                rptloading:false
             }
         },
         methods: {
@@ -126,13 +127,13 @@
             sendverify() {
                 this.idnumber2 = this.idnumber2.replace(/^\s+/, "").replace(/\s+$/, "");
                 if (this.idnumber2.length === 0) {
-                    this.tips2color = 'red';
+                    this.tips2color = '#f55';
                     this.tips2 = "请填写证件号码";
                     return;
                 }
                 this.phonenumber2 = this.phonenumber2.replace(/^\s+/, "").replace(/\s+$/, "");
                 if (this.phonenumber2.length !== 11) {
-                    this.tips2color = 'red';
+                    this.tips2color = '#f55';
                     this.tips2 = "手机号码格式不正确";
                     return;
                 }
@@ -145,7 +146,7 @@
                           this.tips2color = 'palegreen';
                           this.$refs.tb2.start();
                         } else {
-                            this.tips2color = 'red';
+                            this.tips2color = '#f55';
                         }
                     }, (response)=>{
                         console.log(response);
@@ -153,11 +154,41 @@
                     .catch((response)=>{
                         console.log(response);
                     });
-                this.$notify({
-                    title: this.idnumber2,
-                    message: this.phonenumber2,
-                    duration: 6000
-                });
+            },
+            download() {
+                this.idnumber2 = this.idnumber2.replace(/^\s+/, "").replace(/\s+$/, "");
+                if (this.idnumber2.length === 0) {
+                    this.tips2color = '#f55';
+                    this.tips2 = "请填写证件号码";
+                    return;
+                }
+                this.vcode2 = this.vcode2.replace(/^\s+/, "").replace(/\s+$/, "");
+                if (this.vcode2.length !== 6) {
+                    this.tips2color = '#f55';
+                    this.tips2 = "请正确填写验证码";
+                    return;
+                }
+                this.tips2 = "";
+                this.rptloading=true;
+                this.$http.get(`http://111.198.146.40:8083/api/v1/user/${this.idnumber2}/report`, {params:{vcode:this.vcode2}})
+                    .then((response)=>{
+                        this.rptloading=false;
+                        let st = response.body.status;
+                        if (st.code == 0) {
+                            this.$root.reportdata = response.body.data;
+                            this.$router.push('report');
+                        } else {
+                            this.tips2 = st.description;
+                            this.tips2color = '#f55';
+                        }
+                    }, (response)=>{
+                        this.rptloading=false;
+                        console.log(response);
+                    })
+                    .catch((response)=>{
+                        this.rptloading=false;
+                        console.log(response);
+                    });
             }
         },
         components:{
@@ -170,7 +201,7 @@
     .el-collapse-item__header, .el-collapse-item__wrap {
         color:#fff;
         border: none;
-        background-color: #7080B0;
+        background-color: #80A0D0;
     }
 
     a:link {color:#fff;}
