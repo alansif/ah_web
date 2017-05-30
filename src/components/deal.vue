@@ -78,7 +78,7 @@
                     </div>
                     <div style="height:20px;text-align:left;padding-left:56px;font-size:14px;" :style="{color:tips2color}">{{tips2}}</div>
                     <div style="margin-top: 0px;">
-                        <el-button type="primary" v-loading="rptloading" style="width:12em;margin:20px 0" @click="download()">下载</el-button>
+                        <el-button type="primary" style="width:12em;margin:20px 0" @click="download()"><i :class="{'el-icon-loading':rptloading}"></i>下载</el-button>
                     </div>
                 </div>
             </el-col>
