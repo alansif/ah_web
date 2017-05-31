@@ -11,6 +11,9 @@
           </el-table-column>
           <el-table-column prop="wsn" label="体检编号">
           </el-table-column>
+          <el-table-column prop="subject" label="类别">
+            <template scope="scope">{{scope.row.subject === "YG" ? "乙肝报告" : "体检报告"}}</template>
+          </el-table-column>
           <el-table-column width="200">
             <template scope="scope">
               <div style="text-align: center;">
