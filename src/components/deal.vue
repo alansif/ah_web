@@ -52,8 +52,10 @@
                                 style="width:70%;margin:10px 0;">
                         </el-date-picker>
                     </div>
-                    <div><p></p></div>
-                    <el-button type="primary" icon="search" style="width:12em;margin:20px 0" @click="jumpto('http://www.advahealth.com/YuYue/YuYue/index.asp')">查询</el-button>
+                    <div style="height:20px;text-align:left;padding-left:56px;font-size:14px;color:#f55;">{{tips1}}</div>
+                    <div style="margin-top: 0px;">
+                      <el-button type="primary" icon="search" :loading="bkqloading" style="width:12em;margin:20px 0" @click="bookingquery()">查询</el-button>
+                    </div>
                 </div>
             </el-col>
             <el-col :span="8" style="position:relative;">
@@ -101,7 +103,7 @@
         data() {
             return {
                 institution: "",
-                instopts: [{value: 'east', label: '东环分院'}, {value: 'west', label: '西环分院'}],
+                instopts: [{value: '1', label: '东环分院'}, {value: '2', label: '西环分院'}],
                 pickerOptions0: {
                     disabledDate(time) {
                         return time.getTime() < Date.now() - 8.64e7;
@@ -112,6 +114,8 @@
                 idnumber: "",
                 phonenumber: "",
                 vcode:"",
+                tips1:"",
+                bkqloading:false,
                 idnumber2: "",
                 phonenumber2: "",
                 vcode2:"",
@@ -123,6 +127,38 @@
         methods: {
             jumpto(addr) {
                 window.open(addr);
+            },
+            bookingquery() {
+                if (this.institution.length === 0) {
+                    this.tips1 = "请选择地点";
+                    return;
+                }
+                if ((this.datebegin.length ===0) || (this.dateend.length === 0)) {
+                    this.tips1 = "请选择查询日期";
+                    return;
+                }
+                this.tips1 = "";
+                this.bkqloading = true;
+                this.$http.post("http://111.198.146.40:8082/booking/WSOnline.asmx/SearchOrderDate2",{
+                    dateFrom:this.datebegin,
+                    dateEnd:this.dateend,
+                    branchID:this.institution,
+                    branchName:this.institution === '1' ? '东环分院' : '西环分院'
+                }).then((response)=>{
+                    console.log(response.body.d);
+                    this.$root.schdata = JSON.parse(response.body.d);
+                    this.$root.schbranch = this.institution;
+                    this.$router.push('bkquery');
+                    this.bkqloading = false;
+                },(response)=>{
+                    console.log(response);
+                    this.tips1 = "查询失败";
+                    this.bkqloading = false;
+                }).catch((response)=>{
+                    console.log(response);
+                    this.tips1 = "查询失败";
+                    this.bkqloading = false;
+                });
             },
             sendverify() {
                 this.idnumber2 = this.idnumber2.replace(/^\s+/, "").replace(/\s+$/, "");

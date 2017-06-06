@@ -1,9 +1,11 @@
 import mainpage from './components/mainpage.vue'
 import bltpage from './components/bltpage.vue'
 import report from './components/report.vue'
+import bkquery from './components/bkquery.vue'
 
 export default [
     { path: '/', component: mainpage },
     { path: '/blt', component: bltpage },
-    { path: '/report', component: report }
+    { path: '/report', component: report },
+    { path: '/bkquery', component: bkquery }
 ];
