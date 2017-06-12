@@ -7,34 +7,28 @@
         </div>
       </div>
       <div class="bs1frame">
+          <div class="bs1static">
+            <el-row style="font-size:12px;">
+                <el-col :span="4">体检地点</el-col>
+                <el-col :span="20">体检日期</el-col>
+            </el-row>
+            <el-row style="font-size:20px;line-height:36px;">
+                <el-col :span="4">东环分院</el-col>
+                <el-col :span="20">2017-6-12</el-col>
+            </el-row>
+          </div>
           <div class="bs1input">
-            <el-row>
-                <el-col :span="8">体检地点</el-col>
-                <el-col :span="16">东环分院</el-col>
-            </el-row>
-            <el-row>
-                <el-col :span="8">体检日期</el-col>
-                <el-col :span="16">2017-6-12</el-col>
-            </el-row>
-              <el-row>
-                  <el-col :span="8">体检时段</el-col>
-                  <el-col :span="16">
-                      <el-select v-model="timeseg" placeholder="请选择">
+                      <el-select v-model="timeseg" placeholder="请选择体检时段" style="width:100%;">
                           <el-option-group v-for="group in ampm" :key="group.label" :label="group.label" :disabled="group.disabled">
                               <el-option v-for="item in group.options" :key="item.value" :label="item.label" :value="item.value"></el-option>
                           </el-option-group>
                       </el-select>
-                  </el-col>
-              </el-row>
-              <el-row>
-                  <el-col :span="8">身份证</el-col>
-                  <el-col :span="16">
+          </div>
+          <div class="bs1input">
                       <el-input placeholder="请填写本人身份证号码"></el-input>
-                  </el-col>
-              </el-row>
-              <div style="text-align: right;margin-top: 40px;">
-                  <el-button type="primary">下一步</el-button>
-              </div>
+          </div>
+          <div style="text-align: center;margin-top: 40px;">
+              <el-button type="primary">下一步</el-button>
           </div>
       </div>
   </div>
@@ -72,20 +66,26 @@
       padding-top: 10px;
   }
     .bs1frame {
-        height:360px;
+        position:relavtive;
+        height:265px;
         border: 1px solid cornflowerblue;
         border-radius: 2px;
         padding:24px;
+        background-color: #f7f7f7;
     }
-    .bs1input {
-        line-height: 48px;
-        height:280px;
-        margin: 10px auto;
-        width: 300px;
-        padding: 28px;
+    .bs1static {
+        height:60px;
+        padding-top:16px;
+        padding-left:24px;
         border: 1px solid #ddd;
         border-radius: 5px;
-        background-color: #f7f7f7;
-        color:#666;
+        color:#555;
+        background-color:white;
+        box-shadow:1px 1px 1px #888;
+    }
+    .bs1input {
+        padding-top:16px;
+        padding-left:0px;
+        width:300px;
     }
 </style>
