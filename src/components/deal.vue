@@ -98,7 +98,7 @@
 </template>
 
 <script>
-  import timerbtn from './timerbtn.vue';
+    import timerbtn from './timerbtn.vue'
     export default {
         data() {
             return {

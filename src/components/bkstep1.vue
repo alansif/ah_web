@@ -28,7 +28,7 @@
                       <el-input placeholder="请填写本人身份证号码"></el-input>
           </div>
           <div style="text-align: center;margin-top: 40px;">
-              <el-button type="primary">下一步</el-button>
+              <el-button type="primary" @click="nextstep()">下一步</el-button>
           </div>
       </div>
   </div>
@@ -50,6 +50,9 @@
         }
       },
       methods: {
+          nextstep() {
+              this.$router.push('bkstep2');
+          }
       }
   }
 </script>
@@ -67,16 +70,16 @@
   }
     .bs1frame {
         position:relavtive;
-        height:265px;
+        height:255px;
         border: 1px solid cornflowerblue;
         border-radius: 2px;
         padding:24px;
         background-color: #f7f7f7;
     }
     .bs1static {
-        height:60px;
-        padding-top:16px;
-        padding-left:24px;
+        height: 62px;
+        padding-top: 12px;
+        padding-left: 24px;
         border: 1px solid #ddd;
         border-radius: 5px;
         color:#555;
