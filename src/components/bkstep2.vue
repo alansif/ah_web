@@ -47,7 +47,6 @@
 
 <script>
     import timerbtn from './timerbtn.vue'
-    import ElCol from "element-ui/packages/col/src/col";
     export default {
         data() {
             return {
@@ -59,7 +58,6 @@
             }
         },
         components: {
-            ElCol,
             timerbtn
         }
     }
