@@ -19,8 +19,8 @@
           </div>
           <div class="bs1input">
                       <el-select v-model="timeseg" placeholder="请选择体检时段" style="width:100%;">
-                          <el-option-group v-for="group in ampm" :key="group.label" :label="group.label" :disabled="group.disabled">
-                              <el-option v-for="item in group.options" :key="item.value" :label="item.label" :value="item.value"></el-option>
+                          <el-option-group v-for="(period,moon) in periods" :key="moon" :label="moon" :disabled="moon.disabled">
+                              <el-option v-for="item in period" :key="item.PeriodID" :label="item.PeriodName" :value="item.PeriodID"></el-option>
                           </el-option-group>
                       </el-select>
           </div>
@@ -38,16 +38,20 @@
   export default {
       data() {
         return {
-            ampm:[{
-                label:'上午时段',
-                options:[{value:'a1',label:'8:00-9:00'}]
-            },{
-                label:'下午时段',
-                options:[{value:'p1',label:'18:00-19:00'},{value:'p2',label:'19:00-20:00'}],
-                disabled:true
-            }],
-            timeseg:''
+            timeseg:'',
+            periods:{}
         }
+      },
+      mounted() {
+          this.$http.post("http://111.198.146.40:8082/booking/WSOnline.asmx/GetBranchPeriodData2", {
+              BranchID: '1'
+          }).then((response)=>{
+              this.periods = JSON.parse(response.body.d);
+          },(response)=>{
+              console.log(response);
+          }).catch((response)=>{
+              console.log(response);
+          });
       },
       methods: {
           nextstep() {
@@ -69,7 +73,6 @@
       padding-top: 10px;
   }
     .bs1frame {
-        position:relavtive;
         height:255px;
         border: 1px solid cornflowerblue;
         border-radius: 2px;

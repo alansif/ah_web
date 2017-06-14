@@ -75,7 +75,6 @@
         padding-top: 10px;
     }
     .bs2frame {
-        position: relavtive;
         height: 255px;
         border: 1px solid cornflowerblue;
         border-radius: 2px;
