@@ -25,9 +25,10 @@
                       </el-select>
           </div>
           <div class="bs1input">
-                      <el-input placeholder="请填写本人身份证号码"></el-input>
+                      <el-input v-model="idnumber" placeholder="请填写本人身份证号码" :maxlength="18" onkeypress="return event.charCode!=32"></el-input>
           </div>
-          <div style="text-align: center;margin-top: 40px;">
+          <div style="height:20px;text-align:left;margin-top:2px;padding-left:10px;font-size:14px;color:#f55;">{{tips}}</div>
+          <div style="text-align: center;margin-top: 18px;">
               <el-button type="primary" @click="nextstep()">下一步</el-button>
           </div>
       </div>
@@ -39,7 +40,9 @@
       data() {
         return {
             timeseg:'',
-            periods:{}
+            periods:{},
+            idnumber:'',
+            tips:''
         }
       },
       mounted() {
@@ -55,7 +58,31 @@
       },
       methods: {
           nextstep() {
-              this.$router.push('bkstep2');
+              if (this.timeseg.length === 0) {
+                  this.tips = "请选择体检时段";
+                  return;
+              }
+              this.idnumber = this.idnumber.replace(/^\s+/, "").replace(/\s+$/, "");
+              if (this.idnumber.length === 0) {
+                  this.tips = "请填写证件号码";
+                  return;
+              }
+              this.tips = "";
+              this.$http.post("http://111.198.146.40:8082/booking/WSOnline.asmx/GetMobileNumber", {
+                  paperValue: this.idnumber
+              }).then((response)=>{
+                  var d = JSON.parse(response.body.d);
+                  if (d.status.code == 0) {
+                      this.$root.bkphone = d.data.phone;
+                      this.$router.push('bkstep2');
+                  } else {
+                      this.tips = d.status.description;
+                  }
+              },(response)=>{
+                  console.log(response);
+              }).catch((response)=>{
+                  console.log(response);
+              });
           }
       }
   }

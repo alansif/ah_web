@@ -29,7 +29,7 @@
                     <el-col :span="20">验证码</el-col>
                 </el-row>
                 <el-row style="font-size:20px;line-height:36px;position: relative;">
-                    <el-col :span="4">13810138000</el-col>
+                    <el-col :span="4">{{bkphone}}</el-col>
                     <el-col :span="20">
                         <el-input v-model="vcode" placeholder="手机验证码" :maxlength="6" style="width:120px;top:-4px;"
                                   onkeypress="return event.charCode>=48 && event.charCode <=57">
@@ -50,7 +50,8 @@
     export default {
         data() {
             return {
-                vcode:''
+                vcode:'',
+                bkphone:this.$root.bkphone
             }
         },
         methods: {

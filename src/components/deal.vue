@@ -63,7 +63,7 @@
                 <div style="position:absolute;z-index:2;left:0;top:0;width:100%;">
                     <p style="text-align:center;font-size:2em;">报告下载</p>
                     <div>
-                        <el-input v-model="idnumber2" placeholder="证件号码" style="width:69%;margin:10px 0;"
+                        <el-input v-model="idnumber2" placeholder="证件号码" :maxlength="18" style="width:69%;margin:10px 0;"
                                   onkeypress="return event.charCode!=32">
                         </el-input>
                     </div>
