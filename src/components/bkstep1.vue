@@ -13,13 +13,13 @@
                 <el-col :span="20">体检日期</el-col>
             </el-row>
             <el-row style="font-size:20px;line-height:36px;">
-                <el-col :span="4">东环分院</el-col>
-                <el-col :span="20">2017-6-12</el-col>
+                <el-col :span="4">{{this.$root.schbranch==='1'?'东环分院':'西环分院'}}</el-col>
+                <el-col :span="20">{{this.$root.bkdate.date}}</el-col>
             </el-row>
           </div>
           <div class="bs1input">
                       <el-select v-model="timeseg" placeholder="请选择体检时段" style="width:100%;">
-                          <el-option-group v-for="(period,moon) in periods" :key="moon" :label="moon" :disabled="moon.disabled">
+                          <el-option-group v-for="(period,moon) in periods" :key="moon" :label="moon" :disabled="pd[moon]">
                               <el-option v-for="item in period" :key="item.PeriodID" :label="item.PeriodName" :value="item.PeriodID"></el-option>
                           </el-option-group>
                       </el-select>
@@ -42,14 +42,18 @@
             timeseg:'',
             periods:{},
             idnumber:'',
-            tips:''
+            tips:'',
+            pd:{'上午':false,'下午':false}
         }
       },
       mounted() {
           this.$http.post("http://111.198.146.40:8082/booking/WSOnline.asmx/GetBranchPeriodData2", {
-              BranchID: '1'
+              BranchID: this.$root.schbranch
           }).then((response)=>{
+              console.log(response.body.d);
               this.periods = JSON.parse(response.body.d);
+              this.pd['上午'] = this.$root.bkdate.avaAM === 'False';
+              this.pd['下午'] = this.$root.bkdate.avaPM === 'False';
           },(response)=>{
               console.log(response);
           }).catch((response)=>{

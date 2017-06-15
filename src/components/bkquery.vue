@@ -24,7 +24,7 @@
           <el-table-column width="200">
             <template scope="scope">
               <div style="text-align: center;">
-                <el-button type="primary" size="small" :disabled="scope.row.available==='false'" @click="booking">预约</el-button>
+                <el-button type="primary" size="small" :disabled="(scope.row.avaAM==='False')&&(scope.row.avaPM==='False')" @click="booking(scope.row)">预约</el-button>
               </div>
             </template>
           </el-table-column>
@@ -40,7 +40,8 @@
       }
     },
     methods: {
-          booking() {
+          booking(bkdate) {
+              this.$root.bkdate = bkdate;
               this.$router.push('bkstep1');
           }
     }
