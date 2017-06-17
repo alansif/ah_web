@@ -21,7 +21,7 @@
                 <el-select id="inputpd" v-model="timeseg" placeholder="请选择体检时段" style="width:100%;">
                     <el-option-group v-for="(period,moon) in periods" :key="moon" :label="moon" :disabled="pd[moon]">
                         <el-option v-for="item in period" :key="item.PeriodID" :label="item.PeriodName"
-                                   :value="item.PeriodID"></el-option>
+                                   :value="item"></el-option>
                     </el-option-group>
                 </el-select>
             </div>
@@ -55,6 +55,8 @@
             }).then((response) => {
                 console.log(response.body.d);
                 this.periods = JSON.parse(response.body.d);
+                this.periods['上午'].forEach(function(item,index,input){input[index].MoonID=1});
+                this.periods['下午'].forEach(function(item,index,input){input[index].MoonID=2});
                 this.pd['上午'] = this.$root.bkdate.avaAM === 'False';
                 this.pd['下午'] = this.$root.bkdate.avaPM === 'False';
             }, (response) => {
@@ -65,7 +67,7 @@
         },
         methods: {
             nextstep() {
-                if (this.timeseg.length === 0) {
+                if (this.timeseg === '') {
                     this.tips = "请选择体检时段";
                     blinkBorder('inputpd');
                     return;
@@ -82,12 +84,13 @@
                     return;
                 }
                 this.tips = "";
-                this.$http.post("http://111.198.146.40:8082/booking/WSOnline.asmx/GetMobileNumber", {
+                this.$http.post("http://111.198.146.40:8082/booking/WSOnline.asmx/GetGuestForAppointment", {
                     paperValue: this.idnumber
                 }).then((response) => {
                     var d = JSON.parse(response.body.d);
                     if (d.status.code == 0) {
-                        this.$root.bkphone = d.data.phone;
+                        this.$root.bkguest = d.data;
+                        this.$root.bktimeseg = this.timeseg;
                         this.$router.push('bkstep2');
                     } else {
                         this.tips = d.status.description;
@@ -106,7 +109,7 @@
     .bs1title {
         position: relative;
         height: 50px;
-        top: -118px;
+        top: -98px;
         background-color: rgba(100, 149, 237, 0.5);
         font-size: 1.3em;
         color: white;

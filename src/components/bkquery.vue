@@ -64,7 +64,7 @@
   .bookingtitle {
     position:relative;
     height:50px;
-    top:-118px;
+    top:-98px;
     background-color:rgba(100,149,237,0.5);
     font-size:1.3em;
     color:white;
