@@ -101,6 +101,7 @@
                     this.tips = d.status.description;
                     if (d.status.code == 0) {
                         this.tipscolor = '#00df00';
+                        this.$router.push('bkfinal');
                     } else {
                         this.tipscolor = '#f55';
                     }

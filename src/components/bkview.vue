@@ -18,7 +18,8 @@
                     </el-col>
                     <el-col :span="20">
                         <el-input id="inputid" v-model="idnumber" placeholder="请输入身份证号码" :maxlength="18" style="width:180px;"></el-input>
-                        <el-button type="primary" size="small" icon="search" @click="search()">查询</el-button>
+                        <el-button type="primary" size="small" icon="search" :loading="bvloading" @click="search()">查询</el-button>
+                        <span style="color:#d63;font-size:16px;margin-left:16px;">{{tips}}</span>
                     </el-col>
                 </el-row>
             </div>
@@ -28,15 +29,11 @@
                 <el-row style="font-size:12px;">
                     <el-col :span="4">体检地点</el-col>
                     <el-col :span="4">预约日期</el-col>
-                    <el-col :span="4">预约时段</el-col>
                 </el-row>
                 <el-row style="font-size:20px;line-height:36px;position: relative;">
-                    <el-col :span="4">啊啊啊啊啊</el-col>
-                    <el-col :span="4">啊啊啊啊啊</el-col>
-                    <el-col :span="4">
-                        吱吱吱
-                    </el-col>
-                    <el-col :span="4" :offset="8" style="text-align: right;">
+                    <el-col :span="4">{{branchname}}</el-col>
+                    <el-col :span="4">{{yuyueriqi}}</el-col>
+                    <el-col :span="4" :offset="12" style="text-align: right;">
                         <el-button size="small" type="warning" style="top:-10px;position:relative;">取消预约</el-button>
                     </el-col>
                 </el-row>
@@ -60,7 +57,10 @@
                 idnumber:'',
                 show1:false,
                 vcode: '',
-                tips: ''
+                tips: '',
+                bvloading:false,
+                branchname:'',
+                yuyueriqi:''
             }
         },
         methods: {
@@ -82,20 +82,26 @@
                 }
                 this.tips = "";
                 this.show1 = false;
+                this.bvloading = true;
                 this.$http.post("http://111.198.146.40:8082/booking/WSOnline.asmx/GetAppointment", {
                     name: this.name,
                     ID:this.idnumber
                 }).then((response) => {
+                    this.bvloading = false;
                     var d = JSON.parse(response.body.d);
                     if (d.status.code == 0) {
                         this.show1 = true;
+                        this.branchname = d.data[0]['BranchName'];
+                        this.yuyueriqi = moment(d.data[0]['YuYueRiQi']).format('YYYY-MM-DD');
                         console.log(d.data);
                     } else {
                         this.tips = d.status.description;
                     }
                 }, (response) => {
+                    this.bvloading = false;
                     console.log(response);
                 }).catch((response) => {
+                    this.bvloading = false;
                     console.log(response);
                 });
             }
