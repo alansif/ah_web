@@ -96,9 +96,9 @@
                         this.tips = d.status.description;
                     }
                 }, (response) => {
-                    console.log(response);
+                    this.tips = "出错了，请检查网络连接";
                 }).catch((response) => {
-                    console.log(response);
+                    this.tips = "抱歉，出错了";
                 });
             }
         }

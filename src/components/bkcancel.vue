@@ -2,28 +2,22 @@
     <div>
         <div style="width:100%;height:260px;overflow:hidden;">
             <img src="../assets/sch.jpg" style="width:100%;display:block;">
-            <div class="bs2title">
-                预约
+            <div class="bctitle">
+                取消预约
             </div>
         </div>
-        <div class="bs2frame">
-            <div class="bs2static">
+        <div class="bcframe">
+            <div class="bcstatic">
                 <el-row style="font-size:12px;">
                     <el-col :span="4">体检地点</el-col>
                     <el-col :span="4">体检日期</el-col>
-                    <el-col :span="4">体检时段</el-col>
-                    <el-col :span="4">姓名</el-col>
-                    <el-col :span="8">身份证号</el-col>
                 </el-row>
                 <el-row style="font-size:20px;line-height:36px;">
-                    <el-col :span="4">{{this.$root.schbranch === '1' ? '东环分院' : '西环分院'}}</el-col>
-                    <el-col :span="4">{{this.$root.bkdate.date}}</el-col>
-                    <el-col :span="4">{{this.$root.bktimeseg.PeriodName}}</el-col>
-                    <el-col :span="4">{{this.$root.bkguest.name}}</el-col>
-                    <el-col :span="8">{{this.$root.bkguest.id}}</el-col>
+                    <el-col :span="4">{{this.$root.bcbranch}}</el-col>
+                    <el-col :span="4">{{this.$root.bcdate}}</el-col>
                 </el-row>
             </div>
-            <div class="bs2static">
+            <div class="bcstatic">
                 <el-row style="font-size:12px;">
                     <el-col :span="4">手机号码</el-col>
                     <el-col :span="20">验证码</el-col>
@@ -46,7 +40,7 @@
                  :style="{color:tipscolor}">{{tips}}
             </div>
             <div style="text-align: center;margin-top: 18px;">
-                <el-button type="primary" :loading="submitloading" @click="submit()">提交预约</el-button>
+                <el-button type="warning" :loading="submitloading" @click="submit()">取消预约</el-button>
             </div>
         </div>
     </div>
@@ -97,12 +91,7 @@
                     return;
                 }
                 this.submitloading = true;
-                this.$http.post("http://111.198.146.40:8082/booking/WSOnline.asmx/RequestAppointment", {
-                    paperValue: this.$root.bkguest.id,
-                    date: this.$root.bkdate.date,
-                    BranchID: this.$root.schbranch,
-                    MoonID: this.$root.bktimeseg.MoonID,
-                    PeriodID: this.$root.bktimeseg.PeriodID,
+                this.$http.post("http://111.198.146.40:8082/booking/WSOnline.asmx/CancelAppointment", {
                     verifyCode: this.vcode
                 }).then((response) => {
                     this.submitloading = false;
@@ -110,7 +99,7 @@
                     this.tips = d.status.description;
                     if (d.status.code == 0) {
                         this.tipscolor = '#00df00';
-                        this.$root.bkfinaltext = '您的预约已成功，谢谢！';
+                        this.$root.bkfinaltext = '预约已取消';
                         this.$router.push('bkfinal');
                     } else {
                         this.tipscolor = '#f55';
@@ -131,7 +120,7 @@
 </script>
 
 <style>
-    .bs2title {
+    .bctitle {
         position: relative;
         height: 50px;
         top: -98px;
@@ -142,7 +131,7 @@
         padding-top: 10px;
     }
 
-    .bs2frame {
+    .bcframe {
         height: 255px;
         border: 1px solid cornflowerblue;
         border-radius: 2px;
@@ -150,7 +139,7 @@
         background-color: #f7f7f7;
     }
 
-    .bs2static {
+    .bcstatic {
         height: 62px;
         padding-top: 12px;
         padding-left: 24px;

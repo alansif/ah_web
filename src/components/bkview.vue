@@ -3,7 +3,7 @@
         <div style="width:100%;height:260px;overflow:hidden;">
             <img src="../assets/sch.jpg" style="width:100%;display:block;">
             <div class="bvtitle">
-                查询预约单
+                预约管理
             </div>
         </div>
         <div class="bvframe">
@@ -19,7 +19,7 @@
                     <el-col :span="20">
                         <el-input id="inputid" v-model="idnumber" placeholder="请输入身份证号码" :maxlength="18" style="width:180px;"></el-input>
                         <el-button type="primary" size="small" icon="search" :loading="bvloading" @click="search()">查询</el-button>
-                        <span style="color:#d63;font-size:16px;margin-left:16px;">{{tips}}</span>
+                        <span style="color:#d63;font-size:14px;margin-left:16px;">{{tips}}</span>
                     </el-col>
                 </el-row>
             </div>
@@ -34,7 +34,7 @@
                     <el-col :span="4">{{branchname}}</el-col>
                     <el-col :span="4">{{yuyueriqi}}</el-col>
                     <el-col :span="4" :offset="12" style="text-align: right;">
-                        <el-button size="small" type="warning" style="top:-10px;position:relative;">取消预约</el-button>
+                        <el-button size="small" style="top:-10px;position:relative;">取消预约</el-button>
                     </el-col>
                 </el-row>
             </div>

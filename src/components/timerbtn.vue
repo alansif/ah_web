@@ -1,5 +1,5 @@
 ﻿<template>
-  <el-button type="primary" v-on:click="run" :disabled="disabled || time > 0">{{ text }}</el-button>
+  <el-button type="primary" :loading="loading"  v-on:click="run" :disabled="disabled || time > 0">{{ text }}</el-button>
 </template>  
 
 <script>
@@ -10,6 +10,10 @@
             default: 60
         },
         disabled: {
+            type: Boolean,
+            default: false
+        },
+        loading: {
             type: Boolean,
             default: false
         }

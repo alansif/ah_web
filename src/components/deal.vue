@@ -89,7 +89,7 @@
             <el-collapse-item title="更多业务">
                 <el-row style="color:#fff;text-align: center;">
                     <el-col :span="8"><a href="/">查看已定制的产品</a></el-col>
-                    <el-col :span="8"><a href="/bkview">查看已提交的预约</a></el-col>
+                    <el-col :span="8"><a href="/bkview">管理您的预约</a></el-col>
                     <el-col :span="8"><a href="/">填写健康问卷</a></el-col>
                 </el-row>
             </el-collapse-item>

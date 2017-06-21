@@ -8,7 +8,7 @@
         </div>
         <div class="bfframe">
             <div style="text-align:center;color:#00df00;font-size:1.5em;margin-top:20px;">
-              <i class="el-icon-check"></i>您的预约已成功，谢谢！
+              <i class="el-icon-check"></i>{{this.$root.bkfinaltext}}
             </div>
             <div style="position:absolute;top:210px;left:0;text-align:center;width:100%;">
               <a href="/"><el-button type="primary">返回首页</el-button></a>
