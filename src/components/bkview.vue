@@ -29,12 +29,14 @@
                 <el-row style="font-size:12px;">
                     <el-col :span="4">体检地点</el-col>
                     <el-col :span="4">预约日期</el-col>
+                    <el-col :span="4">签证号</el-col>
                 </el-row>
                 <el-row style="font-size:20px;line-height:36px;position: relative;">
-                    <el-col :span="4">{{branchname}}</el-col>
-                    <el-col :span="4">{{yuyueriqi}}</el-col>
-                    <el-col :span="4" :offset="12" style="text-align: right;">
-                        <el-button size="small" style="top:-10px;position:relative;">取消预约</el-button>
+                    <el-col :span="4">{{branch}}</el-col>
+                    <el-col :span="4">{{date}}</el-col>
+                    <el-col :span="4">{{visa}}</el-col>
+                    <el-col :span="4" :offset="8" style="text-align: right;">
+                        <el-button size="small" :loading="bcloading" style="top:-10px;position:relative;" @click="gocancel()">取消预约</el-button>
                     </el-col>
                 </el-row>
             </div>
@@ -59,8 +61,10 @@
                 vcode: '',
                 tips: '',
                 bvloading:false,
-                branchname:'',
-                yuyueriqi:''
+                branch:'',
+                date:'',
+                visa:'',
+                bcloading:false
             }
         },
         methods: {
@@ -91,8 +95,9 @@
                     var d = JSON.parse(response.body.d);
                     if (d.status.code == 0) {
                         this.show1 = true;
-                        this.branchname = d.data[0]['BranchName'];
-                        this.yuyueriqi = moment(d.data[0]['YuYueRiQi']).format('YYYY-MM-DD');
+                        this.branch = d.data[0]['BranchName'];
+                        this.date = moment(d.data[0]['YuYueRiQi']).format('YYYY-MM-DD');
+                        this.visa = d.data[0]['HuZhaoHao'];
                         console.log(d.data);
                     } else {
                         this.tips = d.status.description;
@@ -102,6 +107,28 @@
                     console.log(response);
                 }).catch((response) => {
                     this.bvloading = false;
+                    console.log(response);
+                });
+            },
+            gocancel() {
+                this.bcloading = true;
+                this.$http.post("http://111.198.146.40:8082/booking/WSOnline.asmx/GetGuestByVisa", {
+                    visaNo:this.visa
+                }).then((response) => {
+                    this.bcloading = false;
+                    var d = JSON.parse(response.body.d);
+                    console.log(d);
+                    if (d.status.code == 0) {
+                        this.$root.bcid = d.data["PaperValue"];
+                        this.$root.bcphone = d.data["Mobile"];
+                        this.$root.bcvisa = this.visa;
+                        this.$router.push('bkcancel');
+                    }
+                }, (response) => {
+                    this.bcloading = false;
+                    console.log(response);
+                }).catch((response) => {
+                    this.bcloading = false;
                     console.log(response);
                 });
             }

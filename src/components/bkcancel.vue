@@ -9,21 +9,11 @@
         <div class="bcframe">
             <div class="bcstatic">
                 <el-row style="font-size:12px;">
-                    <el-col :span="4">体检地点</el-col>
-                    <el-col :span="4">体检日期</el-col>
-                </el-row>
-                <el-row style="font-size:20px;line-height:36px;">
-                    <el-col :span="4">{{this.$root.bcbranch}}</el-col>
-                    <el-col :span="4">{{this.$root.bcdate}}</el-col>
-                </el-row>
-            </div>
-            <div class="bcstatic">
-                <el-row style="font-size:12px;">
                     <el-col :span="4">手机号码</el-col>
                     <el-col :span="20">验证码</el-col>
                 </el-row>
                 <el-row style="font-size:20px;line-height:36px;position: relative;">
-                    <el-col :span="4">{{this.$root.bkguest.phone}}</el-col>
+                    <el-col :span="4">{{phone}}</el-col>
                     <el-col :span="20">
                         <el-input id="inputvc" v-model="vcode" placeholder="手机验证码" :maxlength="6"
                                   style="width:120px;top:-4px;"
@@ -39,7 +29,7 @@
             <div style="height:20px;text-align:left;margin-top:2px;padding-left:10px;font-size:14px;"
                  :style="{color:tipscolor}">{{tips}}
             </div>
-            <div style="text-align: center;margin-top: 18px;">
+            <div style="text-align: center;left:0;bottom: 24px;position: absolute;width: 100%;">
                 <el-button type="warning" :loading="submitloading" @click="submit()">取消预约</el-button>
             </div>
         </div>
@@ -52,6 +42,9 @@
     export default {
         data() {
             return {
+                phone:this.$root.bcphone || '',
+                visa:this.$root.bcvisa || '',
+                idnumber:this.$root.bcid || '',
                 vcode: '',
                 tips: '',
                 tipscolor: "#f55",
@@ -63,8 +56,8 @@
             sendverify() {
                 this.tips = "";
                 this.vcloading = true;
-                this.$http.post("http://111.198.146.40:8082/booking/WSOnline.asmx/GetMobileCode2", {
-                    paperValue: this.$root.bkguest.id
+                this.$http.post("http://111.198.146.40:8082/booking/WSOnline.asmx/GetMobileCodeForCancel", {
+                    paperValue: this.idnumber
                 }).then((response) => {
                     this.vcloading = false;
                     var d = JSON.parse(response.body.d);
@@ -92,6 +85,7 @@
                 }
                 this.submitloading = true;
                 this.$http.post("http://111.198.146.40:8082/booking/WSOnline.asmx/CancelAppointment", {
+                    visaNo:this.visa,
                     verifyCode: this.vcode
                 }).then((response) => {
                     this.submitloading = false;
@@ -104,6 +98,7 @@
                     } else {
                         this.tipscolor = '#f55';
                     }
+                    console.log(d);
                 }, (response) => {
                     this.submitloading = false;
                     console.log(response);
@@ -132,6 +127,7 @@
     }
 
     .bcframe {
+        position: relative;
         height: 255px;
         border: 1px solid cornflowerblue;
         border-radius: 2px;
