@@ -4,10 +4,10 @@
             <img src="../assets/bg.jpg" style="height:760px;"/>
         </div>
         <el-row>
-            <el-col :span="10">
-                <img src="../assets/doctor-b.png" style="height:100%;padding-left:10px;padding-top:60px;"/>
+            <el-col :span="9">
+                <img src="../assets/doctor-b.png" style="width:100%;padding-left:10px;padding-top:60px;"/>
             </el-col>
-            <el-col :span="14">
+            <el-col :span="14" :offset="1">
                 <div style="padding:40px 40px 0 10px;">
                     <p style="font-size:2em;text-align:left;">为什么选择我们？</p>
                     <p style="text-align:justify;line-height:150%;text-indent:2em;">

@@ -33,27 +33,24 @@
 </template>
 
 <script>
-    window.onload = function() {
+    export default {
+        mounted() {
+            var mySwiper1 = new Swiper('.gonggao-box', {
+                autoplayDisableOnInteraction: false,
+                direction: 'vertical',
+                loop: true,
+                autoplay: 3000,//可选选项，自动滑动
+                onlyExternal: true
 
-        var mySwiper1 = new Swiper('.gonggao-box', {
-            autoplayDisableOnInteraction: false,
-            direction: 'vertical',
-            loop: true,
-            autoplay: 3000,//可选选项，自动滑动
-            onlyExternal: true
-
-        });
-
-        var gg = document.getElementById("gg");
-
-        gg.addEventListener("mouseenter", function () {
-            mySwiper1.stopAutoplay();
-        });
-
-        gg.addEventListener("mouseleave", function () {
-            mySwiper1.startAutoplay();
-        });
-
+            });
+            var gg = document.getElementById("gg");
+            gg.addEventListener("mouseenter", function () {
+                mySwiper1.stopAutoplay();
+            });
+            gg.addEventListener("mouseleave", function () {
+                mySwiper1.startAutoplay();
+            });
+        }
     }
 </script>
 

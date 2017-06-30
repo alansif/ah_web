@@ -13,7 +13,7 @@
                 </div>
             </el-col>
             <el-col :span="6" style="position:relative;">
-                <img src="../assets/annual-check-up-img.png" style="height:100%;padding:45px 10px;"/>
+                <img src="../assets/annual-check-up-img.png" style="width:100%;padding:45px 10px;"/>
             </el-col>
         </el-row>
     </section>
