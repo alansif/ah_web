@@ -1,8 +1,6 @@
 <template>
         <div class="gonggao-big-box">
-            <div class="gonggao-lookall"><a href="/blt">
-                <el-button size="small" class="gonggao-lookallbutton">更多公告</el-button>
-            </a></div>
+            <div style="position: absolute;width: 100%;height:40px;background-color: rgba(100, 149, 237, 0.5);"></div>
             <div class="swiper-container gonggao-box" id="gg">
                 <div class="swiper-wrapper">
 
@@ -26,8 +24,12 @@
                             <div class="gonggao-text">2017年中秋节放假通知</div>
                         </a>
                     </div>
-
                 </div>
+            </div>
+            <div class="ggbtn">
+                <a href="/blt">
+                    <el-button size="small" class="gonggao-lookallbutton">更多公告</el-button>
+                </a>
             </div>
         </div>
 </template>
@@ -41,7 +43,6 @@
                 loop: true,
                 autoplay: 3000,//可选选项，自动滑动
                 onlyExternal: true
-
             });
             var gg = document.getElementById("gg");
             gg.addEventListener("mouseenter", function () {
@@ -56,16 +57,18 @@
 
 <style>
     .gonggao-big-box {
-        width: 400px;
-        height: 6px;
         position: relative;
-        top:-50px;
-        left:55px;
+        text-align: right;
+        width: 100%;
+        height: 6px;
+        top:-40px;
+        left:0px;
         margin: 0px;
         font-size: 14px;
     }
 
     .gonggao-box {
+        display:inline-block;
         width: 310px;
         height: 36px;
         text-align: left;
@@ -77,29 +80,35 @@
         float: left;
         width: 24px;
         height: 24px;
-        margin-top: 6px;
+        margin-top: 8px;
         margin-right: 16px;
     }
 
     .gonggao-text {
+        display: inline-block;
+        position: relative;
+        top:10px;
         width: 260px;
-        line-height: 36px;
-        color: #aaa;
+        color: #eee;
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
     }
 
-    .gonggao-lookall {
-        float: right;
-        margin-top: 5px;
+    .gonggao-text:hover {
+        color:cornflowerblue;
     }
 
+    .ggbtn {
+        position: relative;
+        display: inline-block;
+        top:-11px;
+        right: 20px;
+    }
     .gonggao-lookallbutton {
-        color: cornflowerblue;
+        margin: 0;
+        color: white;
         background-color:transparent;
-        border-color:cornflowerblue;
-        position: absolute;
-        left:390px;
+        border-color:white;
     }
 </style>
