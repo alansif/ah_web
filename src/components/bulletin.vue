@@ -3,21 +3,18 @@
             <div style="position: absolute;width: 100%;height:40px;background-color: rgba(100, 149, 237, 0.5);"></div>
             <div class="swiper-container gonggao-box" id="gg">
                 <div class="swiper-wrapper">
-
                     <div class="swiper-slide">
                         <a href="/blt">
                             <img src="../assets/megaphone.svg" class="gonggao-pic" />
                             <div class="gonggao-text">2017年元旦放假通知</div>
                         </a>
                     </div>
-
                     <div class="swiper-slide">
                         <a href="/blt">
                             <img src="../assets/megaphone.svg" class="gonggao-pic" />
                             <div class="gonggao-text">2017年春节放假通知</div>
                         </a>
                     </div>
-
                     <div class="swiper-slide">
                         <a href="/blt">
                             <img src="../assets/megaphone.svg" class="gonggao-pic" />
@@ -69,14 +66,14 @@
 
     .gonggao-box {
         display:inline-block;
+        vertical-align: middle;
         width: 310px;
-        height: 36px;
+        height: 40px;
         text-align: left;
         margin: 0;
     }
 
     .gonggao-pic {
-        display: inline-block;
         float: left;
         width: 24px;
         height: 24px;
@@ -101,9 +98,9 @@
 
     .ggbtn {
         position: relative;
+        margin-right: 20px;
         display: inline-block;
-        top:-11px;
-        right: 20px;
+        vertical-align: middle;
     }
     .gonggao-lookallbutton {
         margin: 0;
