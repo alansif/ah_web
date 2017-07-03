@@ -8,7 +8,7 @@
 		</div>
 		<div style="text-align:center;">
 			<div class="rptframe">
-				<p style="font-size:1.2rem;">报告查询</p>
+				<p style="font-size:1.2rem;">报告查阅</p>
 				<div style="margin:0 15%;">
                     <div style="margin:12px 0;">
                         <el-input v-model="idnumber2" placeholder="证件号码" :maxlength="18" style="width:100%;"
@@ -27,7 +27,7 @@
 							</el-input>
 						</el-col>
 						<el-col :span="11" :offset="1">
-							<timerbtn ref="tb2" type="primary" @run="sendverify" style="width:100%;height:36px;margin:0;font-size:13px;">发送</timerbtn>
+							<timerbtn ref="tb2" type="primary" :loading="vcloading" @run="sendverify" style="width:100%;height:36px;margin:0;font-size:13px;">发送</timerbtn>
 						</el-col>
 					</el-row>
                     <div style="height:20px;text-align:left;font-size:14px;" :style="{color:tips2color}">{{tips2}}</div>
@@ -38,16 +38,16 @@
 			</div>
 		</div>
 		<div v-show="showtable">
-			<el-table :data="rptList" stripe border :height="300" class="tbl">
-			  <el-table-column prop="date" label="体检日期">
+			<el-table :data="rptList" stripe :height="300" class="tbl">
+			  <el-table-column prop="date" label="体检日期" width="120">
 			  </el-table-column>
-			  <el-table-column prop="subject" label="类别">
+			  <el-table-column prop="subject" label="文件类别">
 				<template scope="scope">{{scope.row.subject === "YG" ? "乙肝报告" : "体检报告"}}</template>
 			  </el-table-column>
 			  <el-table-column>
 				<template scope="scope">
 				  <div style="text-align: center;">
-					<a :href="scope.row.url"><el-button type="primary" size="small">下载</el-button></a>
+					<a :href="scope.row.url"><el-button type="primary" size="small">获取</el-button></a>
 				  </div>
 				</template>
 			  </el-table-column>
@@ -69,6 +69,7 @@
                 vcode2:"",
                 tips2:"",
                 tips2color:"#f55",
+				vcloading:false,
                 rptloading:false,
 				showtable:false,
 				rptList: []
@@ -89,8 +90,10 @@
                     return;
                 }
                 this.tips2 = "";
+                this.vcloading=true;
                 this.$http.post("http://111.198.146.40:8083/api/v1/verifycode",{id:this.idnumber2,phone:this.phonenumber2},{emulateJSON:true})
                     .then((response)=>{
+                    	this.vcloading=false;
                         let st = response.body.status;
                         this.tips2 = st.description;
                         if (st.code == 0) {
@@ -100,9 +103,15 @@
                             this.tips2color = '#f55';
                         }
                     }, (response)=>{
+                        this.vcloading=false;
+                        this.tips2color = '#f55';
+                        this.tips2='出错了';
                         console.log(response);
                     })
                     .catch((response)=>{
+                        this.vcloading=false;
+                        this.tips2color = '#f55';
+                        this.tips2='出错了';
                         console.log(response);
                     });
             },
@@ -152,7 +161,7 @@
 <style>
     .rptframe {
 		position:relative;
-		width:80%;
+		width:90%;
 		border:1px solid #ddd;
 		border-radius:8px;
         box-shadow: 1px 1px 1px #888;
@@ -161,10 +170,10 @@
 		background-color:white;
 	}
     .tbl {
-		width:80%;
+		width:90%;
 		border:1px solid #ddd;
 		border-radius:8px;
         box-shadow: 1px 1px 1px #888;
-		margin:4px auto;
+		margin:6px auto;
 	}
 </style>
