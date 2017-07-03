@@ -54,7 +54,9 @@
 			</el-table>
 		</div>
 		<div style="text-align:center;">
-			<el-button type="text" @click="window.open('http://111.198.146.40:8082')">访问华兆益生电脑版主页</el-button>
+			<a href="http://111.198.146.40:8082" style="text-decoration: none;">
+				<el-button type="text">访问华兆益生电脑版主页</el-button>
+			</a>
 		</div>
     </div>
 </template>
