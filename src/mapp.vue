@@ -21,13 +21,13 @@
                         </el-input>
                     </div>
 					<el-row>
-						<el-col :span="14" style="text-align:left;">
+						<el-col :span="12" style="text-align:left;">
 							<el-input v-model="vcode2" placeholder="手机验证码" :maxlength="6" style="width:100%;"
                                   onkeypress="return event.charCode>=48 && event.charCode <=57">
 							</el-input>
 						</el-col>
-						<el-col :span="9" :offset="1">
-							<timerbtn ref="tb2" type="primary" @run="sendverify" style="width:100%;margin:0;">发送</timerbtn>
+						<el-col :span="11" :offset="1">
+							<timerbtn ref="tb2" type="primary" @run="sendverify" style="width:100%;height:36px;margin:0;font-size:13px;">发送</timerbtn>
 						</el-col>
 					</el-row>
                     <div style="height:20px;text-align:left;font-size:14px;" :style="{color:tips2color}">{{tips2}}</div>
@@ -154,17 +154,17 @@
 		position:relative;
 		width:80%;
 		border:1px solid #ddd;
-		border-radius:5px;
+		border-radius:8px;
         box-shadow: 1px 1px 1px #888;
 		text-align:center;
-		margin:0.5rem auto;
+		margin:4px auto;
 		background-color:white;
 	}
     .tbl {
 		width:80%;
 		border:1px solid #ddd;
-		border-radius:5px;
+		border-radius:8px;
         box-shadow: 1px 1px 1px #888;
-		margin:0.5rem auto;
+		margin:4px auto;
 	}
 </style>
