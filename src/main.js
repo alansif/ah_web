@@ -4,7 +4,7 @@ import VueResource from 'vue-resource'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-default/index.css'
 import App from './App.vue'
-import routes from './routes';
+import routes from './routes'
 
 Vue.use(VueRouter)
 Vue.use(VueResource)
