@@ -33,7 +33,7 @@
                     <div style="height:20px;text-align:left;font-size:14px;" :style="{color:tips2color}">{{tips2}}</div>
 				</div>
                 <div style="margin-bottom:0.6rem;">
-                    <el-button type="primary" style="width:40%;margin:20px 0" :loading="rptloading" @click="download">下载</el-button>
+                    <el-button type="primary" style="width:40%;margin:20px 0" :loading="rptloading" @click="download">查询报告</el-button>
 				</div>
 			</div>
 		</div>
