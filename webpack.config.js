@@ -11,7 +11,7 @@ module.exports = (options = {}) => ({
     entry: {
         vendor: './src/vendor',
         index: './src/main.js',
-        mindex: './src/mmain.js'
+        mindex: './src/m/mmain.js'
     },
     output: {
         path: resolve(__dirname, 'dist'),
@@ -74,8 +74,8 @@ module.exports = (options = {}) => ({
             chunks: ['manifest', 'vendor', 'index']
         }),
         new HtmlWebpackPlugin({
-            template: 'src/mindex.html',
-            filename: 'mindex.html',
+            template: 'src/m/mindex.html',
+            filename: 'm/mindex.html',
             chunks: ['manifest', 'vendor', 'mindex']
         }),
         new CopyWebpackPlugin([
@@ -102,7 +102,7 @@ module.exports = (options = {}) => ({
         },
         historyApiFallback: {
             rewrites: [
-                {from: /^\/m/, to: '/mindex.html'},
+                {from: /^\/m/, to: '/m/mindex.html'},
                 {from: /./, to: '/index.html'}
             ]
         }

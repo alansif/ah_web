@@ -1,7 +1,7 @@
 <template>
     <div id="mapp">
 		<div style="width:100%;">
-			<img src="./assets/logo1.png" style="width:25%;display:inline-block;vertical-align:middle;">
+			<img src="../assets/logo1.png" style="width:25%;display:inline-block;vertical-align:middle;">
 			<span style="margin-left:2rem;">欢迎来到华兆益生</span>
 		</div>
 		<div style="margin-top:0.2rem;text-align:center;background-color:#eee;height:0.2rem;">
@@ -62,7 +62,7 @@
 </template>
 
 <script>
-    import timerbtn from './components/timerbtn.vue'
+    import timerbtn from '../components/timerbtn.vue'
     export default{
 		data() {
 			return {
