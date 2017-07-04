@@ -9,7 +9,8 @@ import bkview from './components/bkview.vue'
 import bkcancel from './components/bkcancel.vue'
 
 export default [
-    { path: '/', component: mainpage },
+    { path: '/home', component: mainpage },
+    { path: '/', redirect: '/home' },
     { path: '/blt', component: bltpage },
     { path: '/report', component: report },
     { path: '/bkquery', component: bkquery },

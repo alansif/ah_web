@@ -54,7 +54,7 @@
 			</el-table>
 		</div>
 		<div style="text-align:center;">
-			<a href="http://111.198.146.40:8082" style="text-decoration: none;">
+			<a href="/home" style="text-decoration: none;">
 				<el-button type="text">访问华兆益生电脑版主页</el-button>
 			</a>
 		</div>

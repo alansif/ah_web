@@ -43,7 +43,7 @@
                 </div>
             </transition>
             <div style="text-align: center;left:0;bottom: 24px;position: absolute;width: 100%;">
-                <a href="/"><el-button type="primary">返回首页</el-button></a>
+                <a href="/home"><el-button type="primary">返回首页</el-button></a>
             </div>
         </div>
     </div>

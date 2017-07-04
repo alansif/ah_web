@@ -3,11 +3,11 @@
         <header>
             <img src="./assets/logo1.png" style="width:200px;"/>
             <el-menu mode="horizontal">
-                <el-menu-item index="1"><a href="/">首页</a></el-menu-item>
-                <el-menu-item index="2"><a href="/#about">关于我们</a></el-menu-item>
-                <el-menu-item index="3"><a href="/#deal">业务办理</a></el-menu-item>
-                <el-menu-item index="4"><a href="/#knowledge">体检知识</a></el-menu-item>
-                <el-menu-item index="5"><a href="/#contact">联系我们</a></el-menu-item>
+                <el-menu-item index="1"><a href="/home">首页</a></el-menu-item>
+                <el-menu-item index="2"><a href="/home#about">关于我们</a></el-menu-item>
+                <el-menu-item index="3"><a href="/home#deal">业务办理</a></el-menu-item>
+                <el-menu-item index="4"><a href="/home#knowledge">体检知识</a></el-menu-item>
+                <el-menu-item index="5"><a href="/home#contact">联系我们</a></el-menu-item>
             </el-menu>
         </header>
 
