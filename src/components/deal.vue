@@ -76,7 +76,7 @@
                         <el-input v-model="vcode2" placeholder="手机验证码" :maxlength="6" style="width:40%;margin:0;"
                                   onkeypress="return event.charCode>=48 && event.charCode <=57">
                         </el-input>
-                        <timerbtn ref="tb2" type="primary" @run="sendverify()">发送验证码</timerbtn>
+                        <timerbtn ref="tb2" type="primary" :loading="vc2loading" @run="sendverify()">发送验证码</timerbtn>
                     </div>
                     <div style="height:20px;text-align:left;padding-left:56px;font-size:14px;" :style="{color:tips2color}">{{tips2}}</div>
                     <div style="margin-top: 0px;">
@@ -98,6 +98,7 @@
 </template>
 
 <script>
+    import {restbase} from '../config'
     import timerbtn from './timerbtn.vue'
     export default {
         data() {
@@ -119,6 +120,7 @@
                 idnumber2: "",
                 phonenumber2: "",
                 vcode2:"",
+                vc2loading:false,
                 tips2:"",
                 tips2color:"#f55",
                 rptloading:false
@@ -139,7 +141,7 @@
                 }
                 this.tips1 = "";
                 this.bkqloading = true;
-                this.$http.post("http://111.198.146.40:8082/booking/WSOnline.asmx/SearchOrderDate2",{
+                this.$http.post(restbase() + "booking/WSOnline.asmx/SearchOrderDate2",{
                     dateFrom:this.datebegin,
                     dateEnd:this.dateend,
                     branchID:this.institution,
@@ -174,8 +176,10 @@
                     return;
                 }
                 this.tips2 = "";
-                this.$http.post("http://111.198.146.40:8083/api/v1/verifycode",{id:this.idnumber2,phone:this.phonenumber2},{emulateJSON:true})
+                this.vc2loading = true;
+                this.$http.post(restbase() + "api/v1/verifycode",{id:this.idnumber2,phone:this.phonenumber2},{emulateJSON:true})
                     .then((response)=>{
+                        this.vc2loading = false;
                         let st = response.body.status;
                         this.tips2 = st.description;
                         if (st.code == 0) {
@@ -185,9 +189,15 @@
                             this.tips2color = '#f55';
                         }
                     }, (response)=>{
+                        this.vc2loading = false;
+                        this.tips2color = '#f55';
+                        this.tips2 = "抱歉，出错了";
                         console.log(response);
                     })
                     .catch((response)=>{
+                        this.vc2loading = false;
+                        this.tips2color = '#f55';
+                        this.tips2 = "抱歉，出错了";
                         console.log(response);
                     });
             },
@@ -206,7 +216,7 @@
                 }
                 this.tips2 = "";
                 this.rptloading=true;
-                this.$http.get(`http://111.198.146.40:8083/api/v1/user/${this.idnumber2}/report`, {params:{vcode:this.vcode2}})
+                this.$http.get(restbase() + `api/v1/user/${this.idnumber2}/report`, {params:{vcode:this.vcode2}})
                     .then((response)=>{
                         this.rptloading=false;
                         let st = response.body.status;
@@ -219,10 +229,14 @@
                         }
                     }, (response)=>{
                         this.rptloading=false;
+                        this.tips2color = '#f55';
+                        this.tips2 = "抱歉，出错了";
                         console.log(response);
                     })
                     .catch((response)=>{
                         this.rptloading=false;
+                        this.tips2color = '#f55';
+                        this.tips2 = "抱歉，出错了";
                         console.log(response);
                     });
             }

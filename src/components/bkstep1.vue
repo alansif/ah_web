@@ -38,6 +38,7 @@
 </template>
 
 <script>
+    import {restbase} from '../config'
     import {blinkBorder} from '../util'
     export default {
         data() {
@@ -50,7 +51,7 @@
             }
         },
         mounted() {
-            this.$http.post("http://111.198.146.40:8082/booking/WSOnline.asmx/GetBranchPeriodData2", {
+            this.$http.post(restbase() + "booking/WSOnline.asmx/GetBranchPeriodData2", {
                 BranchID: this.$root.schbranch
             }).then((response) => {
                 console.log(response.body.d);
@@ -84,7 +85,7 @@
                     return;
                 }
                 this.tips = "";
-                this.$http.post("http://111.198.146.40:8082/booking/WSOnline.asmx/GetGuestForAppointment", {
+                this.$http.post(restbase() + "booking/WSOnline.asmx/GetGuestForAppointment", {
                     paperValue: this.idnumber
                 }).then((response) => {
                     var d = JSON.parse(response.body.d);

@@ -37,6 +37,7 @@
 </template>
 
 <script>
+    import {restbase} from '../config'
     import {blinkBorder} from '../util'
     import timerbtn from './timerbtn.vue'
     export default {
@@ -56,7 +57,7 @@
             sendverify() {
                 this.tips = "";
                 this.vcloading = true;
-                this.$http.post("http://111.198.146.40:8082/booking/WSOnline.asmx/GetMobileCodeForCancel", {
+                this.$http.post(restbase() + "booking/WSOnline.asmx/GetMobileCodeForCancel", {
                     paperValue: this.idnumber
                 }).then((response) => {
                     this.vcloading = false;
@@ -84,7 +85,7 @@
                     return;
                 }
                 this.submitloading = true;
-                this.$http.post("http://111.198.146.40:8082/booking/WSOnline.asmx/CancelAppointment", {
+                this.$http.post(restbase() + "booking/WSOnline.asmx/CancelAppointment", {
                     visaNo:this.visa,
                     verifyCode: this.vcode
                 }).then((response) => {

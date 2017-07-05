@@ -50,6 +50,7 @@
 </template>
 
 <script>
+    import {restbase} from '../config'
     import {blinkBorder} from '../util'
     import timerbtn from './timerbtn.vue'
     export default {
@@ -87,7 +88,7 @@
                 this.tips = "";
                 this.show1 = false;
                 this.bvloading = true;
-                this.$http.post("http://111.198.146.40:8082/booking/WSOnline.asmx/GetAppointment", {
+                this.$http.post(restbase() + "booking/WSOnline.asmx/GetAppointment", {
                     name: this.name,
                     ID:this.idnumber
                 }).then((response) => {
@@ -112,7 +113,7 @@
             },
             gocancel() {
                 this.bcloading = true;
-                this.$http.post("http://111.198.146.40:8082/booking/WSOnline.asmx/GetGuestByVisa", {
+                this.$http.post(restbase() + "booking/WSOnline.asmx/GetGuestByVisa", {
                     visaNo:this.visa
                 }).then((response) => {
                     this.bcloading = false;

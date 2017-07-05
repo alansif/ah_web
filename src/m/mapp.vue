@@ -62,6 +62,7 @@
 </template>
 
 <script>
+    import {restbase} from '../config'
     import timerbtn from '../components/timerbtn.vue'
     export default{
 		data() {
@@ -93,7 +94,7 @@
                 }
                 this.tips2 = "";
                 this.vcloading=true;
-                this.$http.post("http://111.198.146.40:8083/api/v1/verifycode",{id:this.idnumber2,phone:this.phonenumber2},{emulateJSON:true})
+                this.$http.post(restbase() + "api/v1/verifycode",{id:this.idnumber2,phone:this.phonenumber2},{emulateJSON:true})
                     .then((response)=>{
                     	this.vcloading=false;
                         let st = response.body.status;
@@ -133,7 +134,7 @@
                 this.tips2 = "";
                 this.rptloading=true;
 				this.showtable=false;
-                this.$http.get(`http://111.198.146.40:8083/api/v1/user/${this.idnumber2}/report`, {params:{vcode:this.vcode2}})
+                this.$http.get(restbase() + `api/v1/user/${this.idnumber2}/report`, {params:{vcode:this.vcode2}})
                     .then((response)=>{
                         this.rptloading=false;
                         let st = response.body.status;
