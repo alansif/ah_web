@@ -1,6 +1,6 @@
 <template>
     <section id="about" style="position:relative;margin-bottom:2px;">
-        <el-row style="background-color:#f3f3f3;">
+        <el-row style="background-color:white;">
             <el-col :span="4" style="position:relative;">
                 <div style="position:relative;margin-top:35px;margin-left:50px;">
                     <img src="../assets/logo2.png" style="width:100%;"/>
@@ -11,7 +11,7 @@
                     华兆益生是一家为企业和个人提供健康体检与健康管理服务的医疗机构，拥有两家体检中心和一个健康管理中心。我们集优质的医疗资源和人性化服务流程于一体，追求卓越的医疗质量和客户体验。我们致力于与客户建立终身服务关系，长期专注于客户的健康状况，以提高客户的生活质量为使命。</p>
             </el-col>
         </el-row>
-        <el-row>
+        <el-row style="background-color: #f3f3f3;">
             <el-col :span="8" style="position:relative;">
                 <div class="sy">
                     <p class="suyuan">

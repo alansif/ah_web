@@ -1,5 +1,7 @@
 import mainpage from './components/mainpage.vue'
 import bltpage from './components/bltpage.vue'
+import ctm from './components/ctm.vue'
+import survey from './components/survey.vue'
 import report from './components/report.vue'
 import bkquery from './components/bkquery.vue'
 import bkstep1 from './components/bkstep1.vue'
@@ -12,6 +14,7 @@ export default [
     { path: '/home', component: mainpage },
     { path: '/', redirect: '/home' },
     { path: '/blt', component: bltpage },
+    { path: '/ctm', component: ctm, children:[{path:'survey',component:survey}] },
     { path: '/report', component: report },
     { path: '/bkquery', component: bkquery },
     { path: '/bkstep1', component: bkstep1 },

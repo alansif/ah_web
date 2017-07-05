@@ -6,17 +6,24 @@
                 <div style="position:absolute;z-index:2;left:0;top:0;width:100%;">
                     <p style="text-align:center;font-size:2em;">会员定制</p>
                     <div>
-                        <el-input v-model="idnumber" placeholder="证件号码" style="width:69%;margin:10px 0;"></el-input>
+                        <el-input v-model="idnumber0" placeholder="证件号码" :maxlength="18" style="width:69%;margin:10px 0;"
+                            onkeypress="return event.charCode!=32">
+                        </el-input>
                     </div>
                     <div>
-                        <el-input v-model="phonenumber" placeholder="手机号" style="width:69%;margin:10px 0;"></el-input>
+                        <el-input v-model="phonenumber0" placeholder="手机号"  :maxlength="11" style="width:69%;margin:10px 0;"
+                            onkeypress="return event.charCode>=48 && event.charCode <=57">
+                        </el-input>
                     </div>
                     <div style="margin:10px 0;position: relative;padding:0;">
-                        <el-input v-model="vcode" placeholder="手机验证码" style="width:40%;margin:0;"></el-input>
-                        <el-button type="primary">发送验证码</el-button>
+                        <el-input v-model="vcode0" placeholder="手机验证码" :maxlength="6" style="width:40%;margin:0;"
+                            onkeypress="return event.charCode>=48 && event.charCode <=57">
+                        </el-input>
+                        <timerbtn ref="tb0" type="primary" :loading="vc0loading" @run="sendvc0">发送验证码</timerbtn>
                     </div>
-                    <div style="margin-top: 24px;">
-                        <el-button type="primary" style="width:12em;margin:20px 0" @click="jumpto('http://111.198.146.33:8084/PDBC/Logon.aspx')">开始定制</el-button>
+                    <div style="height:20px;text-align:left;padding-left:56px;font-size:14px;" :style="{color:tips0color}">{{tips0}}</div>
+                    <div style="margin-top:0;">
+                        <el-button type="primary" style="width:12em;margin:20px 0" :loading="ctmloading" @click="goctm">开始定制</el-button>
                     </div>
                 </div>
             </el-col>
@@ -103,6 +110,13 @@
     export default {
         data() {
             return {
+                idnumber0: "",
+                phonenumber0: "",
+                vcode0:'',
+                vc0loading:false,
+                tips0:"",
+                tips0color:"#f55",
+                ctmloading:false,
                 institution: "",
                 instopts: [{value: '1', label: '东环分院'}, {value: '2', label: '西环分院'}],
                 pickerOptions0: {
@@ -112,8 +126,6 @@
                 },
                 datebegin: "",
                 dateend: "",
-                idnumber: "",
-                phonenumber: "",
                 vcode:"",
                 tips1:"",
                 bkqloading:false,
@@ -129,6 +141,42 @@
         methods: {
             jumpto(addr) {
                 window.open(addr);
+            },
+            sendvc0() {
+                this.idnumber0 = this.idnumber0.replace(/^\s+/, "").replace(/\s+$/, "");
+                if (this.idnumber0.length === 0) {
+                    this.tips0color = '#f55';
+                    this.tips0 = "请填写证件号码";
+                    return;
+                }
+                this.phonenumber0 = this.phonenumber0.replace(/^\s+/, "").replace(/\s+$/, "");
+                if (this.phonenumber0.length !== 11) {
+                    this.tips0color = '#f55';
+                    this.tips0 = "手机号码格式不正确";
+                    return;
+                }
+                this.tips0 = "";
+                this.vc0loading = true;
+                this.$http.post(restbase() + "customize/MyService.asmx/GetVerifyInfo",{SFZH:this.idnumber0,Phone:this.phonenumber0})
+                    .then((response)=>{
+                        this.vc0loading = false;
+                        let d = response.body.d;
+                        console.log(d);
+                    }, (response)=>{
+                        this.vc0loading = false;
+                        this.tips0color = '#f55';
+                        this.tips0 = "抱歉，出错了";
+                        console.log(response);
+                    })
+                    .catch((response)=>{
+                        this.vc0loading = false;
+                        this.tips0color = '#f55';
+                        this.tips0 = "抱歉，出错了";
+                        console.log(response);
+                    });
+            },
+            goctm() {
+                this.$router.push('ctm/survey');
             },
             bookingquery() {
                 if (this.institution.length === 0) {
