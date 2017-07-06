@@ -1,12 +1,10 @@
 <template>
     <div>
-        <div style="width:600px;margin: 20px;">
-            <el-button @click="go">GetQuestion</el-button>
-            <el-button @click="getpre">GetPreviousAnswer</el-button>
-        </div>
         <div class="card">
             <div class="cardhead">
-                <div style="margin-left:32px;font-size:20px;">调查问卷</div>
+                <div style="margin-left:32px;font-size:20px;">
+                    调查问卷
+                </div>
             </div>
             <div class="cardbody">
                 <template v-for="(question,idx) in questions">
@@ -32,25 +30,14 @@
     export default {
         data () {
             return {
-                questions: [],
-                ans:{},
-                hint:false
+                questions: this.$root.ctminfo.questions || [],
+                ans: this.$root.ctminfo.answers || {},
+                hint: false
             }
         },
         methods: {
             noe(a) {
                 return !a || (a.length === 0);
-            },
-            go() {
-                this.$http.post(restbase() + "customize/Survey.asmx/GetAllQuestion", {}).then((response) => {
-                    var d = JSON.parse(response.body.d);
-                    this.questions = d.data;
-                    this.questions.forEach(q=>{this.ans[q.QID]=[]});
-                }, (response) => {
-                    console.log(response);
-                }).catch((response) => {
-                    console.log(response);
-                });
             },
             getpre() {
                 this.$http.post(restbase() + "customize/Survey.asmx/GetPreviousAnswer", {id:'12345619880808HZ10'}).then((response) => {

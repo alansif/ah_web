@@ -6,8 +6,8 @@
                 会员定制
             </div>
         </div>
-        <div style="width:100%;margin: 16px;text-align: center;">
-            <el-steps :space="200" :align-center="true" :active="1">
+        <div class="ctmsteps">
+            <el-steps :space="300" :center="true" :align-center="true" :active="1">
                 <el-step title="填写调查问卷"></el-step>
                 <el-step title="定制项目"></el-step>
                 <el-step title="完成定制"></el-step>
@@ -27,5 +27,10 @@
         color: white;
         padding-left: 20px;
         padding-top: 10px;
+    }
+    .ctmsteps {
+        width:100%;
+        padding-top:20px;
+        padding-bottom:10px;
     }
 </style>

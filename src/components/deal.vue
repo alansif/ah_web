@@ -176,7 +176,76 @@
                     });
             },
             goctm() {
-                this.$router.push('ctm/survey');
+                this.idnumber0 = this.idnumber0.replace(/^\s+/, "").replace(/\s+$/, "");
+                if (this.idnumber0.length === 0) {
+                    this.tips0color = '#f55';
+                    this.tips0 = "请填写证件号码";
+                    return;
+                }
+                this.vcode0 = this.vcode0.replace(/^\s+/, "").replace(/\s+$/, "");
+                if (this.vcode0.length !== 6) {
+                    this.tips0color = '#f55';
+                    this.tips0 = "请正确填写验证码";
+                    return;
+                }
+                this.tips0 = "";
+                this.ctmloading = true;
+                this.$http.post(restbase() + "customize/MyService.asmx/GetCustomerLoginInfo",{PaperValue:this.idnumber0,Mobile:this.phonenumber0,PWD:this.vcode0})
+                    .then((response)=>{
+                        let d = JSON.parse(response.body.d);
+                        let s = d[0];
+                        if (s.code == 0) {
+                            this.$root.ctminfo = {
+                                id: this.idnumber0,
+                                phone: this.phonenumber0,
+                                name: s.UserName,
+                                gender: s.Sex
+                            };
+                            this.$http.post(restbase() + "customize/Survey.asmx/GetAllQuestion", {gender:s.Sex}).then((response) => {
+                                let d1 = JSON.parse(response.body.d);
+                                this.$root.ctminfo.questions = d1.data;
+                                this.$root.ctminfo.answers = {};
+                                this.$root.ctminfo.questions.forEach(q=>{this.$root.ctminfo.answers[q.QID]=[]});
+                                this.$http.post(restbase() + "customize/Survey.asmx/GetPreviousAnswer", {id:this.idnumber0}).then((response) => {
+                                    this.ctmloading = false;
+                                    var d2 = JSON.parse(response.body.d);
+                                    if (d2.status.code == 0) {
+                                        this.$root.ctminfo.answers = d2.data;
+                                        this.$router.push('ctm/survey');
+                                    }
+                                }, (response) => {
+                                    this.ctmloading = false;
+                                    this.tips0color = '#f55';
+                                    this.tips0 = "抱歉，出错了";
+                                }).catch((response) => {
+                                    this.ctmloading = false;
+                                    this.tips0color = '#f55';
+                                    this.tips0 = "抱歉，出错了";
+                                });
+                            }, (response) => {
+                                this.ctmloading = false;
+                                this.tips0color = '#f55';
+                                this.tips0 = "抱歉，出错了";
+                            }).catch((response) => {
+                                this.ctmloading = false;
+                                this.tips0color = '#f55';
+                                this.tips0 = "抱歉，出错了";
+                            });
+                        } else {
+                            this.ctmloading = false;
+                            this.tips0color = '#f55';
+                            this.tips0 = "抱歉，出错了";
+                        }
+                    }, (response)=>{
+                        this.ctmloading = false;
+                        this.tips0color = '#f55';
+                        this.tips0 = "抱歉，出错了";
+                    })
+                    .catch((response)=>{
+                        this.ctmloading = false;
+                        this.tips0color = '#f55';
+                        this.tips0 = "抱歉，出错了";
+                    });
             },
             bookingquery() {
                 if (this.institution.length === 0) {
