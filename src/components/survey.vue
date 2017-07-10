@@ -1,5 +1,4 @@
 <template>
-    <div>
         <div class="card">
             <div class="cardhead">
                 <div style="margin-left:32px;font-size:20px;">
@@ -14,11 +13,10 @@
                 </template>
                 <hr style="margin-top:32px;height:1px;border:none;border-top:1px solid #ccc;" />
                 <div style="width:100%;margin-top:24px;text-align:center;">
-                    <el-button type="primary" @click="nextstep">下一步</el-button>
+                    <el-button type="primary" :loading="nsloading" @click="nextstep">下一步</el-button>
                 </div>
             </div>
         </div>
-    </div>
 </template>
 
 <script>
@@ -32,26 +30,13 @@
             return {
                 questions: this.$root.ctminfo.questions || [],
                 ans: this.$root.ctminfo.answers || {},
-                hint: false
+                hint: false,
+                nsloading: false
             }
         },
         methods: {
             noe(a) {
                 return !a || (a.length === 0);
-            },
-            getpre() {
-                this.$http.post(restbase() + "customize/Survey.asmx/GetPreviousAnswer", {id:'12345619880808HZ10'}).then((response) => {
-                    var d = JSON.parse(response.body.d);
-                    if (d.status.code == 0) {
-                        this.ans = d.data;
-                        console.log(this.ans);
-                        this.$forceUpdate();
-                    }
-                }, (response) => {
-                    console.log(response);
-                }).catch((response) => {
-                    console.log(response);
-                });
             },
             changed(qid, answer) {
                 this.ans[qid] = answer;
@@ -67,16 +52,31 @@
             },
             nextstep() {
                 var qid = this.getFirstNoe();
-                if (qid === null) return;
-                var elmnt = document.getElementById(qid);
-                scrollElement(elmnt, 300);
-                this.hint = true;
-                this.$notify({
-                    title: '提示',
-                    message: '您有问题尚未回答，请完成红色标题的问题',
-                    duration: 3000,
-                    type: 'error'
-                })
+                if (qid === null) {
+                    this.nsloading = true;
+                    this.$http.post(restbase() + "customize/MyService.asmx/GetYskInfo", {sex:this.$root.ctminfo.gender}).then((response) => {
+                        this.nsloading = false;
+                        var d = JSON.parse(response.body.d);
+                        this.$root.ctminfo.essential = d['ALL'];
+                        this.$router.push('/ctm/doctm');
+                    }, (response) => {
+                        this.nsloading = false;
+                        console.log(response);
+                    }).catch((response) => {
+                        this.nsloading = false;
+                        console.log(response);
+                    });
+                } else {
+                    var elmnt = document.getElementById(qid);
+                    scrollElement(elmnt, 300);
+                    this.hint = true;
+                    this.$notify({
+                        title: '提示',
+                        message: '您有问题尚未回答，请完成红色标题的问题',
+                        duration: 3000,
+                        type: 'error'
+                    })
+                }
             }
         },
         components:{
