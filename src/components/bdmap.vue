@@ -1,11 +1,5 @@
 <template>
-    <div>
-        <el-tabs v-model="activeName" @tab-click="handleClick">
-            <el-tab-pane label="东环分院" name="east"></el-tab-pane>
-            <el-tab-pane label="西环分院" name="west"></el-tab-pane>
-        </el-tabs>
-        <div style="width:800px;height:480px;border:#ccc solid 1px;" id="dituContent"></div>
-    </div>
+    <div style="width:640px;height:480px;border:#ccc solid 1px;" id="dituContent"></div>
 </template>
 
 <script>
@@ -20,9 +14,8 @@
     //创建地图函数：
     function createMap(){
         var map = new BMap.Map("dituContent");//在百度地图容器中创建一个地图
-//        var point = new BMap.Point(116.442662,39.94362);//定义一个中心点坐标
-//        var point = new BMap.Point(116.354467,39.948086);//定义一个中心点坐标
-//        map.centerAndZoom(point,17);//设定地图的中心点和坐标并将地图显示在地图容器中
+        var point = new BMap.Point(116.442662,39.94362);//定义一个中心点坐标
+        map.centerAndZoom(point,17);//设定地图的中心点和坐标并将地图显示在地图容器中
         window.map = map;//将map变量存储在全局
     }
 
@@ -40,10 +33,10 @@
         var ctrl_nav = new BMap.NavigationControl({anchor:BMAP_ANCHOR_TOP_LEFT,type:BMAP_NAVIGATION_CONTROL_LARGE});
         map.addControl(ctrl_nav);
         //向地图中添加缩略图控件
-        var ctrl_ove = new BMap.OverviewMapControl({anchor:BMAP_ANCHOR_BOTTOM_RIGHT,isOpen:1});
+        var ctrl_ove = new BMap.OverviewMapControl({anchor:BMAP_ANCHOR_BOTTOM_LEFT,isOpen:1});
         map.addControl(ctrl_ove);
         //向地图中添加比例尺控件
-        var ctrl_sca = new BMap.ScaleControl({anchor:BMAP_ANCHOR_BOTTOM_LEFT});
+        var ctrl_sca = new BMap.ScaleControl({anchor:BMAP_ANCHOR_BOTTOM_RIGHT});
         map.addControl(ctrl_sca);
     }
 
@@ -109,7 +102,6 @@
     export default {
         data() {
             return {
-                activeName: 'east'
             }
         },
         mounted() {
@@ -117,14 +109,13 @@
             this.$emit('aftermount');
         },
         methods: {
-            handleClick(tab, event) {
-                if (this.activeName === 'east') {
-                    var point = new BMap.Point(116.442662,39.94362);//定义一个中心点坐标
-                    window.map.centerAndZoom(point,17);//设定地图的中心点和坐标并将地图显示在地图容器中
-                } else {
-                    var point = new BMap.Point(116.354467,39.948086);//定义一个中心点坐标
-                    window.map.centerAndZoom(point,17);//设定地图的中心点和坐标并将地图显示在地图容器中
-                }
+            goeast(){
+                var point = new BMap.Point(116.442662,39.94362);
+                window.map.centerAndZoom(point,17);
+            },
+            gowest(){
+                var point = new BMap.Point(116.354467,39.948086);
+                window.map.centerAndZoom(point,17);
             }
         }
     }
