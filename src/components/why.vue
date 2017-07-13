@@ -1,5 +1,5 @@
 <template>
-    <section id="why" style="color:#fff;position:relative;">
+    <section id="why" style="color:#fff;position:relative;margin-top: 40px;margin-bottom: 40px;">
         <div style="overflow:hidden;width:100%;position:absolute;">
             <img src="../assets/bg.jpg" style="height:760px;"/>
         </div>

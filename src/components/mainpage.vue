@@ -4,9 +4,7 @@
         <bulletin></bulletin>
         <about></about>
         <deal></deal>
-        <products></products>
         <why></why>
-        <knowledge></knowledge>
         <process></process>
         <contact></contact>
 	</div>
@@ -34,9 +32,7 @@
             bulletin,
             about,
             deal,
-            products,
             why,
-            knowledge,
             process,
             contact
         }
