@@ -20,7 +20,7 @@
                 <a href="http://weibo.com/huazhaoyisheng" target="_blank" class="jdlink"><p><img src="../assets/weibo.png" class="jdico">关注华兆益生官方微博</p></a>
             </el-col>
             <el-col :span="5" style="padding:0 10px;color:#888;">
-                <span>华兆益生微信公众号</span>
+                <span><img src="../assets/weixin.png" class="jdico">华兆益生微信公众号</span>
                 <img src="../assets/qrwx.jpg" width="150" height="150"/>
             </el-col>
         </el-row>

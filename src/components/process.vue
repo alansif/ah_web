@@ -59,17 +59,29 @@
                 </div>
                 <span style="position: absolute;left:-85px;top:3px;color:#fff;">体检和就餐</span>
             </div>
-            <div style="position: absolute;left:740px;top:460px;width:100px;height:50px;">
+            <div style="position: absolute;left:840px;top:460px;width:100px;height:50px;">
                 <div class="circle2">
                     <span class="proctxt">9</span>
                 </div>
                 <span style="position: absolute;left:-41px;top:35px;color:#fff;">完成体检并更衣</span>
             </div>
-            <div style="position: absolute;left:540px;top:580px;width:150px;height:50px;">
+            <div style="position: absolute;left:495px;top:455px;width:150px;height:50px;">
                 <div class="circle2">
                     <span class="proctxt">10</span>
                 </div>
-                <span style="position: absolute;left:-75px;top:35px;color:#fff;">7个工作日后下载体检报告</span>
+                <span style="position: absolute;left:-192px;top:3px;color:#fff;">7个工作日后下载体检报告</span>
+            </div>
+            <div style="position: absolute;left:580px;top:510px;width:150px;height:50px;">
+                <div class="circle2">
+                    <span class="proctxt">11</span>
+                </div>
+                <span style="position: absolute;left:36px;top:3px;color:#fff;">预约报告解读（可选）</span>
+            </div>
+            <div style="position: absolute;left:540px;top:580px;width:150px;height:50px;">
+                <div class="circle2">
+                    <span class="proctxt">12</span>
+                </div>
+                <span style="position: absolute;left:-35px;top:35px;color:#fff;">预约复检（可选）</span>
             </div>
         </div>
     </section>
