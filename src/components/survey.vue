@@ -62,12 +62,12 @@
                             Type:'3',
                             GroupClassify:'',
                             PageSize:100,
-                            PageIndex:0
+                            PageIndex:1
                         }).then((response) => {
                             this.nsloading = false;
                             var d1 = JSON.parse(response.body.d);
-                            console.log(d1);
-//                            this.$router.push('/ctm/doctm');
+                            this.$root.ctminfo.optionals = d1['ALL'];
+                            this.$router.push('/ctm/doctm');
                         }, (response) => {
                             this.nsloading = false;
                             console.log(response);

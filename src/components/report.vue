@@ -17,7 +17,7 @@
           <el-table-column width="200">
             <template scope="scope">
               <div style="text-align: center;">
-                <a :href="scope.row.url"><el-button type="primary" size="small">下载</el-button></a>
+                <a :href="scope.row.url" download><el-button type="primary" size="small">下载</el-button></a>
               </div>
             </template>
           </el-table-column>

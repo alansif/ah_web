@@ -5,16 +5,18 @@
             <el-tabs>
                 <el-tab-pane label="基础项目">
                     <el-table stripe :data="essential">
-                        <el-table-column label="项目" prop="项目" :width="150"></el-table-column>
-                        <el-table-column label="说明" prop="说明" :width="662"></el-table-column>
-                        <el-table-column label="分类" prop="分类" :width="105"></el-table-column>
+                        <el-table-column label="项目" prop="项目" :width="170"></el-table-column>
+                        <el-table-column label="说明" prop="说明" :width="790"></el-table-column>
+                        <el-table-column label="分类" prop="分类" :width="120"></el-table-column>
                     </el-table>
                 </el-tab-pane>
                 <el-tab-pane label="可选项目">
                     <el-table stripe :data="optionals">
-                        <el-table-column label="项目" prop="项目" :width="150"></el-table-column>
-                        <el-table-column label="说明" prop="说明" :width="662"></el-table-column>
-                        <el-table-column label="分类" prop="分类" :width="105"></el-table-column>
+                        <el-table-column type="selection" :width="50"></el-table-column>
+                        <el-table-column label="项目" prop="GNAME" :width="230"></el-table-column>
+                        <el-table-column label="说明" prop="RcommandSource" :width="550"></el-table-column>
+                        <el-table-column label="分类" prop="类型" :width="140"></el-table-column>
+                        <el-table-column label="价格" prop="Price" :width="110" align="right"></el-table-column>
                     </el-table>
                 </el-tab-pane>
             </el-tabs>
@@ -66,7 +68,7 @@
     }
     .dcframe {
         margin:0 auto;
-        width:85%;
+        width:100%;
         padding-bottom:4px;
         border-radius: 4px;
         box-shadow: 2px 2px 2px #888;
@@ -82,7 +84,7 @@
         height: 56px;
         box-shadow: 0px -1px 2px #ccc;
         background-color: white;
-        text-align: right;
+        text-align: center;
         color:#777;
     }
     .cartctnt {

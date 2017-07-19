@@ -15,13 +15,13 @@
                 </div>
             </el-col>
             <el-col :span="6" style="text-align:left;color:#888;">
-                <p>email：adva@advahealth.com</p>
+                <p><img src="../assets/mail.png" class="jdico">email：adva@advahealth.com</p>
                 <a href="https://mall.jd.com/index-143982.html" target="_blank" class="jdlink"><p><img src="../assets/jd.jpg" class="jdico">访问华兆益生京东旗舰店</p></a>
                 <a href="http://weibo.com/huazhaoyisheng" target="_blank" class="jdlink"><p><img src="../assets/weibo.png" class="jdico">关注华兆益生官方微博</p></a>
             </el-col>
             <el-col :span="5" style="padding:0 10px;color:#888;">
-                <span><img src="../assets/weixin.png" class="jdico">华兆益生微信公众号</span>
-                <img src="../assets/qrwx.jpg" width="150" height="150"/>
+                <img src="../assets/qrwx.jpg" width="140" height="140" style="display: block;margin:0 auto;"/>
+                <img src="../assets/weixin.png" class="jdico" style="vertical-align: middle;"><span style="font-size: 12px;">华兆益生微信公众号</span>
             </el-col>
         </el-row>
     </section>
