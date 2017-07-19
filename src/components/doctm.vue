@@ -10,7 +10,13 @@
                         <el-table-column label="分类" prop="分类" :width="105"></el-table-column>
                     </el-table>
                 </el-tab-pane>
-                <el-tab-pane label="可选项目">可选项目</el-tab-pane>
+                <el-tab-pane label="可选项目">
+                    <el-table stripe :data="optionals">
+                        <el-table-column label="项目" prop="项目" :width="150"></el-table-column>
+                        <el-table-column label="说明" prop="说明" :width="662"></el-table-column>
+                        <el-table-column label="分类" prop="分类" :width="105"></el-table-column>
+                    </el-table>
+                </el-tab-pane>
             </el-tabs>
             </div>
         </div>
@@ -32,6 +38,7 @@
         data() {
             return {
                 essential: this.$root.ctminfo.essential,
+                optionals: this.$root.ctminfo.optionals,
                 itemcount: 3,
                 amount: 100,
                 discountrate: 80

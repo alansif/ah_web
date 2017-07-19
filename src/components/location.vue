@@ -19,9 +19,9 @@
                     <div style="width:380px;text-align: justify;margin-left: 20px;">
                         <dl>
                             <dt class="contactdt">地址</dt>
-                            <dd style="margin-left:60px;"><p>{{branch.addr}}</p></dd>
+                            <dd style="margin-left:60px;"><p style="margin-top: 0;margin-bottom: 8px;">{{branch.addr}}</p></dd>
                             <dt class="contactdt">公交</dt>
-                            <dd style="margin-left:60px;"><p>{{branch.bus}}</p></dd>
+                            <dd style="margin-left:60px;"><p style="margin-top: 0;margin-bottom: 8px;">{{branch.bus}}</p></dd>
                             <dt class="contactdt">驾车</dt>
                             <dd style="margin-left:60px;" v-html="branch.drive"></dd>
                         </dl>

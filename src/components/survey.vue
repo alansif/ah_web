@@ -55,10 +55,26 @@
                 if (qid === null) {
                     this.nsloading = true;
                     this.$http.post(restbase() + "customize/MyService.asmx/GetYskInfo", {sex:this.$root.ctminfo.gender}).then((response) => {
-                        this.nsloading = false;
                         var d = JSON.parse(response.body.d);
                         this.$root.ctminfo.essential = d['ALL'];
-                        this.$router.push('/ctm/doctm');
+                        this.$http.post(restbase() + "customize/MyService.asmx/GeSelfChoiceAInfo", {
+                            SFZH:this.$root.ctminfo.id,
+                            Type:'3',
+                            GroupClassify:'',
+                            PageSize:100,
+                            PageIndex:0
+                        }).then((response) => {
+                            this.nsloading = false;
+                            var d1 = JSON.parse(response.body.d);
+                            console.log(d1);
+//                            this.$router.push('/ctm/doctm');
+                        }, (response) => {
+                            this.nsloading = false;
+                            console.log(response);
+                        }).catch((response) => {
+                            this.nsloading = false;
+                            console.log(response);
+                        });
                     }, (response) => {
                         this.nsloading = false;
                         console.log(response);
