@@ -7,7 +7,7 @@
     props: {
         second: {
             type: Number,
-            default: 60
+            default: 90
         },
         disabled: {
             type: Boolean,
