@@ -7,9 +7,7 @@
         </div>
       </div>
         <el-table :data="rptList" stripe border :height="600" class="blttable">
-          <el-table-column prop="date" label="体检日期">
-          </el-table-column>
-          <el-table-column prop="wsn" label="体检编号">
+          <el-table-column prop="date" label="体检日期" width="200">
           </el-table-column>
           <el-table-column prop="subject" label="类别">
             <template scope="scope">{{scope.row.subject === "YG" ? "乙肝报告" : "体检报告"}}</template>
