@@ -74,10 +74,20 @@
                                   onkeypress="return event.charCode!=32">
                         </el-input>
                     </div>
-                    <div>
-                        <el-input v-model="phonenumber2" placeholder="手机号" :maxlength="11" style="width:69%;margin:10px 0;"
-                                  onkeypress="return event.charCode>=48 && event.charCode <=57">
-                        </el-input>
+                    <el-popover
+                            ref="popover1"
+                            placement="left"
+                            width="200"
+                            trigger="hover"
+                            offset="2"
+                            content="请输入您在华兆益生预留的手机号码">
+                    </el-popover>
+                    <div style="margin-bottom: 20px;">
+                            <div v-popover:popover1 style="width: 69%;margin: 10px auto;">
+                                <el-input v-model="phonenumber2" placeholder="手机号" :maxlength="11"
+                                          onkeypress="return event.charCode>=48 && event.charCode <=57">
+                                </el-input>
+                            </div>
                     </div>
                     <div style="margin:10px 0;position: relative;padding:0;">
                         <el-input v-model="vcode2" placeholder="手机验证码" :maxlength="6" style="width:40%;margin:0;"
