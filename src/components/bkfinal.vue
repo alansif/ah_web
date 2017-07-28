@@ -11,7 +11,7 @@
               <i class="el-icon-check"></i>{{this.$root.bkfinaltext}}
             </div>
             <div style="position:absolute;top:210px;left:0;text-align:center;width:100%;">
-              <a href="/home><el-button type="primary">返回首页</el-button></a>
+              <a href="/home"><el-button type="primary">返回首页</el-button></a>
             </div>
         </div>
     </div>

@@ -23,7 +23,7 @@
                     </div>
                     <div style="height:20px;text-align:left;padding-left:56px;font-size:14px;" :style="{color:tips0color}">{{tips0}}</div>
                     <div style="margin-top:0;">
-                        <el-button type="primary" style="width:12em;margin:20px 0" :loading="ctmloading" @click="goctm">开始定制</el-button>
+                        <el-button type="primary" style="width:12em;margin:20px 0" :loading="ctmloading" @click="goctm" :disabled="true">敬请期待</el-button>
                     </div>
                 </div>
             </el-col>
@@ -107,7 +107,7 @@
                 <el-row style="color:#fff;text-align: center;">
                     <el-col :span="8"><a href="/home">查看已定制的产品</a></el-col>
                     <el-col :span="8"><a href="/bkview">管理您的预约</a></el-col>
-                    <el-col :span="8"><a href="/home">填写健康问卷</a></el-col>
+                    <el-col :span="8"><a href="http://115.28.130.223/YuYue/YuYue/wenjuan.asp" target="_blank">填写健康问卷</a></el-col>
                 </el-row>
             </el-collapse-item>
         </el-collapse>
@@ -266,11 +266,12 @@
                     this.tips1 = "请选择查询日期";
                     return;
                 }
+                var dateendp1 = moment(this.dateend).add("days", 1);
                 this.tips1 = "";
                 this.bkqloading = true;
                 this.$http.post(restbase() + "booking/WSOnline.asmx/SearchOrderDate2",{
                     dateFrom:this.datebegin,
-                    dateEnd:this.dateend,
+                    dateEnd:dateendp1,
                     branchID:this.institution,
                     branchName:this.institution === '1' ? '东环分院' : '西环分院'
                 }).then((response)=>{
