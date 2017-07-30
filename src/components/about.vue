@@ -1,14 +1,14 @@
 <template>
     <section id="about" style="position:relative;margin-bottom:2px;">
         <el-row style="background-color:white;">
-            <el-col :span="4" style="position:relative;">
-                <div style="position:relative;margin-top:35px;margin-left:50px;">
+            <el-col :span="3" style="position:relative;">
+                <div style="position:relative;margin-top:25px;margin-left:32px;">
                     <img src="../assets/logo2.png" style="width:100%;"/>
                 </div>
             </el-col>
-            <el-col :span="20" style="padding:10px 60px 5px 40px;">
+            <el-col :span="21" style="padding:0 60px 5px 40px;">
                 <p style="text-align:justify;font-size:1.2em;line-height:200%;color:#888;text-indent:2em;">
-                    华兆益生是一家为企业和个人提供健康体检与健康管理服务的医疗机构，拥有两家体检中心和一个健康管理中心。我们集优质的医疗资源和人性化服务流程于一体，追求卓越的医疗质量和客户体验。我们致力于与客户建立终身服务关系，长期专注于客户的健康状况，以提高客户的生活质量为使命。</p>
+                    华兆益生是一家为个人客户和企业客户提供健康体检服务的医疗机构。我们集优质的医疗资源和人性化服务流程于一体，追求卓越的医疗质量和客户体验。我们致力于与客户建立终身服务关系，长期专注于客户的健康状况，以提高客户的生活质量为使命。</p>
             </el-col>
         </el-row>
         <el-row style="background-color: #f3f3f3;">
@@ -22,41 +22,20 @@
             <el-col :span="8" style="position:relative;">
                 <div class="sy">
                     <p class="suyuan">
-                        <span class="bigword">兆</span>&#12288;预兆之意，华兆益生秉承预防为主的先进健康管理理念，对客户实施早预防、早治疗，成就客户健康丰富的人生。
+                        <span class="bigword">兆</span>&#12288;预兆之意，华兆益生秉承预防为主的健康管理理念，对客户实施早预防、早治疗，成就客户健康丰富的人生。
                     </p>
                 </div>
             </el-col>
             <el-col :span="8" style="position:relative;">
                 <div class="sy">
                     <p class="suyuan">
-                        <span class="bigword">益生</span>&#12288;是医生和一生的谐音，健康管理非一时一事之功而需终生关怀、帮助和引导，因此益生更深层的含义是投资健康，受益终生！
+                        <span class="bigword">益生</span>&#12288;是“一生”的谐音，健康管理非一时一事之功而需终身关怀、帮助和引导。益生更深层的含义是投资健康，受益终生。
                     </p>
                 </div>
             </el-col>
         </el-row>
-        <!--      <h1>欢迎来到{{msg}}</h1>
-              <el-button @click.native="startHacking">Let's do it</el-button>  -->
     </section>
 </template>
-
-<script>
-    export default {
-        data() {
-            return {
-                msg: '华兆益生'
-            }
-        },
-        methods: {
-            startHacking () {
-                this.$notify({
-                    title: 'It Works',
-                    message: 'We have laid the groundwork for you. Now it\'s your time to build something epic!',
-                    duration: 6000
-                });
-            }
-        }
-    }
-</script>
 
 <style>
     .sy {
