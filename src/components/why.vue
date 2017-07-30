@@ -59,7 +59,7 @@
     }
 
     .whyimg {
-        margin:22px 30px 80px 18px;
+        margin:21px 30px 80px 18px;
         position:relative;
         z-index:3;
     }
