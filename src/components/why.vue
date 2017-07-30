@@ -5,15 +5,13 @@
         </div>
         <el-row>
             <el-col :span="10">
-                <img src="../assets/doctor-b1.png" style="width:100%;padding-left:10px;padding-top:90px;"/>
+                <img src="../assets/doctor-b1.png" style="width:100%;padding-left:35px;padding-top:90px;"/>
             </el-col>
             <el-col :span="14">
-                <div style="padding:36px 50px 0 30px;">
+                <div style="padding:55px 55px 0 60px;">
                     <p style="font-size:2em;text-align:left;">为什么选择我们？</p>
-                    <p style="text-align:justify;line-height:150%;text-indent:2em;">
-                        华兆益生定位于“顾问式健康体检”，我们除了一流检验设备，超大面积外，更重视在检前、检中、检后为客户提供全面的咨询服务。华兆提倡三讲：讲观念、讲知识、讲解决方案。即讲健康观念，讲医学知识，并针对客户的具体健康问题讲解决方案。我们拒绝流水线式的自动化体检，我们反对“以机代医”，我们努力为客户提供专业的健康顾问服务。</p>
                     <div class="why1">
-                        <div class="circle whycp""></div>
+                        <div class="circle whycp"></div>
                         <img src="../assets/doctor.png" height="40" align="left" class="whyimg"/>
                         <p class="whyt">医疗质量</p>
                         <p class="whyp">
@@ -21,7 +19,7 @@
                         </p>
                     </div>
                     <div class="why1">
-                        <div class="circle whycp""></div>
+                        <div class="circle whycp"></div>
                         <img src="../assets/list-6.png" height="40" align="left" class="whyimg"/>
                         <p class="whyt">个性定制</p>
                         <p class="whyp">
@@ -29,7 +27,7 @@
                         </p>
                     </div>
                     <div class="why1">
-                        <div class="circle whycp""></div>
+                        <div class="circle whycp"></div>
                         <img src="../assets/calendar-36.png" height="40" align="left" class="whyimg"/>
                         <p class="whyt">全周期复检</p>
                         <p class="whyp">
@@ -57,7 +55,7 @@
 
     .why1 {
         position:relative;
-        margin-top:24px;
+        margin-top:40px;
     }
 
     .whyimg {
@@ -74,7 +72,7 @@
 
     .whyp {
         text-align:justify;
-        line-height:150%;
+        line-height:170%;
         margin-top:8px;
         text-indent:2em;
     }
