@@ -55,7 +55,7 @@
 
     .why1 {
         position:relative;
-        margin-top:35px;
+        margin-top:30px;
     }
 
     .whyimg {
