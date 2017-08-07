@@ -11,7 +11,9 @@
         </header>
 
         <router-view></router-view>
-      
+
+        <guestbook></guestbook>
+
         <div style="text-align:center;color:#888;">
             <p>京ICP备05027604号</p>
         </div>
@@ -19,7 +21,11 @@
 </template>
 
 <script>
+    import guestbook from './components/guestbook.vue'
     export default {
+        components: {
+            guestbook
+        }
     }
 </script>
 
