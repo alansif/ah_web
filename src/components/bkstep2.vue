@@ -108,13 +108,14 @@
                 }).then((response) => {
                     this.submitloading = false;
                     var d = JSON.parse(response.body.d);
-                    this.tips = d.status.description;
                     if (d.status.code == 0) {
                         this.tipscolor = '#00df00';
                         this.$root.bkfinaltext = '您的预约已成功，谢谢！';
                         this.$router.push('bkfinal');
                     } else {
                         this.tipscolor = '#f55';
+                        this.tips = '很抱歉，预约未成功。请点击右侧按钮留言或致电010-83033939咨询。';
+                        this.$root.$emit('shakegb');
                     }
                 }, (response) => {
                     this.submitloading = false;

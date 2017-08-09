@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import VueResource from 'vue-resource'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-default/index.css'
+import 'csshake/dist/csshake.min.css'
 import App from './App.vue'
 import routes from './routes'
 

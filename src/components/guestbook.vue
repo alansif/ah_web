@@ -3,7 +3,7 @@
         <div class="right_fbox">
             <el-tooltip placement="top" effect="light">
                 <div slot="content" style="width:160px;text-align:justify;">如果您有任何问题，敬请留言，我们会尽快回复，谢谢！</div>
-                <img src="../assets/notebook-1.svg" width="50" height="50" @click="dialogVisible=true"/>
+                <img src="../assets/notebook-1.svg" width="50" height="50" @click="dialogVisible=true" :class="{'shake-horizontal':shaking,'shake-constant':shaking}"/>
             </el-tooltip>
         </div>
         <el-dialog title="留言" :visible.sync="dialogVisible" size="tiny">
@@ -47,8 +47,18 @@
                     category: '',
                     message: ''
                 },
-                sending:false
+                sending:false,
+                shaking:false
             }
+        },
+        mounted() {
+            let realroot = this;
+            this.$root.$on('shakegb', function(){
+                realroot.shaking = true;
+                setTimeout(function(){
+                    realroot.shaking = false;
+                }, 1000);
+            });
         },
         methods:{
             postmsg() {
@@ -108,7 +118,7 @@
         position: fixed;
         float: right;
         left:50%;
-        top:90%;
+        top:85%;
         z-index: 999;
         margin-left:570px;
         cursor: pointer;
