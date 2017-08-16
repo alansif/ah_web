@@ -6,7 +6,7 @@
                 <img src="../assets/notebook-1.svg" width="50" height="50" @click="dialogVisible=true" :class="{'shake-horizontal':shaking,'shake-constant':shaking}"/>
             </el-tooltip>
         </div>
-        <el-dialog title="留言" :visible.sync="dialogVisible" size="tiny">
+        <el-dialog title="留言" :visible.sync="dialogVisible" size="tiny" :close-on-click-modal="false">
             <el-form :model="form" style="margin: 0 30px 0 30px;">
                 <el-form-item label="姓名">
                     <el-input id="fname" v-model="form.username" placeholder="请填写您的姓名" style="max-width: 221px;"></el-input>
@@ -90,6 +90,8 @@
                         let st = response.body.status;
                         if (st.code == 0) {
                             this.dialogVisible = false;
+                            this.form.category = '';
+                            this.form.message = '';
                             this.$notify({
                                 title: '发送成功',
                                 message: '您的留言已发送到华兆益生，我们将尽快给您回复，谢谢！',
