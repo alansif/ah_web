@@ -30,7 +30,7 @@
             <el-col :span="8" style="position:relative;">
                 <img src=../assets/b2.jpg  style="width:100%;z-index:1;">
                 <div style="position:absolute;z-index:2;left:0;top:0;width:100%;">
-                    <p style="text-align:center;font-size:2em;">查询预约</p>
+                    <p style="text-align:center;font-size:2em;">网上预约</p>
                     <div>
                         <el-select v-model="institution" placeholder="地点" style="width:70%;margin:10px 0;">
                             <el-option
@@ -278,7 +278,7 @@
                     console.log(response.body.d);
                     this.$root.schdata = JSON.parse(response.body.d);
                     this.$root.schbranch = this.institution;
-                    this.$router.push('bkquery');
+                    this.$router.push('/bkquery');
                     this.bkqloading = false;
                 },(response)=>{
                     console.log(response);
