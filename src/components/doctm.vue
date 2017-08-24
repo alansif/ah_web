@@ -11,7 +11,7 @@
                     </el-table>
                 </el-tab-pane>
                 <el-tab-pane label="可选项目">
-                    <el-table stripe :data="optionals">
+                    <el-table stripe :data="optionals" @select="handleSelect">
                         <el-table-column type="selection" :width="50"></el-table-column>
                         <el-table-column label="项目" prop="GNAME" :width="230"></el-table-column>
                         <el-table-column label="说明" prop="RcommandSource" :width="550"></el-table-column>
@@ -36,6 +36,7 @@
 </template>
 
 <script>
+    import {restbase} from '../config'
     export default {
         data() {
             return {
@@ -49,6 +50,23 @@
         methods: {
             nextstep() {
 
+            },
+            handleSelect(selection, row) {
+                var f = selection.indexOf(row) !== -1;
+                console.log(f, row.GID, row.SFZH);
+                this.$http.post(restbase() + "customize/MyService.asmx/SetItemCheckedChangedInfo",
+                    {
+                        SFZH: row.SFZH,
+                        GID: row.GID,
+                        flag: f
+                    }).then((response) => {
+                        var d = JSON.parse(response.body.d);
+                        console.log(d);
+                    }, (response) => {
+                        console.log(response);
+                    }).catch((response) => {
+                        console.log(response);
+                    });
             }
         },
         computed: {

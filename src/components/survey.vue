@@ -67,6 +67,7 @@
                             this.nsloading = false;
                             var d1 = JSON.parse(response.body.d);
                             this.$root.ctminfo.optionals = d1['ALL'];
+                            console.log(this.$root.ctminfo.optionals);
                             this.$router.push('/ctm/doctm');
                         }, (response) => {
                             this.nsloading = false;
