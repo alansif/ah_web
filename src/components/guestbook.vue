@@ -120,7 +120,7 @@
         position: fixed;
         float: right;
         left:50%;
-        top:85%;
+        top:83%;
         z-index: 999;
         margin-left:570px;
         cursor: pointer;

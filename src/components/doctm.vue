@@ -11,7 +11,7 @@
                     </el-table>
                 </el-tab-pane>
                 <el-tab-pane label="可选项目">
-                    <el-table stripe :data="optionals" @select="handleSelect">
+                    <el-table stripe ref="opttable" :data="optionals" @select="handleSelect">
                         <el-table-column type="selection" :width="50"></el-table-column>
                         <el-table-column label="项目" prop="GNAME" :width="230"></el-table-column>
                         <el-table-column label="说明" prop="RcommandSource" :width="550"></el-table-column>
@@ -24,10 +24,21 @@
         </div>
         <div class="cart">
             <div class="cartctnt">
-                <span style="margin-right: 30px;">已选择{{itemcount}}项定制</span>
-                <span style="margin-right: 30px;">定制项总金额：{{amount}}</span>
-                <span style="margin-right: 30px;">会员折扣率：{{discountrate}}%</span>
-                <span style="margin-right: 30px;">会员优惠：-{{discount}}</span>
+                <span style="margin-right: 30px;">已选择{{itemcount}}定制</span>
+                <span style="margin-right: 30px;">定制项金额：{{dzamount}}</span>
+                <span style="margin-right: 30px;">早癌项金额：{{zaamount}}</span>
+                <el-tooltip placement="top" effect="light">
+                    <div slot="content">
+                        <ul style="padding-left: 24px;padding-right: 14px;line-height: 20px;">
+                            <li>定制项总金额≤500元，享受8折优惠</li>
+                            <li>501元≤定制项总金额≤1000元，享受7.5折优惠</li>
+                            <li>1001元≤定制项总金额≤1500元，享受7折优惠</li>
+                            <li>定制项总金额＞1500元，享受6.5折优惠</li>
+                            <li>早癌项固定享受8折优惠</li>
+                        </ul>
+                    </div>
+                    <span style="margin-right: 30px;">会员折扣<img src="../assets/question.svg" width="16" height="16" style="vertical-align:text-top"/>：-{{discount}}</span>
+                </el-tooltip>
                 <span style="margin-right: 30px;">应付总金额：{{total}}</span>
                 <el-button type="primary" @click="nextstep">下一步</el-button>
             </div>
@@ -42,39 +53,54 @@
             return {
                 essential: this.$root.ctminfo.essential,
                 optionals: this.$root.ctminfo.optionals,
-                itemcount: 3,
-                amount: 100,
-                discountrate: 80
+                itemcount: '',
+                dzamount: '',
+                zaamount: '',
+                discount: '',
+                total: ''
             }
+        },
+        mounted() {
+            this.$refs.opttable.data.forEach(row => {
+                this.$refs.opttable.toggleRowSelection(row, row.IsAccept === 1);
+            });
+            this.fetchPrice(this.$root.ctminfo.id);
         },
         methods: {
             nextstep() {
 
             },
+            fetchPrice(SFZH) {
+                this.$http.post(restbase() + "customize/MyService.asmx/GetPriceCount", {SFZH: SFZH})
+                    .then((response) => {
+                        var d = JSON.parse(response.body.d);
+                        var dd = d.data[0];
+                        this.itemcount = dd.DingZhiProcount;
+                        this.dzamount = dd.PriceCount;
+                        this.zaamount = dd.ZaoAiItem;
+                        this.discount = dd.SavePrice;
+                        this.total = dd.TotalPrice;
+                    }, (response) => {
+                        console.log(response);
+                    })
+                    .catch((response) => {
+                        console.log(response);
+                    });
+            },
             handleSelect(selection, row) {
                 var f = selection.indexOf(row) !== -1;
-                console.log(f, row.GID, row.SFZH);
                 this.$http.post(restbase() + "customize/MyService.asmx/SetItemCheckedChangedInfo",
                     {
                         SFZH: row.SFZH,
                         GID: row.GID,
                         flag: f
                     }).then((response) => {
-                        var d = JSON.parse(response.body.d);
-                        console.log(d);
+                        this.fetchPrice(row.SFZH);
                     }, (response) => {
                         console.log(response);
                     }).catch((response) => {
                         console.log(response);
                     });
-            }
-        },
-        computed: {
-            discount() {
-                return this.amount * (100 - this.discountrate) * 0.01;
-            },
-            total(){
-                return this.amount - this.discount;
             }
         }
     }
