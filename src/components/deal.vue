@@ -275,7 +275,6 @@
                     branchID:this.institution,
                     branchName:this.institution === '1' ? '东环分院' : '西环分院'
                 }).then((response)=>{
-                    console.log(response.body.d);
                     this.$root.schdata = JSON.parse(response.body.d);
                     this.$root.schbranch = this.institution;
                     this.$router.push('/bkquery');

@@ -18,10 +18,10 @@
                 </el-row>
             </div>
             <div class="bs1input">
-                <el-select id="inputpd" v-model="timeseg" placeholder="请选择体检时段" style="width:100%;">
+                <el-select id="inputpd" v-model="timeseg" value-key="PeriodID" placeholder="请选择体检时段" style="width:100%;">
                     <el-option-group v-for="(period,moon) in periods" :key="moon" :label="moon" :disabled="pd[moon]">
                         <el-option v-for="item in period" :key="item.PeriodID" :label="item.PeriodName"
-                                   :value="item.PeriodID"></el-option>
+                                   :value="item"></el-option>
                     </el-option-group>
                 </el-select>
             </div>
@@ -43,7 +43,7 @@
     export default {
         data() {
             return {
-                timeseg: '',
+                timeseg: {PeriodID:''},
                 periods: {},
                 idnumber: '',
                 tips: '',
@@ -54,7 +54,6 @@
             this.$http.post(restbase() + "booking/WSOnline.asmx/GetBranchPeriodData2", {
                 BranchID: this.$root.schbranch
             }).then((response) => {
-                console.log(response.body.d);
                 this.periods = JSON.parse(response.body.d);
                 this.periods['上午'].forEach(function(item,index,input){input[index].MoonID=1});
                 this.periods['下午'].forEach(function(item,index,input){input[index].MoonID=2});
@@ -68,7 +67,7 @@
         },
         methods: {
             nextstep() {
-                if (this.timeseg === '') {
+                if (!this.timeseg.PeriodID) {
                     this.tips = "请选择体检时段";
                     blinkBorder('inputpd');
                     return;
