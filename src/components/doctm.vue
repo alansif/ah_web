@@ -80,8 +80,8 @@
             fetchPrice(SFZH) {
                 this.$http.post(restbase() + "customize/MyService.asmx/GetPriceCount", {SFZH: SFZH})
                     .then((response) => {
-                        var d = JSON.parse(response.body.d);
-                        var dd = d.data[0];
+                        const d = JSON.parse(response.body.d);
+                        const dd = d.data[0];
                         this.itemcount = dd.DingZhiProcount;
                         this.dzamount = dd.PriceCount;
                         this.zaamount = dd.ZaoAiItem;
