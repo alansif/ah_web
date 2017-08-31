@@ -56,7 +56,7 @@
                     this.nsloading = true;
                     this.$http.post(restbase() + "customize/MyService.asmx/GetYskInfo", {sex:this.$root.ctminfo.gender}).then((response) => {
                         var d = JSON.parse(response.body.d);
-                        this.$root.ctminfo.essential = d['ALL'];
+                        this.$root.ctminfo.essential = d;
                         this.$http.post(restbase() + "customize/MyService.asmx/GeSelfChoiceAInfo", {
                             SFZH:this.$root.ctminfo.id,
                             Type:'3',
@@ -66,7 +66,7 @@
                         }).then((response) => {
                             this.nsloading = false;
                             var d1 = JSON.parse(response.body.d);
-                            this.$root.ctminfo.optionals = d1['ALL'];
+                            this.$root.ctminfo.optionals = d1;
                             this.$router.push('/ctm/doctm');
                         }, (response) => {
                             this.nsloading = false;

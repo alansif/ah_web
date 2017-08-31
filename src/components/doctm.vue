@@ -1,7 +1,6 @@
 <template>
     <div>
         <div class="dcframe">
-            <div style="">
             <el-tabs>
                 <el-tab-pane label="基础项目">
                     <el-table stripe :data="essential">
@@ -20,7 +19,6 @@
                     </el-table>
                 </el-tab-pane>
             </el-tabs>
-            </div>
         </div>
         <div class="cart">
             <div class="cartctnt">
@@ -68,7 +66,16 @@
         },
         methods: {
             nextstep() {
-
+                this.$http.post(restbase() + "customize/MyService.asmx/SelfAccept", {SFZH: this.$root.ctminfo.id})
+                    .then((response) => {
+                        this.$root.ctminfo.chklist = JSON.parse(response.body.d);
+                        this.$router.push('doctmchk');
+                    }, (response) => {
+                        console.log(response);
+                    })
+                    .catch((response) => {
+                        console.log(response);
+                    });
             },
             fetchPrice(SFZH) {
                 this.$http.post(restbase() + "customize/MyService.asmx/GetPriceCount", {SFZH: SFZH})
