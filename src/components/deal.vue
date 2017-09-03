@@ -245,6 +245,7 @@
                             this.ctmloading = false;
                             this.tips0color = '#f55';
                             this.tips0 = "抱歉，出错了";
+                            this.$message.error(s.description);
                         }
                     }, (response)=>{
                         this.ctmloading = false;
