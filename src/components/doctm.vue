@@ -59,8 +59,9 @@
             }
         },
         mounted() {
+            this.$root.$emit('ctmstep', 2);
             this.$refs.opttable.data.forEach(row => {
-                this.$refs.opttable.toggleRowSelection(row, row.IsAccept === 1);
+                this.$refs.opttable.toggleRowSelection(row, row.IsAccept === '1');
             });
             this.fetchPrice(this.$root.ctminfo.id);
         },
@@ -82,6 +83,8 @@
                     .then((response) => {
                         const d = JSON.parse(response.body.d);
                         const dd = d.data[0];
+                        this.$root.ctminfo.ordersummary = dd;
+                        console.log(dd);
                         this.itemcount = dd.DingZhiProcount;
                         this.dzamount = dd.PriceCount;
                         this.zaamount = dd.ZaoAiItem;

@@ -7,16 +7,32 @@
             </div>
         </div>
         <div class="ctmsteps">
-            <el-steps :space="300" :center="true" :align-center="true" :active="1">
+            <el-steps :space="300" :center="true" :align-center="true" :active="step">
                 <el-step title="填写调查问卷"></el-step>
-                <el-step title="定制项目"></el-step>
-                <el-step title="核对项目"></el-step>
+                <el-step title="选择定制项目"></el-step>
+                <el-step title="核对项目清单"></el-step>
                 <el-step title="完成定制"></el-step>
             </el-steps>
         </div>
         <router-view></router-view>
     </div>
 </template>
+
+<script>
+    export default{
+        data() {
+            return {
+                step: 1
+            }
+        },
+        mounted() {
+            const realthis = this;
+            this.$root.$on('ctmstep', function(s){
+                realthis.step = s;
+            })
+        }
+    }
+</script>
 
 <style>
     .ctmtitle {

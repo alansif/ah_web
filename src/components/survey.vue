@@ -34,6 +34,9 @@
                 nsloading: false
             }
         },
+        mounted() {
+            this.$root.$emit('ctmstep', 1);
+        },
         methods: {
             noe(a) {
                 return !a || (a.length === 0);
