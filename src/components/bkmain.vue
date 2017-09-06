@@ -25,7 +25,7 @@
                 </el-row>
                 <el-row style="font-size:20px;line-height:36px;">
                     <el-col :span="6">
-                        <el-select v-model="institution" placeholder="地点" @change="instchange">
+                        <el-select id="inp0" v-model="institution" placeholder="请选择体检地点" @change="instchange">
                              <el-option
                                 v-for="item in instopts"
                                 :label="item.label"
@@ -36,14 +36,15 @@
                     </el-col>
                     <el-col :span="6">
                         <el-date-picker
+                                id="inp1"
                                 v-model="bkdate"
                                 type="date"
-                                placeholder="日期"
+                                placeholder="请选择体检日期"
                                 :picker-options="pickerOptions0">
                         </el-date-picker>
                     </el-col>
                     <el-col :span="6">
-                        <el-select id="inputpd" v-model="timeseg" value-key="PeriodID" placeholder="请选择体检时段" style="width:100%;">
+                        <el-select id="inputpd" v-model="timeseg" value-key="PeriodID" placeholder="请选择体检时段">
                             <el-option-group v-for="(period,moon) in periods" :key="moon" :label="moon">
                                 <el-option v-for="item in period" :key="item.PeriodID" :label="item.PeriodName"
                                            :value="item"></el-option>
@@ -51,6 +52,12 @@
                         </el-select>
                     </el-col>
                 </el-row>
+            </div>
+            <div style="height:20px;text-align:left;margin-top:2px;padding-left:10px;font-size:14px;"
+                 :style="{color:tipscolor}">{{tips}}
+            </div>
+            <div style="text-align: center;margin-top: 4px;">
+                <el-button type="primary" :loading="submitloading" @click="submit">提交预约</el-button>
             </div>
         </div>
     </div>
@@ -71,7 +78,10 @@
                 },
                 bkdate:'',
                 timeseg: {PeriodID:''},
-                periods: {}
+                periods: {},
+                tips: '',
+                tipscolor: "#f55",
+                submitloading:false
             }
         },
         mounted() {
@@ -93,6 +103,49 @@
             },
             instchange(v) {
                 this.fetchBranchPeriod(v);
+            },
+            submit() {
+                this.tips = "";
+                if (!this.institution) {
+                    blinkBorder('inp0');
+                    return;
+                }
+                if (!this.bkdate) {
+                    blinkBorder('inp1');
+                    return;
+                }
+                if (!this.timeseg.PeriodID) {
+                    blinkBorder('inputpd');
+                    return;
+                }
+                this.submitloading = true;
+                this.$http.post(restbase() + "booking/WSOnline.asmx/RequestAppointment", {
+                    paperValue: this.$root.bkguest.id,
+                    date: moment(this.bkdate).format('YYYY-MM-DD'),
+                    BranchID: this.institution,
+                    MoonID: this.timeseg.MoonID,
+                    PeriodID: this.timeseg.PeriodID,
+                    verifyCode:this.$root.bkguest.vcode
+                }).then((response) => {
+                    this.submitloading = false;
+                    var d = JSON.parse(response.body.d);
+                    if (d.status.code === 0) {
+                        this.tipscolor = '#00df00';
+                        this.$root.bkfinaltext = '您的预约已成功，谢谢！';
+                        this.$router.push('bkfinal');
+                    } else {
+                        this.tipscolor = '#f55';
+                        this.tips = '很抱歉，预约未成功。请点击右侧按钮留言或致电010-83033939咨询。';
+                        this.$message.error(d.status.description + `(${d.status.code})`);
+                        this.$root.$emit('shakegb');
+                    }
+                }, (response) => {
+                    this.submitloading = false;
+                    console.log(response);
+                }).catch((response) => {
+                    this.submitloading = false;
+                    console.log(response);
+                });
             }
         }
     }
@@ -128,11 +181,5 @@
         color: #555;
         background-color: white;
         box-shadow: 1px 1px 1px #888;
-    }
-
-    .bs0input {
-        padding-top: 16px;
-        padding-left: 0px;
-        width: 300px;
     }
 </style>

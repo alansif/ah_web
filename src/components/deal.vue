@@ -301,9 +301,10 @@
                     verifyCode: this.vcode1
                 }).then((response)=>{
                     this.bkqloading = false;
-                    var d = JSON.parse(response.body.d);
+                    let d = JSON.parse(response.body.d);
                     if (d.status.code === 0) {
                         this.$root.bkguest = d.data;
+                        this.$root.bkguest.vcode = this.vcode1;
                         this.$router.push('/bkmain');
                     } else {
                         this.tips1color = '#f55';
