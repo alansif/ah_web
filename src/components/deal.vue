@@ -32,36 +32,24 @@
                 <div style="position:absolute;z-index:2;left:0;top:0;width:100%;">
                     <p style="text-align:center;font-size:2em;">网上预约</p>
                     <div>
-                        <el-select v-model="institution" placeholder="地点" style="width:70%;margin:10px 0;">
-                            <el-option
-                                    v-for="item in instopts"
-                                    :label="item.label"
-                                    :value="item.value"
-                                    :key="item.value">
-                            </el-option>
-                        </el-select>
+                        <el-input v-model="idnumber1" placeholder="证件号码" :maxlength="18" style="width:69%;margin:10px 0;"
+                                  onkeypress="return event.charCode!=32">
+                        </el-input>
                     </div>
                     <div>
-                        <el-date-picker
-                                v-model="datebegin"
-                                type="date"
-                                placeholder="起始日期"
-                                :picker-options="pickerOptions0"
-                                style="width:70%;margin:10px 0;">
-                        </el-date-picker>
+                        <el-input v-model="phonenumber1" placeholder="手机号"  :maxlength="11" style="width:69%;margin:10px 0;"
+                                  onkeypress="return event.charCode>=48 && event.charCode <=57">
+                        </el-input>
                     </div>
-                    <div>
-                        <el-date-picker
-                                v-model="dateend"
-                                type="date"
-                                placeholder="结束日期"
-                                :picker-options="pickerOptions0"
-                                style="width:70%;margin:10px 0;">
-                        </el-date-picker>
+                    <div style="margin:10px 0;position: relative;padding:0;">
+                        <el-input v-model="vcode1" placeholder="手机验证码" :maxlength="6" style="width:40%;margin:0;"
+                                  onkeypress="return event.charCode>=48 && event.charCode <=57">
+                        </el-input>
+                        <timerbtn ref="tb1" type="primary" :loading="vc1loading" @run="sendvc1">发送验证码</timerbtn>
                     </div>
-                    <div style="height:20px;text-align:left;padding-left:56px;font-size:14px;color:#f55;">{{tips1}}</div>
+                    <div style="height:20px;text-align:left;padding-left:56px;font-size:14px;" :style="{color:tips1color}">{{tips1}}</div>
                     <div style="margin-top: 0px;">
-                      <el-button type="primary" icon="search" :loading="bkqloading" style="width:12em;margin:20px 0" @click="bookingquery()">查询</el-button>
+                      <el-button type="primary" :loading="bkqloading" style="width:12em;margin:20px 0" @click="bookingquery()">查询</el-button>
                     </div>
                 </div>
             </el-col>
@@ -127,18 +115,15 @@
                 tips0:"",
                 tips0color:"#f55",
                 ctmloading:false,
-                institution: "",
-                instopts: [{value: '1', label: '东环分院'}, {value: '2', label: '西环分院'}],
-                pickerOptions0: {
-                    disabledDate(time) {
-                        return time.getTime() < Date.now() - 8.64e7;
-                    }
-                },
-                datebegin: "",
-                dateend: "",
-                vcode:"",
+
+                idnumber1: "",
+                phonenumber1: "",
+                vcode1:'',
+                vc1loading:false,
                 tips1:"",
+                tips1color:"#f55",
                 bkqloading:false,
+
                 idnumber2: "",
                 phonenumber2: "",
                 vcode2:"",
@@ -257,35 +242,80 @@
                         this.tips0 = "抱歉，出错了";
                     });
             },
+            sendvc1() {
+                this.idnumber1 = this.idnumber1.replace(/^\s+/, "").replace(/\s+$/, "");
+                if (this.idnumber1.length === 0) {
+                    this.tips1color = '#f55';
+                    this.tips1 = "请填写证件号码";
+                    return;
+                }
+                this.phonenumber1 = this.phonenumber1.replace(/^\s+/, "").replace(/\s+$/, "");
+                if (this.phonenumber1.length !== 11) {
+                    this.tips1color = '#f55';
+                    this.tips1 = "手机号码格式不正确";
+                    return;
+                }
+                this.tips1 = "";
+                this.vc1loading = true;
+                this.$http.post(restbase() + "booking/WSOnline.asmx/GetMobileCode2", {paperValue: this.idnumber1})
+                    .then((response)=>{
+                        this.vc1loading = false;
+                        var d = JSON.parse(response.body.d);
+                        this.tips1 = d.status.description;
+                        if (d.status.code === 0) {
+                            this.tips1color = '#00df00';
+                            this.$refs.tb1.start();
+                        } else {
+                            this.tips1color = '#f55';
+                        }
+                    }, (response)=>{
+                        this.vc1loading = false;
+                        this.tips1color = '#f55';
+                        this.tips1 = "抱歉，出错了";
+                        console.log(response);
+                    })
+                    .catch((response)=>{
+                        this.vc1loading = false;
+                        this.tips1color = '#f55';
+                        this.tips1 = "抱歉，出错了";
+                        console.log(response);
+                    });
+            },
             bookingquery() {
-                if (this.institution.length === 0) {
-                    this.tips1 = "请选择地点";
+                this.idnumber1 = this.idnumber1.replace(/^\s+/, "").replace(/\s+$/, "");
+                if (this.idnumber1.length === 0) {
+                    this.tips1color = '#f55';
+                    this.tips1 = "请填写证件号码";
                     return;
                 }
-                if ((this.datebegin.length ===0) || (this.dateend.length === 0)) {
-                    this.tips1 = "请选择查询日期";
+                this.phonenumber1 = this.phonenumber1.replace(/^\s+/, "").replace(/\s+$/, "");
+                if (this.phonenumber1.length !== 11) {
+                    this.tips1color = '#f55';
+                    this.tips1 = "手机号码格式不正确";
                     return;
                 }
-                var dateendp1 = moment(this.dateend).add("days", 1);
                 this.tips1 = "";
                 this.bkqloading = true;
-                this.$http.post(restbase() + "booking/WSOnline.asmx/SearchOrderDate2",{
-                    dateFrom:this.datebegin,
-                    dateEnd:dateendp1,
-                    branchID:this.institution,
-                    branchName:this.institution === '1' ? '东环分院' : '西环分院'
+                this.$http.post(restbase() + "booking/WSOnline.asmx/GetGuestForAppointment2",{
+                    paperValue: this.idnumber1,
+                    verifyCode: this.vcode1
                 }).then((response)=>{
-                    this.$root.schdata = JSON.parse(response.body.d);
-                    this.$root.schbranch = this.institution;
-                    this.$router.push('/bkquery');
                     this.bkqloading = false;
+                    var d = JSON.parse(response.body.d);
+                    if (d.status.code === 0) {
+                        this.$root.bkguest = d.data;
+                        this.$router.push('/bkmain');
+                    } else {
+                        this.tips1color = '#f55';
+                        this.tips1 = d.status.description;
+                    }
                 },(response)=>{
                     console.log(response);
-                    this.tips1 = "查询失败";
+                    this.tips1 = "抱歉，出错了";
                     this.bkqloading = false;
                 }).catch((response)=>{
                     console.log(response);
-                    this.tips1 = "查询失败";
+                    this.tips1 = "抱歉，出错了";
                     this.bkqloading = false;
                 });
             },
