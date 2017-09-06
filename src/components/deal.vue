@@ -257,10 +257,10 @@
                 }
                 this.tips1 = "";
                 this.vc1loading = true;
-                this.$http.post(restbase() + "booking/WSOnline.asmx/GetMobileCode2", {paperValue: this.idnumber1})
+                this.$http.post(restbase() + "booking/WSOnline.asmx/GetMobileCode3", {paperValue: this.idnumber1, phone:this.phonenumber1})
                     .then((response)=>{
                         this.vc1loading = false;
-                        var d = JSON.parse(response.body.d);
+                        let d = JSON.parse(response.body.d);
                         this.tips1 = d.status.description;
                         if (d.status.code === 0) {
                             this.tips1color = '#00df00';
