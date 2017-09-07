@@ -49,7 +49,7 @@
                     </div>
                     <div style="height:20px;text-align:left;padding-left:56px;font-size:14px;" :style="{color:tips1color}">{{tips1}}</div>
                     <div style="margin-top: 0px;">
-                      <el-button type="primary" :loading="bkqloading" style="width:12em;margin:20px 0" @click="bookingquery()">查询</el-button>
+                      <el-button type="primary" :loading="bkqloading" style="width:12em;margin:20px 0" @click="bookingquery()">开始预约</el-button>
                     </div>
                 </div>
             </el-col>
