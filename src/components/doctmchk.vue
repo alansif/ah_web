@@ -21,26 +21,29 @@
             <div class="dccosrt">
                 <div class="dccoslist">
                     <span class="dccoslt">定制项总金额：</span>
-                    <span class="dccosld">￥100.00</span>
+                    <span class="dccosld">￥{{ordersum.PriceCount}}.00</span>
                 </div>
                 <div class="dccoslist">
                     <span class="dccoslt">定制项优惠：</span>
-                    <span class="dccosld">-￥100.00</span>
+                    <span class="dccosld">-￥{{(ordersum.PriceCount*(1-ordersum.Discount)).toFixed(0)}}.00</span>
                 </div>
                 <div class="dccoslist">
                     <span class="dccoslt">早癌项总金额：</span>
-                    <span class="dccosld">￥100.00</span>
+                    <span class="dccosld">￥{{ordersum.ZaoAiItem||0}}.00</span>
                 </div>
                 <div class="dccoslist">
-                    <span class="dccoslt">早癌项项优惠：</span>
-                    <span class="dccosld">-￥100.00</span>
+                    <span class="dccoslt">早癌项优惠：</span>
+                    <span class="dccosld">-￥{{((ordersum.ZaoAiItem||0)*(1-ordersum.CancerDiscount||0.8)).toFixed(0)}}.00</span>
                 </div>
                 <hr />
                 <div class="dccoslist">
                     <span class="dccoslt">应付总金额：</span>
-                    <span class="dccosld">￥100.00</span>
+                    <span class="dccosld">￥{{ordersum.MemberPrice}}.00</span>
                 </div>
             </div>
+        </div>
+        <div style="text-align: center">
+            <el-button type="primary" @click="nextstep">下一步</el-button>
         </div>
     </div>
 </template>
@@ -53,11 +56,17 @@
                 essential: this.$root.ctminfo.essential,
                 optionals: this.$root.ctminfo.chklist,
                 title1:'套餐基础项目 （' + this.$root.ctminfo.ordersummary.YSKItemCount + '）',
-                title2:'已选定制项目 （' + this.$root.ctminfo.ordersummary.DingZhiProcount + '）'
+                title2:'已选定制项目 （' + this.$root.ctminfo.ordersummary.DingZhiProcount + '）',
+                ordersum: this.$root.ctminfo.ordersummary
             }
         },
         mounted() {
             this.$root.$emit('ctmstep', 3);
+        },
+        methods: {
+            nextstep() {
+                this.$router.push('doctmord');
+            }
         }
     }
 </script>
@@ -67,9 +76,11 @@
         margin:0 auto;
         width:100%;
         box-shadow: 3px 3px 3px #aaa;
+        border-left: 1px solid #ddd;
         border-radius: 4px;
         overflow: hidden;
         background-color: white;
+        padding-bottom: 24px;
     }
     .dccos {
         overflow:hidden;

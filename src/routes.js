@@ -5,6 +5,8 @@ import ctm from './components/ctm.vue'
 import survey from './components/survey.vue'
 import doctm from './components/doctm.vue'
 import doctmchk from './components/doctmchk.vue'
+import doctmord from './components/doctmord.vue'
+import doctmdone from './components/doctmdone.vue'
 import report from './components/report.vue'
 import bkquery from './components/bkquery.vue'
 import bkstep1 from './components/bkstep1.vue'
@@ -21,7 +23,9 @@ export default [
     { path: '/ctm', component: ctm, children:[
         {path:'survey',component:survey},
         {path:'doctm',component:doctm},
-        {path:'doctmchk',component:doctmchk}
+        {path:'doctmchk',component:doctmchk},
+        {path:'doctmord',component:doctmord},
+        {path:'doctmdone',component:doctmdone}
     ] },
     { path: '/report', component: report },
     { path: '/bkquery', component: bkquery },

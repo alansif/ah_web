@@ -2,13 +2,6 @@
     <div>
         <div class="dcframe">
             <el-tabs>
-                <el-tab-pane label="基础项目">
-                    <el-table stripe :data="essential">
-                        <el-table-column label="项目" prop="项目" :width="170"></el-table-column>
-                        <el-table-column label="说明" prop="说明" :width="790"></el-table-column>
-                        <el-table-column label="分类" prop="分类" :width="120"></el-table-column>
-                    </el-table>
-                </el-tab-pane>
                 <el-tab-pane label="可选项目">
                     <el-table stripe ref="opttable" :data="optionals" @select="handleSelect">
                         <el-table-column type="selection" :width="50"></el-table-column>
@@ -18,13 +11,35 @@
                         <el-table-column label="价格" prop="Price" :width="110" align="right"></el-table-column>
                     </el-table>
                 </el-tab-pane>
+                <el-tab-pane label="基础项目">
+                    <el-table stripe :data="essential">
+                        <el-table-column label="项目" prop="项目" :width="170"></el-table-column>
+                        <el-table-column label="说明" prop="说明" :width="790"></el-table-column>
+                        <el-table-column label="分类" prop="分类" :width="120"></el-table-column>
+                    </el-table>
+                </el-tab-pane>
+                <el-tab-pane label="历史异常对比">
+                    <el-table stripe border :data="abnormals">
+                        <el-table-column label="序号" prop="序号" :width="66"></el-table-column>
+                        <el-table-column label="科室" prop="Room" :width="120"></el-table-column>
+                        <el-table-column label="项目" prop="Item" :width="120"></el-table-column>
+                        <el-table-column :label="abtitle1">
+                            <el-table-column label="检查提示" prop="Concl1" :width="140"></el-table-column>
+                            <el-table-column label="检查所见" prop="Desc1" :width="248"></el-table-column>
+                        </el-table-column>
+                        <el-table-column :label="abtitle2">
+                            <el-table-column label="检查提示" prop="Concl2" :width="140"></el-table-column>
+                            <el-table-column label="检查所见" prop="Desc2" :width="248"></el-table-column>
+                        </el-table-column>
+                    </el-table>
+                </el-tab-pane>
             </el-tabs>
         </div>
         <div class="cart">
             <div class="cartctnt">
                 <span style="margin-right: 30px;">已选择{{itemcount}}定制</span>
-                <span style="margin-right: 30px;">定制项金额：{{dzamount}}</span>
-                <span style="margin-right: 30px;">早癌项金额：{{zaamount}}</span>
+                <span style="margin-right: 30px;">定制项金额：￥{{dzamount}}.00</span>
+                <span style="margin-right: 30px;">早癌项金额：￥{{zaamount}}.00</span>
                 <el-tooltip placement="top" effect="light">
                     <div slot="content">
                         <ul style="padding-left: 24px;padding-right: 14px;line-height: 20px;">
@@ -35,9 +50,9 @@
                             <li>早癌项固定享受8折优惠</li>
                         </ul>
                     </div>
-                    <span style="margin-right: 30px;">会员折扣<img src="../assets/question.svg" width="16" height="16" style="vertical-align:text-top"/>：-{{discount}}</span>
+                    <span style="margin-right: 30px;">会员折扣<img src="../assets/question.svg" width="16" height="16" style="vertical-align:text-top"/>：-￥{{discount}}.00</span>
                 </el-tooltip>
-                <span style="margin-right: 30px;">应付总金额：{{total}}</span>
+                <span style="margin-right: 30px;">应付总金额：￥{{total}}.00</span>
                 <el-button type="primary" @click="nextstep">下一步</el-button>
             </div>
         </div>
@@ -51,6 +66,9 @@
             return {
                 essential: this.$root.ctminfo.essential,
                 optionals: this.$root.ctminfo.optionals,
+                abnormals: [],
+                abtitle1:'a',
+                abtitle2:'b',
                 itemcount: '',
                 dzamount: '',
                 zaamount: '',
@@ -64,6 +82,7 @@
                 this.$refs.opttable.toggleRowSelection(row, row.IsAccept === '1');
             });
             this.fetchPrice(this.$root.ctminfo.id);
+            this.fetchAbnormals(this.$root.ctminfo.id);
         },
         methods: {
             nextstep() {
@@ -84,12 +103,34 @@
                         const d = JSON.parse(response.body.d);
                         const dd = d.data[0];
                         this.$root.ctminfo.ordersummary = dd;
-                        console.log(dd);
                         this.itemcount = dd.DingZhiProcount;
                         this.dzamount = dd.PriceCount;
-                        this.zaamount = dd.ZaoAiItem;
+                        this.zaamount = dd.ZaoAiItem||0;
                         this.discount = dd.SavePrice;
-                        this.total = dd.TotalPrice;
+                        this.total = dd.MemberPrice;
+                    }, (response) => {
+                        console.log(response);
+                    })
+                    .catch((response) => {
+                        console.log(response);
+                    });
+            },
+            fetchAbnormals(SFZH) {
+                this.$http.post(restbase() + "customize/MyService.asmx/GetHistoryHeader", {SFZH: SFZH})
+                    .then((response) => {
+                        const d = JSON.parse(response.body.d);
+                        this.abtitle1 = d[0].TijianCishu + "于" + d[0].TijianJigou;
+                        this.abtitle2 = d[1].TijianCishu + "于" + d[1].TijianJigou;
+                    }, (response) => {
+                        console.log(response);
+                    })
+                    .catch((response) => {
+                        console.log(response);
+                    });
+                this.$http.post(restbase() + "customize/MyService.asmx/GetHistory", {SFZH: SFZH})
+                    .then((response) => {
+                        const d = JSON.parse(response.body.d);
+                        this.abnormals = d;
                     }, (response) => {
                         console.log(response);
                     })
@@ -98,7 +139,7 @@
                     });
             },
             handleSelect(selection, row) {
-                var f = selection.indexOf(row) !== -1;
+                let f = selection.indexOf(row) !== -1;
                 this.$http.post(restbase() + "customize/MyService.asmx/SetItemCheckedChangedInfo",
                     {
                         SFZH: row.SFZH,
@@ -124,6 +165,8 @@
         margin:0 auto;
         width:100%;
         padding-bottom:4px;
+        border-top: 1px solid #ddd;
+        border-left: 1px solid #ddd;
         border-radius: 4px;
         box-shadow: 2px 2px 2px #888;
         background-color: white;
