@@ -53,6 +53,19 @@
                 </el-form>
             </div>
             <hr style="height:1px;border:none;border-top:1px solid #ccc;"/>
+            <div class="cosection2">
+                <p class="coitemtitle">预约方式</p>
+                <p class="coform">您可以在华兆官网线上预约，也可以致电华兆客服电话010-83033939进行预约。或者，我们也可以回电给您进行预约。</p>
+                <el-form class="coform" :inline="true">
+                    <el-form-item label="需要回电">
+                        <el-switch v-model="needcallback" on-text="" off-text=""></el-switch>
+                    </el-form-item>
+                    <el-form-item label="回电号码" style="margin-left: 40px">
+                        <el-input v-model="phonecallback" :readonly="true" style="width: 200px"></el-input>
+                    </el-form-item>
+                </el-form>
+            </div>
+            <hr style="height:1px;border:none;border-top:1px solid #ccc;"/>
             <div>
                 <p class="coitemtitle">项目清单</p>
                 <div style="margin:0 20px">
@@ -103,9 +116,9 @@
             <div class="cosection2">
                 <p class="coitemtitle">支付方式</p>
                 <el-form class="coform">
-                    <el-radio-group v-model="bianguan">
-                        <el-radio :label="0">到店支付</el-radio>
-                        <el-radio :label="1">微信支付</el-radio>
+                    <el-radio-group v-model="payment">
+                        <el-radio :label="1">到店支付</el-radio>
+                        <el-radio :label="2">微信支付</el-radio>
                     </el-radio-group>
                 </el-form>
             </div>
@@ -130,11 +143,14 @@
                 cname: '',
                 cphone: '',
                 caddress: '',
+                needcallback: false,
+                phonecallback: '',
                 essential: this.$root.ctminfo.essential,
                 optionals: this.$root.ctminfo.chklist,
                 title1: '套餐基础项目 （' + this.$root.ctminfo.ordersummary.YSKItemCount + '）',
                 title2: '已选定制项目 （' + this.$root.ctminfo.ordersummary.DingZhiProcount + '）',
                 ordersum: this.$root.ctminfo.ordersummary,
+                payment: 1
             }
         },
         mounted() {
@@ -151,6 +167,7 @@
                             this.caddress = dd['Adress'];
                             this.cname = dd['ShouJianRen'];
                             this.cphone = dd['MobileNum'];
+                            this.phonecallback = dd["Mobile"];
                         }
                     }, (response) => {
                         console.log(response);
@@ -160,6 +177,43 @@
                     });
             },
             nextstep() {
+                this.$http.post(restbase() + "customize/MyService.asmx/SetToPayment", {SFZH: this.$root.ctminfo.id, PayWay:this.payment})
+                    .then((response) => {
+                        let d = JSON.parse(response.body.d);
+                        console.log("445566");
+                        console.log(d);
+                        this.$http.post(restbase() + "customize/MyService.asmx/SetYouJiInfo", {
+                            QZNumber: '',
+                            isHuiDian:false,
+                            isFapiao:false,
+                            FapiaoTitle:this.fapiaotitle,
+                            FaPiaoContent:this.fapiaocontent,
+                            BianNum:'',
+                            Adress:'',
+                            Customer:'',
+                            PhoneNum:''
+                        }).then((response) => {
+                                let d = JSON.parse(response.body.d);
+                                console.log("778899");
+                                console.log(d);
+
+                            }, (response) => {
+                                console.log(response);
+                                this.$message.error('抱歉，出错了');
+                            })
+                            .catch((response) => {
+                                console.log(response);
+                                this.$message.error('抱歉，出错了');
+                            });
+
+                    }, (response) => {
+                        console.log(response);
+                        this.$message.error('抱歉，出错了');
+                    })
+                    .catch((response) => {
+                        console.log(response);
+                        this.$message.error('抱歉，出错了');
+                    });
                 this.$root.ctmdonetext = '您已定制成功，谢谢！';
                 this.$router.push('doctmdone');
             }

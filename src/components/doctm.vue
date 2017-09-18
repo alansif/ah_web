@@ -88,7 +88,11 @@
             nextstep() {
                 this.$http.post(restbase() + "customize/MyService.asmx/SelfAccept", {SFZH: this.$root.ctminfo.id})
                     .then((response) => {
-                        this.$root.ctminfo.chklist = JSON.parse(response.body.d);
+                        const d = JSON.parse(response.body.d);
+                        console.log("bbbnnnmmm");
+                        console.log(d);
+                        this.$root.ctminfo.chklist = d.data;
+                        this.$root.ctminfo.IsAudit = d.IsAduit;
                         this.$router.push('doctmchk');
                     }, (response) => {
                         console.log(response);

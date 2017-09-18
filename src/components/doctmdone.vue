@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="ctmdoneframe">
-            <div class="cohead">
+            <div class="ctmdonehead">
                 <div style="margin-left:32px;font-size:20px;">
                     定制完成
                 </div>

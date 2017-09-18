@@ -43,7 +43,21 @@
             },
             changed(qid, answer) {
                 this.ans[qid] = answer;
-                this.$forceUpdate();
+                console.log("sssssss");
+                console.log(qid);
+                console.log(answer);
+                this.$http.post(restbase() + "customize/Survey.asmx/SetQAinfo", {
+                    SFZH:this.$root.ctminfo.id,
+                    QuestionNum:qid,
+                    AnswerNum:answer
+                }).then((response) => {
+                    console.log(response.body.d);
+                    this.$forceUpdate();
+                }, (response) => {
+                    console.log(response);
+                }).catch((response) => {
+                    console.log(response);
+                });
             },
             getFirstNoe() {
                 for (var i in this.questions) {

@@ -120,9 +120,9 @@
     export default {
         data() {
             return {
-                idnumber0: "",
-                phonenumber0: "",
-                vcode0:'',
+                idnumber0: "12345619880808HZ10",
+                phonenumber0: "15801690310",
+                vcode0:'436076',
                 vc0loading:false,
                 tips0:"",
                 tips0color:"#f55",
@@ -211,6 +211,9 @@
                                 name: s.UserName,
                                 gender: s.Sex
                             };
+                            console.log("qqwwee");
+                            console.log(s);
+                            this.$root.ctminfo.issteps = s.issteps;
                             this.$http.post(restbase() + "customize/Survey.asmx/GetAllQuestion", {gender:s.Sex}).then((response) => {
                                 let d1 = JSON.parse(response.body.d);
                                 this.$root.ctminfo.questions = d1.data;
@@ -221,6 +224,8 @@
                                     var d2 = JSON.parse(response.body.d);
                                     if (d2.status.code == 0) {
                                         this.$root.ctminfo.answers = d2.data;
+                                        console.log("112233");
+                                        console.dir(d2.data);
                                         this.$router.push('ctm/survey');
                                     }
                                 }, (response) => {

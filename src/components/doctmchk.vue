@@ -43,7 +43,7 @@
             </div>
         </div>
         <div style="text-align: center">
-            <el-button type="primary" @click="nextstep">下一步</el-button>
+            <el-button type="primary" @click="nextstep">{{isaudit == 0 ? "提请审核" : "下一步"}}</el-button>
         </div>
     </div>
 </template>
@@ -55,6 +55,7 @@
             return {
                 essential: this.$root.ctminfo.essential,
                 optionals: this.$root.ctminfo.chklist,
+                isaudit: this.$root.ctminfo.IsAudit,
                 title1:'套餐基础项目 （' + this.$root.ctminfo.ordersummary.YSKItemCount + '）',
                 title2:'已选定制项目 （' + this.$root.ctminfo.ordersummary.DingZhiProcount + '）',
                 ordersum: this.$root.ctminfo.ordersummary
@@ -65,7 +66,20 @@
         },
         methods: {
             nextstep() {
-                this.$router.push('doctmord');
+                if (this.isaudit === "0") {
+                    this.$http.post(restbase() + "customize/MyService.asmx/SetRequireAudit", {SFZH: this.$root.ctminfo.id})
+                        .then((response) => {
+                            this.$root.ctmdonetext = '您的定制项目已提交，我们会在一个工作日完成审核，请耐心等待，谢谢！';
+                            this.$router.push('doctmdone');
+                        }, (response) => {
+                            console.log(response);
+                        })
+                        .catch((response) => {
+                            console.log(response);
+                        });
+                } else {
+                    this.$router.push('doctmord');
+                }
             }
         }
     }
