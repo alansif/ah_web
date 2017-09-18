@@ -50,8 +50,8 @@
                     SFZH:this.$root.ctminfo.id,
                     QuestionNum:qid,
                     AnswerNum:answer
-                }).then((response) => {
-                    console.log(response.body.d);
+                }).then((responsee) => {
+                    console.log(body.d);
                     this.$forceUpdate();
                 }, (response) => {
                     console.log(response);

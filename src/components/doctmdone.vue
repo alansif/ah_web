@@ -16,6 +16,18 @@
     </div>
 </template>
 
+<script>
+    export default {
+        data() {
+            return {
+            }
+        },
+        mounted() {
+            this.$root.$emit('ctmstep', 4);
+        }
+    }
+</script>
+
 <style>
     .ctmdoneframe {
         position: relative;

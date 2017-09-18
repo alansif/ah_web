@@ -105,7 +105,7 @@
         <el-collapse style="text-align: left;">
             <el-collapse-item title="更多业务">
                 <el-row style="color:#fff;text-align: center;">
-                    <el-col :span="8"><a href="/home">查看已定制的产品</a></el-col>
+                    <el-col :span="8"><a href="/ctmview">查看已定制的产品</a></el-col>
                     <el-col :span="8"><a href="/bkview">管理您的预约</a></el-col>
                     <el-col :span="8"><a href="http://115.28.130.223/YuYue/YuYue/wenjuan.asp" target="_blank">填写健康问卷</a></el-col>
                 </el-row>
@@ -249,8 +249,7 @@
                         } else {
                             this.ctmloading = false;
                             this.tips0color = '#f55';
-                            this.tips0 = "抱歉，出错了";
-                            this.$message.error(s.description);
+                            this.tips0 = s.description;
                         }
                     }, (response)=>{
                         this.ctmloading = false;

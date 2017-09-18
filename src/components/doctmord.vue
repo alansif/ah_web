@@ -78,7 +78,7 @@
                             </el-table>
                         </el-collapse-item>
                         <el-collapse-item :title="title2" name="2">
-                            <el-table stripe ref="opttable" :data="optionals">
+                            <el-table stripe :data="optionals">
                                 <el-table-column label="项目" prop="GNAME" :width="230"></el-table-column>
                                 <el-table-column label="说明" prop="RcommandSource" :width="450"></el-table-column>
                                 <el-table-column label="分类" prop="Type" :width="140"></el-table-column>
@@ -136,7 +136,7 @@
     export default {
         data() {
             return {
-                fapiaoflag: true,
+                fapiaoflag: false,
                 fapiaotitle: '',
                 fapiaocontent: '1',
                 bianguan: 0,
@@ -183,20 +183,21 @@
                         console.log("445566");
                         console.log(d);
                         this.$http.post(restbase() + "customize/MyService.asmx/SetYouJiInfo", {
-                            QZNumber: '',
-                            isHuiDian:false,
-                            isFapiao:false,
+                            QZNumber: d[0].QZCode,
+                            isHuiDian:this.needcallback,
+                            isFapiao:this.fapiaoflag,
                             FapiaoTitle:this.fapiaotitle,
                             FaPiaoContent:this.fapiaocontent,
-                            BianNum:'',
-                            Adress:'',
-                            Customer:'',
-                            PhoneNum:''
+                            BianNum:this.bianguan,
+                            Adress:this.caddress,
+                            Customer:this.cname,
+                            PhoneNum:this.cphone
                         }).then((response) => {
                                 let d = JSON.parse(response.body.d);
                                 console.log("778899");
                                 console.log(d);
-
+                                this.$root.ctmdonetext = '您已定制成功，谢谢！';
+                                this.$router.push('doctmdone');
                             }, (response) => {
                                 console.log(response);
                                 this.$message.error('抱歉，出错了');
@@ -205,7 +206,6 @@
                                 console.log(response);
                                 this.$message.error('抱歉，出错了');
                             });
-
                     }, (response) => {
                         console.log(response);
                         this.$message.error('抱歉，出错了');
@@ -214,8 +214,6 @@
                         console.log(response);
                         this.$message.error('抱歉，出错了');
                     });
-                this.$root.ctmdonetext = '您已定制成功，谢谢！';
-                this.$router.push('doctmdone');
             }
         }
     }

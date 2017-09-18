@@ -2,6 +2,7 @@ import mainpage from './components/mainpage.vue'
 import bltpage from './components/bltpage.vue'
 import location from './components/location.vue'
 import ctm from './components/ctm.vue'
+import ctmview from './components/ctmview.vue'
 import survey from './components/survey.vue'
 import doctm from './components/doctm.vue'
 import doctmchk from './components/doctmchk.vue'
@@ -27,6 +28,7 @@ export default [
         {path:'doctmord',component:doctmord},
         {path:'doctmdone',component:doctmdone}
     ] },
+    { path: '/ctmview', component: ctmview },
     { path: '/report', component: report },
     { path: '/bkquery', component: bkquery },
     { path: '/bkstep1', component: bkstep1 },
