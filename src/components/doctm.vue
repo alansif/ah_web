@@ -4,7 +4,7 @@
             <el-tabs>
                 <el-tab-pane label="可选项目">
                     <el-table stripe ref="opttable" :data="optionals" @select="handleSelect">
-                        <el-table-column type="selection" :width="50"></el-table-column>
+                        <el-table-column type="selection" :width="50" :selectable="cbselectable"></el-table-column>
                         <el-table-column label="项目" prop="GNAME" :width="230"></el-table-column>
                         <el-table-column label="说明" prop="RcommandSource" :width="550"></el-table-column>
                         <el-table-column label="分类" prop="类型" :width="140"></el-table-column>
@@ -64,6 +64,7 @@
             return {
                 essential: this.$root.ctminfo.essential,
                 optionals: this.$root.ctminfo.optionals,
+                forbidden: this.$root.ctminfo.forbidden,
                 abnormals: [],
                 abtitle1:'a',
                 abtitle2:'b',
@@ -83,6 +84,10 @@
             this.fetchAbnormals(this.$root.ctminfo.id);
         },
         methods: {
+            cbselectable(row, index) {
+                let idx = this.forbidden.indexOf(row.GID);
+                return idx === -1;
+            },
             nextstep() {
                 this.$http.post(restbase() + "customize/MyService.asmx/SelfAccept", {SFZH: this.$root.ctminfo.id})
                     .then((response) => {

@@ -27,14 +27,6 @@
                     <span class="dccoslt">定制项优惠：</span>
                     <span class="dccosld">-￥{{(ordersum.PriceCount*(1-ordersum.Discount)).toFixed(0)}}.00</span>
                 </div>
-                <div class="dccoslist">
-                    <span class="dccoslt">早癌项总金额：</span>
-                    <span class="dccosld">￥{{ordersum.ZaoAiItem||0}}.00</span>
-                </div>
-                <div class="dccoslist">
-                    <span class="dccoslt">早癌项优惠：</span>
-                    <span class="dccosld">-￥{{((ordersum.ZaoAiItem||0)*(1-ordersum.CancerDiscount||0.8)).toFixed(0)}}.00</span>
-                </div>
                 <hr />
                 <div class="dccoslist">
                     <span class="dccoslt">应付总金额：</span>
