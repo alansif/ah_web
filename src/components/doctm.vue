@@ -39,7 +39,6 @@
             <div class="cartctnt">
                 <span style="margin-right: 30px;">已选择{{itemcount}}定制</span>
                 <span style="margin-right: 30px;">定制项金额：￥{{dzamount}}.00</span>
-                <span style="margin-right: 30px;">早癌项金额：￥{{zaamount}}.00</span>
                 <el-tooltip placement="top" effect="light">
                     <div slot="content">
                         <ul style="padding-left: 24px;padding-right: 14px;line-height: 20px;">
@@ -47,7 +46,6 @@
                             <li>501元≤定制项总金额≤1000元，享受7.5折优惠</li>
                             <li>1001元≤定制项总金额≤1500元，享受7折优惠</li>
                             <li>定制项总金额＞1500元，享受6.5折优惠</li>
-                            <li>早癌项固定享受8折优惠</li>
                         </ul>
                     </div>
                     <span style="margin-right: 30px;">会员折扣<img src="../assets/question.svg" width="16" height="16" style="vertical-align:text-top"/>：-￥{{discount}}.00</span>
@@ -71,7 +69,7 @@
                 abtitle2:'b',
                 itemcount: '',
                 dzamount: '',
-                zaamount: '',
+//                zaamount: '',
                 discount: '',
                 total: ''
             }
@@ -89,8 +87,6 @@
                 this.$http.post(restbase() + "customize/MyService.asmx/SelfAccept", {SFZH: this.$root.ctminfo.id})
                     .then((response) => {
                         const d = JSON.parse(response.body.d);
-                        console.log("bbbnnnmmm");
-                        console.log(d);
                         this.$root.ctminfo.chklist = d.data;
                         this.$root.ctminfo.IsAudit = d.IsAduit;
                         this.$router.push('doctmchk');
@@ -109,7 +105,7 @@
                         this.$root.ctminfo.ordersummary = dd;
                         this.itemcount = dd.DingZhiProcount;
                         this.dzamount = dd.PriceCount;
-                        this.zaamount = dd.ZaoAiItem||0;
+//                        this.zaamount = dd.ZaoAiItem||0;
                         this.discount = dd.SavePrice;
                         this.total = dd.MemberPrice;
                     }, (response) => {
@@ -133,8 +129,7 @@
                     });
                 this.$http.post(restbase() + "customize/MyService.asmx/GetHistory", {SFZH: SFZH})
                     .then((response) => {
-                        const d = JSON.parse(response.body.d);
-                        this.abnormals = d;
+                        this.abnormals = JSON.parse(response.body.d);
                     }, (response) => {
                         console.log(response);
                     })
@@ -150,6 +145,20 @@
                         GID: row.GID,
                         flag: f
                     }).then((response) => {
+                        const d = JSON.parse(response.body.d);
+                        //处理关联互斥
+                    console.log(d);
+                        let q = d.data.question || '';
+                        if (q) {
+                            for(let a in this.optionals) {
+                                let row = this.optionals[a];
+                                if (q === row.GID) {
+                                    let v = d.data.result;
+                                    this.$refs.opttable.toggleRowSelection(row, v);
+                                    break;
+                                }
+                            }
+                        }
                         this.fetchPrice(row.SFZH);
                     }, (response) => {
                         console.log(response);
