@@ -8,7 +8,7 @@
             <div class="cardbody">
                 <template v-for="(question,idx) in questions">
                     <p class="ques" :class="hint && noe(ans[question.QID]) ? 'errcls': 'okcls'" :id="question.QID">{{question.QID}}.{{question.Question}}</p>
-                    <checkboxs v-if="question.Multiple" :items="question.Alts" :qid="question.QID" :curselext="ans[question.QID]" @change="changed"></checkboxs>
+                    <checkboxs v-if="question.Multiple" :items="question.Alts" :qid="question.QID" :curselext="ans[question.QID]" :qobj="question" @change="changed"></checkboxs>
                     <radios v-else :items="question.Alts" :qid="question.QID" :curselext="ans[question.QID]" @change="changed"></radios>
                 </template>
                 <hr style="margin-top:32px;height:1px;border:none;border-top:1px solid #ccc;" />
@@ -41,17 +41,28 @@
             noe(a) {
                 return !a || (a.length === 0);
             },
-            changed(qid, answer) {
+            changed(qid, answer, qobj, e) {
+                if (qobj) {
+                    let z = qobj.Alts[qobj.Alts.length - 1];
+                    let zidx = answer.indexOf(z.Aid);
+                    if (zidx !== -1) {
+                        if (e === z.Aid) {          //选中的为最后一个元素
+                            answer = [z.Aid];
+                        } else {                    //选中的为除最后一个元素以外的其他任何元素
+                            answer.splice(zidx, 1);
+                        }
+                    }
+                }
                 this.ans[qid] = answer;
-                console.log("sssssss");
-                console.log(qid);
-                console.log(answer);
                 this.$http.post(restbase() + "customize/Survey.asmx/SetQAinfo", {
                     SFZH:this.$root.ctminfo.id,
                     QuestionNum:qid,
                     AnswerNum:answer
-                }).then((responsee) => {
-                    console.log(body.d);
+                }).then((response) => {
+                    let d = JSON.parse(response.body.d);
+                    if (d.data.question) {
+                        this.ans[d.data.question] = ['A'];  //关联的选项暂时都设置为第一项
+                    }
                     this.$forceUpdate();
                 }, (response) => {
                     console.log(response);

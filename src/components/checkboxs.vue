@@ -1,12 +1,12 @@
 <template>
-    <el-checkbox-group v-model="cursel" @change="change()">
-        <el-checkbox v-for="item in items" :key="item.Aid" :label="item.Aid">{{item.Answer}}</el-checkbox>
+    <el-checkbox-group v-model="cursel">
+        <el-checkbox v-for="item in items" :key="item.Aid" :label="item.Aid" @change="change(item.Aid)">{{item.Answer}}</el-checkbox>
     </el-checkbox-group>
 </template>
 
 <script>
     export default {
-        props: ['items','qid','curselext'],
+        props: ['items','qid','curselext','qobj'],
         data() {
             return {
                 cursel: this.curselext || []
@@ -18,8 +18,8 @@
             }
         },
         methods:{
-            change() {
-                this.$emit('change', this.qid, this.cursel);
+            change(e) {
+                this.$emit('change', this.qid, this.cursel, this.qobj, e);
             }
         }
     }

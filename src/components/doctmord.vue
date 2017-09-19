@@ -118,7 +118,7 @@
                 <el-form class="coform">
                     <el-radio-group v-model="payment">
                         <el-radio :label="1">到店支付</el-radio>
-                        <el-radio :label="2">微信支付</el-radio>
+                        <el-radio :label="2" :disabled="true">微信支付</el-radio>
                     </el-radio-group>
                 </el-form>
             </div>
