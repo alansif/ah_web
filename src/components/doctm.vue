@@ -89,12 +89,20 @@
                 return idx === -1;
             },
             nextstep() {
-                this.$http.post(restbase() + "customize/MyService.asmx/SelfAccept", {SFZH: this.$root.ctminfo.id})
+                this.$http.post(restbase() + "customize/MyService.asmx/SetNextClick", {SFZH: this.$root.ctminfo.id})
                     .then((response) => {
-                        const d = JSON.parse(response.body.d);
-                        this.$root.ctminfo.chklist = d.data;
-                        this.$root.ctminfo.IsAudit = d.IsAduit;
-                        this.$router.push('doctmchk');
+                        this.$http.post(restbase() + "customize/MyService.asmx/SelfAccept", {SFZH: this.$root.ctminfo.id})
+                            .then((response) => {
+                                const d = JSON.parse(response.body.d);
+                                this.$root.ctminfo.chklist = d.data;
+                                this.$root.ctminfo.IsAudit = d.IsAduit;
+                                this.$router.push('doctmchk');
+                            }, (response) => {
+                                console.log(response);
+                            })
+                            .catch((response) => {
+                                console.log(response);
+                            });
                     }, (response) => {
                         console.log(response);
                     })
@@ -152,18 +160,20 @@
                     }).then((response) => {
                         const d = JSON.parse(response.body.d);
                         //处理关联互斥
-                    console.log(d);
-                        let q = d.data.question || '';
-                        if (q) {
-                            for(let a in this.optionals) {
-                                let row = this.optionals[a];
-                                if (q === row.GID) {
-                                    let v = d.data.result;
-                                    this.$refs.opttable.toggleRowSelection(row, v);
-                                    break;
+                        console.log(d);
+                        d.data.forEach(function(e){
+                            let q = e.question || '';
+                            if (q) {
+                                for(let a in this.optionals) {
+                                    let row = this.optionals[a];
+                                    if (q === row.GID) {
+                                        let v = e.result === 'true';
+                                        this.$refs.opttable.toggleRowSelection(row, v);
+                                        break;
+                                    }
                                 }
                             }
-                        }
+                        }, this);
                         this.fetchPrice(row.SFZH);
                     }, (response) => {
                         console.log(response);

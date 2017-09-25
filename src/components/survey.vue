@@ -94,7 +94,6 @@
                         }).then((response) => {
                             this.nsloading = false;
                             let d1 = JSON.parse(response.body.d);
-                            console.log(d1);
                             this.$root.ctminfo.optionals = d1.data;
                             this.$root.ctminfo.forbidden = d1.forbidden;
                             this.$router.push('/ctm/doctm');

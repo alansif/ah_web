@@ -211,8 +211,6 @@
                                 name: s.UserName,
                                 gender: s.Sex
                             };
-                            console.log("qqwwee");
-                            console.log(s);
                             this.$root.ctminfo.issteps = s.issteps;
                             this.$http.post(restbase() + "customize/Survey.asmx/GetAllQuestion", {gender:s.Sex}).then((response) => {
                                 let d1 = JSON.parse(response.body.d);
@@ -224,8 +222,6 @@
                                     var d2 = JSON.parse(response.body.d);
                                     if (d2.status.code == 0) {
                                         this.$root.ctminfo.answers = d2.data;
-                                        console.log("112233");
-                                        console.dir(d2.data);
                                         this.$router.push('ctm/survey');
                                     }
                                 }, (response) => {
