@@ -18,7 +18,7 @@
                 </el-row>
             </div>
             <div class="bs1input">
-                <el-select id="inputpd" v-model="timeseg" placeholder="请选择体检时段" style="width:100%;">
+                <el-select id="inputpd" v-model="timeseg" value-key="PeriodID" placeholder="请选择体检时段" style="width:100%;">
                     <el-option-group v-for="(period,moon) in periods" :key="moon" :label="moon" :disabled="pd[moon]">
                         <el-option v-for="item in period" :key="item.PeriodID" :label="item.PeriodName"
                                    :value="item"></el-option>
@@ -43,7 +43,7 @@
     export default {
         data() {
             return {
-                timeseg: '',
+                timeseg: {PeriodID:''},
                 periods: {},
                 idnumber: '',
                 tips: '',
@@ -68,7 +68,7 @@
         },
         methods: {
             nextstep() {
-                if (this.timeseg === '') {
+                if (!this.timeseg.PeriodID) {
                     this.tips = "请选择体检时段";
                     blinkBorder('inputpd');
                     return;
