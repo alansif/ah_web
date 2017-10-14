@@ -18,7 +18,8 @@
                 </el-row>
             </div>
             <div class="bs1input">
-                <el-select id="inputpd" v-model="timeseg" value-key="PeriodID" placeholder="请选择体检时段" style="width:100%;">
+                <span class="bs1label">体检时段</span>
+                <el-select id="inputpd" v-model="timeseg" value-key="PeriodID" placeholder="请选择体检时段">
                     <el-option-group v-for="(period,moon) in periods" :key="moon" :label="moon" :disabled="pd[moon]">
                         <el-option v-for="item in period" :key="item.PeriodID" :label="item.PeriodName"
                                    :value="item"></el-option>
@@ -26,12 +27,18 @@
                 </el-select>
             </div>
             <div class="bs1input">
-                <el-input id="inputid" v-model="idnumber" placeholder="请填写本人身份证号码" :maxlength="18"
+                <span class="bs1label">身份证号</span>
+                <el-input id="inputid" v-model="idnumber" placeholder="请填写本人身份证号码" :maxlength="18" style="width: 222px"
                           onkeypress="return event.charCode!=32"></el-input>
             </div>
-            <div style="height:20px;text-align:left;margin-top:2px;padding-left:10px;font-size:14px;color:#f55;">{{tips}}</div>
+            <div class="bs1input">
+                <span class="bs1label">手机号码</span>
+                <el-input id="inputphone" v-model="phone" placeholder="您在华兆预留的手机号码" :maxlength="11" style="width: 222px"
+                          onkeypress="return event.charCode!=32"></el-input>
+            </div>
+            <div style="height:20px;text-align:left;margin-top:12px;font-size:14px;color:#f55;">{{tips}}</div>
             <div style="text-align: center;margin-top: 18px;">
-                <el-button type="primary" @click="nextstep()">下一步</el-button>
+                <el-button type="primary" :loading="submitloading" @click="nextstep()">提交预约</el-button>
             </div>
         </div>
     </div>
@@ -46,8 +53,10 @@
                 timeseg: {PeriodID:''},
                 periods: {},
                 idnumber: '',
+                phone: '',
                 tips: '',
-                pd: {'上午': false, '下午': false}
+                pd: {'上午': false, '下午': false},
+                submitloading:false
             }
         },
         mounted() {
@@ -74,31 +83,44 @@
                     return;
                 }
                 this.idnumber = this.idnumber.replace(/^\s+/, "").replace(/\s+$/, "");
-                if (this.idnumber.length === 0) {
-                    this.tips = "请填写身份证号码";
-                    blinkBorder('inputid');
-                    return;
-                }
                 if (this.idnumber.length !== 18) {
                     this.tips = "身份证号码格式不正确";
                     blinkBorder('inputid');
                     return;
                 }
+                this.phone = this.phone.replace(/^\s+/, "").replace(/\s+$/, "");
+                if (this.phone.length !== 11) {
+                    this.tips = "手机号码格式不正确";
+                    blinkBorder('inputphone');
+                    return;
+                }
                 this.tips = "";
-                this.$http.post(restbase() + "booking/WSOnline.asmx/GetGuestForAppointment", {
-                    paperValue: this.idnumber
+                this.submitloading = true;
+                this.$http.post(restbase() + "booking/WSOnline.asmx/RequestAppointment2", {
+                    paperValue: this.idnumber,
+                    phone: this.phone,
+                    date: this.$root.bkdate.date,
+                    BranchID: this.$root.schbranch,
+                    MoonID: this.timeseg.MoonID,
+                    PeriodID: this.timeseg.PeriodID
                 }).then((response) => {
-                    var d = JSON.parse(response.body.d);
-                    if (d.status.code == 0) {
-                        this.$root.bkguest = d.data;
-                        this.$root.bktimeseg = this.timeseg;
-                        this.$router.push('bkstep2');
-                    } else {
+                    this.submitloading = false;
+                    let d = JSON.parse(response.body.d);
+                    if (d.status.code === 0) {
+                        this.$root.bkfinaltext = '您的预约已成功，谢谢！';
+                        this.$router.push('bkfinal');
+                    } else if (d.status.code > 10000) {
                         this.tips = d.status.description;
+                    } else {
+                        this.$message.error(d.status.description);
+                        this.tips = '很抱歉，预约未成功。请点击右侧按钮留言或致电010-83033939咨询。';
+                        this.$root.$emit('shakegb');
                     }
                 }, (response) => {
+                    this.submitloading = false;
                     this.tips = "出错了，请检查网络连接";
                 }).catch((response) => {
+                    this.submitloading = false;
                     this.tips = "抱歉，出错了";
                 });
             }
@@ -119,7 +141,7 @@
     }
 
     .bs1frame {
-        height: 255px;
+        height: 315px;
         border: 1px solid cornflowerblue;
         border-radius: 2px;
         padding: 24px;
@@ -140,6 +162,11 @@
     .bs1input {
         padding-top: 16px;
         padding-left: 0px;
-        width: 300px;
+        width: 400px;
+    }
+
+    .bs1label {
+        color: #666;
+        margin-right:8px;
     }
 </style>
