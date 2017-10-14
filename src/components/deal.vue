@@ -23,7 +23,7 @@
                     </div>
                     <div style="height:20px;text-align:left;padding-left:56px;font-size:14px;" :style="{color:tips0color}">{{tips0}}</div>
                     <div style="margin-top:0;">
-                        <el-button type="primary" style="width:12em;margin:20px 0" :loading="ctmloading" @click="goctm">开始定制</el-button>
+                        <el-button type="primary" style="width:12em;margin:20px 0" :loading="ctmloading" @click="goctm" :disabled="true">敬请期待</el-button>
                     </div>
                 </div>
             </el-col>
@@ -120,9 +120,9 @@
     export default {
         data() {
             return {
-                idnumber0: "12345619880808HZ10",
-                phonenumber0: "15801690310",
-                vcode0:'436076',
+                idnumber0: "",
+                phonenumber0: "",
+                vcode0:'',
                 vc0loading:false,
                 tips0:"",
                 tips0color:"#f55",
