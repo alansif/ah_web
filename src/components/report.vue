@@ -10,7 +10,7 @@
           <el-table-column prop="date" label="体检日期" width="200">
           </el-table-column>
           <el-table-column prop="subject" label="类别">
-            <template scope="scope">{{scope.row.subject === "YG" ? "乙肝报告" : "体检报告"}}</template>
+            <template scope="scope">{{getsubject(scope.row.subject)}}</template>
           </el-table-column>
           <el-table-column width="200">
             <template scope="scope">
@@ -31,6 +31,13 @@
       }
     },
     methods: {
+          getsubject(s) {
+              if (s === 'YG')
+                  return "乙肝报告";
+              if (s === 'PF')
+                  return "体适能报告";
+              return "体检报告";
+          }
     }
   }
 </script>
