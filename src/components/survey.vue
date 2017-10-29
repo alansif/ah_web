@@ -89,7 +89,7 @@
                             SFZH:this.$root.ctminfo.id,
                             Type:'3',
                             GroupClassify:'',
-                            PageSize:100,
+                            PageSize:200,
                             PageIndex:1
                         }).then((response) => {
                             this.nsloading = false;

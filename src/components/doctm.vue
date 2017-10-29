@@ -3,7 +3,17 @@
         <div class="dcframe">
             <el-tabs>
                 <el-tab-pane label="可选项目">
-                    <el-table stripe ref="opttable" :data="optionals" @select="handleSelect">
+                    <el-row type="flex" align="middle" style="margin-left: 24px;">
+                        <el-col :span="3">
+                            <span>疾病筛选</span>
+                        </el-col>
+                        <el-col :span="21">
+                        <el-checkbox-group v-model="dssel" @change="dschange">
+                            <el-checkbox v-for="(value, key) in dss" :key="key" :label="key">{{key}}</el-checkbox>
+                        </el-checkbox-group>
+                        </el-col>
+                    </el-row>
+                    <el-table stripe ref="opttable" :data="filteredopt" @select="handleSelect">
                         <el-table-column type="selection" :width="50" :selectable="cbselectable"></el-table-column>
                         <el-table-column label="项目" prop="GNAME" :width="230"></el-table-column>
                         <el-table-column label="说明" prop="RcommandSource" :width="550"></el-table-column>
@@ -70,9 +80,10 @@
                 abtitle2:'b',
                 itemcount: '',
                 dzamount: '',
-//                zaamount: '',
                 discount: '',
-                total: ''
+                total: '',
+                dssel:[],
+                dss:{}
             }
         },
         mounted() {
@@ -82,8 +93,36 @@
             });
             this.fetchPrice(this.$root.ctminfo.id);
             this.fetchAbnormals(this.$root.ctminfo.id);
+            this.fetchDiseaseGname();
+        },
+        computed: {
+            filteredopt() {
+                if (this.dssel.length === 0)
+                    return this.optionals;
+                return this.optionals.filter(val => {
+                    return this.dssel.some(v => {
+                        return this.dss[v].some(v1 => {
+                            return v1 === val.GID;
+                        });
+                    });
+                });
+            }
         },
         methods: {
+            dschange() {
+            },
+            fetchDiseaseGname() {
+                this.$http.post(restbase() + "customize/MyService.asmx/GetDiseaseGname")
+                    .then((response) => {
+                        const d = JSON.parse(response.body.d);
+                        this.dss = d.data;
+                    }, (response) => {
+                        console.log(response);
+                    })
+                    .catch((response) => {
+                        console.log(response);
+                    });
+            },
             cbselectable(row, index) {
                 let idx = this.forbidden.indexOf(row.GID);
                 return idx === -1;
@@ -118,7 +157,6 @@
                         this.$root.ctminfo.ordersummary = dd;
                         this.itemcount = dd.DingZhiProcount;
                         this.dzamount = dd.PriceCount;
-//                        this.zaamount = dd.ZaoAiItem||0;
                         this.discount = dd.SavePrice;
                         this.total = dd.MemberPrice;
                     }, (response) => {

@@ -109,14 +109,13 @@
                 <p class="coitemtitle">支付方式</p>
                 <el-form class="coform">
                     <el-radio-group v-model="payment">
-                        <el-radio :label="1">到店支付</el-radio>
-                        <el-radio :label="2" :disabled="true">微信支付</el-radio>
+                        <el-radio :label="1">到店支付（请携带会员卡）</el-radio>
                     </el-radio-group>
                 </el-form>
             </div>
             <hr style="height:1px;border:none;border-top:1px solid #ccc;"/>
             <div style="text-align: center;margin-top: 16px;">
-                <el-button type="primary" @click="nextstep">支付</el-button>
+                <el-button type="primary" @click="nextstep">确定</el-button>
             </div>
         </div>
     </div>
@@ -172,8 +171,6 @@
                 this.$http.post(restbase() + "customize/MyService.asmx/SetToPayment", {SFZH: this.$root.ctminfo.id, PayWay:this.payment})
                     .then((response) => {
                         let d = JSON.parse(response.body.d);
-                        console.log("445566");
-                        console.log(d);
                         this.$http.post(restbase() + "customize/MyService.asmx/SetYouJiInfo", {
                             QZNumber: d[0].QZCode,
                             isHuiDian:this.needcallback,
@@ -186,8 +183,6 @@
                             PhoneNum:this.cphone
                         }).then((response) => {
                                 let d = JSON.parse(response.body.d);
-                                console.log("778899");
-                                console.log(d);
                                 this.$root.ctmdonetext = '您已定制成功，谢谢！';
                                 this.$router.push('doctmdone');
                             }, (response) => {
