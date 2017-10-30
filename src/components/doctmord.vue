@@ -17,7 +17,7 @@
                                   style="width: 240px"></el-input>
                     </el-form-item>
                     <el-form-item label="税号" style="margin-left: 20px">
-                        <el-input :disabled="!fapiaoflag" v-model="fapiaotitle" placeholder="请输入发票税号"
+                        <el-input :disabled="!fapiaoflag" v-model="fapiaoshuihao" placeholder="请输入发票税号"
                                   style="width: 200px"></el-input>
                     </el-form-item>
                     <el-form-item label="内容" style="margin-left: 20px">
