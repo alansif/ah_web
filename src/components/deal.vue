@@ -120,9 +120,9 @@
     export default {
         data() {
             return {
-                idnumber0: "130984199112145121",
-                phonenumber0: "18600398957",
-                vcode0:'891609',
+                idnumber0: "",
+                phonenumber0: "",
+                vcode0:'',
                 vc0loading:false,
                 tips0:"",
                 tips0color:"#f55",
