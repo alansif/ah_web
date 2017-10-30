@@ -12,12 +12,16 @@
                     <el-form-item label="开具发票">
                         <el-switch v-model="fapiaoflag" on-text="" off-text=""></el-switch>
                     </el-form-item>
-                    <el-form-item label="发票抬头" style="margin-left: 40px">
+                    <el-form-item label="抬头" style="margin-left: 20px">
                         <el-input :disabled="!fapiaoflag" v-model="fapiaotitle" placeholder="请输入发票抬头"
-                                  style="width: 296px"></el-input>
+                                  style="width: 240px"></el-input>
                     </el-form-item>
-                    <el-form-item label="发票内容" style="margin-left: 40px">
-                        <el-select :disabled="!fapiaoflag" v-model="fapiaocontent" style="width: 120px">
+                    <el-form-item label="税号" style="margin-left: 20px">
+                        <el-input :disabled="!fapiaoflag" v-model="fapiaotitle" placeholder="请输入发票税号"
+                                  style="width: 200px"></el-input>
+                    </el-form-item>
+                    <el-form-item label="内容" style="margin-left: 20px">
+                        <el-select :disabled="!fapiaoflag" v-model="fapiaocontent" style="width: 100px">
                             <el-option label="体检费" value="1"></el-option>
                             <el-option label="检查费" value="2"></el-option>
                         </el-select>
@@ -129,6 +133,7 @@
             return {
                 fapiaoflag: false,
                 fapiaotitle: '',
+                fapiaoshuihao: '',
                 fapiaocontent: '1',
                 bianguan: 0,
                 cname: '',
@@ -155,6 +160,7 @@
                         if (d.length > 0) {
                             let dd = d[0];
                             this.fapiaotitle = dd['FaPiaoTitle'];
+                            this.fapiaoshuihao = dd['FaPiaoShuihao'];
                             this.caddress = dd['Adress'];
                             this.cname = dd['ShouJianRen'];
                             this.cphone = dd['MobileNum'];
@@ -177,6 +183,7 @@
                             isFapiao:this.fapiaoflag,
                             FapiaoTitle:this.fapiaotitle,
                             FaPiaoContent:this.fapiaocontent,
+                            FaPiaoShuihao:this.fapiaoshuihao,
                             BianNum:this.bianguan,
                             Adress:this.caddress,
                             Customer:this.cname,
