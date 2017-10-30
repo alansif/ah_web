@@ -3,16 +3,14 @@
         <div class="dcframe">
             <el-tabs>
                 <el-tab-pane label="可选项目">
-                    <el-row type="flex" align="middle" style="margin-left: 24px;">
-                        <el-col :span="3">
-                            <span>疾病筛选</span>
-                        </el-col>
-                        <el-col :span="21">
-                        <el-checkbox-group v-model="dssel" @change="dschange">
-                            <el-checkbox v-for="(value, key) in dss" :key="key" :label="key">{{key}}</el-checkbox>
-                        </el-checkbox-group>
-                        </el-col>
-                    </el-row>
+                    <div style="margin: 5px 0 7px 24px">
+                        <span style="font-size: 13px">疾病分类筛选</span>
+                        <div style="display: inline-block">
+                            <el-checkbox-group v-model="dssel" @change="dschange" style="margin-left: 48px;" size="small">
+                                <el-checkbox-button v-for="(value, key) in dss" :key="key" :label="key">{{key}}</el-checkbox-button>
+                            </el-checkbox-group>
+                        </div>
+                    </div>
                     <el-table stripe ref="opttable" :data="filteredopt" @select="handleSelect">
                         <el-table-column type="selection" :width="50" :selectable="cbselectable"></el-table-column>
                         <el-table-column label="项目" prop="GNAME" :width="230"></el-table-column>
@@ -112,7 +110,7 @@
             dschange() {
             },
             fetchDiseaseGname() {
-                this.$http.post(restbase() + "customize/MyService.asmx/GetDiseaseGname")
+                this.$http.post(restbase() + "customize/MyService.asmx/GetDiseaseGname", {a:0}) //dummy参数为了兼容ie
                     .then((response) => {
                         const d = JSON.parse(response.body.d);
                         this.dss = d.data;
