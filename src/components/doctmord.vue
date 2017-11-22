@@ -10,7 +10,7 @@
                 <p class="coitemtitle">发票信息</p>
                 <el-form class="coform" :inline="true">
                     <el-form-item label="开具发票">
-                        <el-switch v-model="fapiaoflag" on-text="" off-text=""></el-switch>
+                        <el-switch v-model="fapiaoflag" on-text="" off-text="" :disabled="fapiaodis"></el-switch>
                     </el-form-item>
                     <el-form-item label="抬头" style="margin-left: 20px">
                         <el-input :disabled="!fapiaoflag" v-model="fapiaotitle" placeholder="请输入发票抬头"
@@ -119,7 +119,7 @@
             </div>
             <hr style="height:1px;border:none;border-top:1px solid #ccc;"/>
             <div style="text-align: center;margin-top: 16px;">
-                <el-button type="primary" @click="nextstep">确定</el-button>
+                <el-button type="primary" :loading="payloading" @click="nextstep">确定</el-button>
             </div>
         </div>
     </div>
@@ -131,6 +131,7 @@
     export default {
         data() {
             return {
+                fapiaodis: this.$root.ctminfo.ordersummary.MemberPrice == 0,
                 fapiaoflag: false,
                 fapiaotitle: '',
                 fapiaoshuihao: '',
@@ -146,7 +147,8 @@
                 title1: '套餐基础项目 （' + this.$root.ctminfo.ordersummary.YSKItemCount + '）',
                 title2: '已选定制项目 （' + this.$root.ctminfo.ordersummary.DingZhiProcount + '）',
                 ordersum: this.$root.ctminfo.ordersummary,
-                payment: 1
+                payment: 1,
+                payloading: false
             }
         },
         mounted() {
@@ -174,6 +176,7 @@
                     });
             },
             nextstep() {
+                this.payloading = true;
                 this.$http.post(restbase() + "customize/MyService.asmx/SetToPayment", {SFZH: this.$root.ctminfo.id, PayWay:this.payment})
                     .then((response) => {
                         let d = JSON.parse(response.body.d);
@@ -189,23 +192,28 @@
                             Customer:this.cname,
                             PhoneNum:this.cphone
                         }).then((response) => {
+                                this.payloading = false;
                                 let d = JSON.parse(response.body.d);
                                 this.$root.ctmdonetext = '您已定制成功，谢谢！';
                                 this.$router.push('doctmdone');
                             }, (response) => {
                                 console.log(response);
+                                this.payloading = false;
                                 this.$message.error('抱歉，出错了');
                             })
                             .catch((response) => {
                                 console.log(response);
+                                this.payloading = false;
                                 this.$message.error('抱歉，出错了');
                             });
                     }, (response) => {
                         console.log(response);
+                        this.payloading = false;
                         this.$message.error('抱歉，出错了');
                     })
                     .catch((response) => {
                         console.log(response);
+                        this.payloading = false;
                         this.$message.error('抱歉，出错了');
                     });
             }
