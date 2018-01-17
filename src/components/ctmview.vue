@@ -31,7 +31,7 @@
                             <el-col :span="4">{{xqbegin}}</el-col>
                             <el-col :span="4">{{xqend}}</el-col>
                             <el-col :span="4" :offset="8" style="text-align: right;">
-                                <el-button size="small" style="top:-10px;position:relative;" @click="gocancel">取消签证</el-button>
+                                <el-button size="small" style="top:-10px;position:relative;" @click="gocancel" type="primary" icon="delete" :disabled="cantcancel">取消签证</el-button>
                             </el-col>
                         </el-row>
                         <el-tabs>
@@ -70,6 +70,7 @@
                 visa:'',
                 xqbegin:'',
                 xqend:'',
+                cantcancel:false,
                 essential: [],
                 optionals: []
             }
@@ -102,6 +103,8 @@
                     this.visa = d0.QZNumber;
                     this.xqbegin = d0.YouXiaoQiQi;
                     this.xqend = d0.YouXiaoQiZi;
+                    this.cantcancel = d0.IsShow == '0';
+                    console.log(d0.IsShow);
 //                    console.log(d);
                         this.$http.post(restbase() + "customize/MyService.asmx/GetYskInfo", {sex:'男'}).then((response) => {
                             this.essential = JSON.parse(response.body.d);
