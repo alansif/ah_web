@@ -104,29 +104,27 @@
                     this.xqbegin = d0.YouXiaoQiQi;
                     this.xqend = d0.YouXiaoQiZi;
                     this.cantcancel = d0.IsShow == '0';
-                    console.log(d0.IsShow);
-//                    console.log(d);
-                        this.$http.post(restbase() + "customize/MyService.asmx/GetYskInfo", {sex:d0.Sex}).then((response) => {
-                            this.essential = JSON.parse(response.body.d);
-                        }, (response) => {
-                            console.log(response);
-                        }).catch((response) => {
-                            console.log(response);
-                        });
-                        this.$http.post(restbase() + "customize/MyService.asmx/SelfAccept", {
-                            SFZH:this.idnumber,
-                            Type:'3',
-                            GroupClassify:'',
-                            PageSize:100,
-                            PageIndex:1
-                        }).then((response) => {
-                            const d = JSON.parse(response.body.d);
-                            this.optionals = d.data;
-                        }, (response) => {
-                            console.log(response);
-                        }).catch((response) => {
-                            console.log(response);
-                        });
+                    this.$http.post(restbase() + "customize/MyService.asmx/GetYskInfo", {sex:d0.Sex}).then((response) => {
+                        this.essential = JSON.parse(response.body.d);
+                    }, (response) => {
+                        console.log(response);
+                    }).catch((response) => {
+                        console.log(response);
+                    });
+                    this.$http.post(restbase() + "customize/MyService.asmx/SelfAccept", {
+                        SFZH:this.idnumber,
+                        Type:'3',
+                        GroupClassify:'',
+                        PageSize:100,
+                        PageIndex:1
+                    }).then((response) => {
+                        const d = JSON.parse(response.body.d);
+                        this.optionals = d.data;
+                    }, (response) => {
+                        console.log(response);
+                    }).catch((response) => {
+                        console.log(response);
+                    });
                 }, (response) => {
                     this.loading = false;
                     console.log(response);
