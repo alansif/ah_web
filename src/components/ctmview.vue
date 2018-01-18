@@ -106,7 +106,7 @@
                     this.cantcancel = d0.IsShow == '0';
                     console.log(d0.IsShow);
 //                    console.log(d);
-                        this.$http.post(restbase() + "customize/MyService.asmx/GetYskInfo", {sex:'男'}).then((response) => {
+                        this.$http.post(restbase() + "customize/MyService.asmx/GetYskInfo", {sex:d0.Sex}).then((response) => {
                             this.essential = JSON.parse(response.body.d);
                         }, (response) => {
                             console.log(response);
