@@ -104,7 +104,7 @@
         </el-row>
         <el-collapse style="text-align: left;">
             <el-collapse-item title="更多业务">
-                <el-row style="color:#fff;text-align: center;">
+                <el-row style="color:#fff;text-align: center;font-size: 16px;">
                     <el-col :span="8"><a href="/ctmview">查看已定制的产品</a></el-col>
                     <el-col :span="8"><a href="/bkview">管理您的预约</a></el-col>
                     <el-col :span="8"><a href="http://115.28.130.223/YuYue/YuYue/wenjuan.asp" target="_blank">填写健康问卷</a></el-col>
@@ -170,8 +170,16 @@
                 this.$http.post(restbase() + "customize/MyService.asmx/GetVerifyInfo",{SFZH:this.idnumber0,Phone:this.phonenumber0})
                     .then((response)=>{
                         this.vc0loading = false;
-                        let d = response.body.d;
-                        console.log(d);
+                        let da = response.body.d;
+                        let db = eval('(' + da + ')');
+                        let d = db[0];
+                        this.tips0 = d.description;
+                        if (d.code == 0){
+                            this.tips0color = 'palegreen';
+                            this.$refs.tb0.start();
+                        } else {
+                            this.tips0color = '#f55';
+                        }
                     }, (response)=>{
                         this.vc0loading = false;
                         this.tips0color = '#f55';
