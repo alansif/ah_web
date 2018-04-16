@@ -107,7 +107,7 @@
                 <el-row style="color:#fff;text-align: center;font-size: 16px;">
                     <el-col :span="8"><a href="/ctmview">查看已定制的产品</a></el-col>
                     <el-col :span="8"><a href="/bkview">管理您的预约</a></el-col>
-                    <el-col :span="8"><a href="http://115.28.130.223/YuYue/YuYue/wenjuan.asp" target="_blank">填写健康问卷</a></el-col>
+                    <el-col :span="8"><a href="http://www.advahealth.com.cn:8060/" target="_blank">填写健康问卷</a></el-col>
                 </el-row>
             </el-collapse-item>
         </el-collapse>
