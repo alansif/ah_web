@@ -15,7 +15,7 @@
         <guestbook></guestbook>
 
         <div style="text-align:center;color:#888;">
-            <p>京ICP备05027604号</p>
+            <p>京ICP备18015234号</p>
         </div>
     </div>
 </template>
