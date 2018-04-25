@@ -14,8 +14,20 @@
 
         <guestbook></guestbook>
 
-        <div style="text-align:center;color:#888;">
-            <p>京ICP备18015234号</p>
+        <div style="text-align:center;color:#888;font-size: 14px;">
+            <p>
+                <span>
+                    <a class="appaddr" target="_blank" href="http://www.miitbeian.gov.cn">
+                        京ICP备18015234号
+                    </a>
+                </span>
+                <span style="margin-left: 48px">
+                    <a class="appaddr" target="_blank" href="https://www.beian.gov.cn/portal/registerSystemInfo?recordcode=11010102003222">
+                        <img src="./assets/beian.png" width="16" height="16" style="vertical-align: text-bottom;margin-right: 2px"/>
+                        京公网安备 11010102003222号
+                    </a>
+                </span>
+            </p>
         </div>
     </div>
 </template>
@@ -67,4 +79,9 @@
         width: 60px;
         height: 60px;
     }
+
+    .appaddr:link {color:#999;}
+    .appaddr:visited {color:#999;}
+    .appaddr:hover {color:#999;cursor:pointer;}
+    .appaddr:active {color:#999;}
 </style>
