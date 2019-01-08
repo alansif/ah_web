@@ -328,13 +328,23 @@
                     }, (response)=>{
                         this.vc2loading = false;
                         this.tips2color = '#f55';
-                        this.tips2 = "抱歉，出错了";
                         console.log(response);
+                        if (response.statusText.length > 0) {
+                            this.tips2 = "出错了(1A)";
+                            this.$message({
+                                showClose: true,
+                                message: response.statusText,
+                                duration: 5000,
+                                type: 'error'
+                            });
+                        } else {
+                            this.tips2 = "出错了(1C)";
+                        }
                     })
                     .catch((response)=>{
                         this.vc2loading = false;
                         this.tips2color = '#f55';
-                        this.tips2 = "抱歉，出错了";
+                        this.tips2 = "出错了(1B)";
                         console.log(response);
                     });
             },
@@ -367,13 +377,23 @@
                     }, (response)=>{
                         this.rptloading=false;
                         this.tips2color = '#f55';
-                        this.tips2 = "抱歉，出错了";
                         console.log(response);
+                        if (response.statusText.length > 0) {
+                            this.tips2 = "出错了(2A)";
+                            this.$message({
+                                showClose: true,
+                                message: response.statusText,
+                                duration: 5000,
+                                type: 'error'
+                            });
+                        } else {
+                            this.tips2 = "出错了(2C)";
+                        }
                     })
                     .catch((response)=>{
                         this.rptloading=false;
                         this.tips2color = '#f55';
-                        this.tips2 = "抱歉，出错了";
+                        this.tips2 = "出错了(2B)";
                         console.log(response);
                     });
             }
