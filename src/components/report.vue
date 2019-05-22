@@ -34,6 +34,8 @@
           getsubject(s) {
               if (s === 'YG')
                   return "乙肝报告";
+              if (s === 'JZ')
+                  return "洁治报告";
               if (s === 'PF')
                   return "体适能报告";
               return "体检报告";
